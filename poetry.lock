@@ -135,6 +135,20 @@ files = [
 frozenlist = ">=1.1.0"
 
 [[package]]
+name = "aiosqlite"
+version = "0.17.0"
+description = "asyncio bridge to the standard sqlite3 module"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "aiosqlite-0.17.0-py3-none-any.whl", hash = "sha256:6c49dc6d3405929b1d08eeccc72306d3677503cc5e5e43771efc1e00232e8231"},
+    {file = "aiosqlite-0.17.0.tar.gz", hash = "sha256:f0e6acc24bc4864149267ac82fb46dfb3be4455f99fe21df82609cc6e6baee51"},
+]
+
+[package.dependencies]
+typing_extensions = ">=3.7.2"
+
+[[package]]
 name = "anyio"
 version = "3.7.1"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
@@ -153,6 +167,17 @@ sniffio = ">=1.1"
 doc = ["Sphinx", "packaging", "sphinx-autodoc-typehints (>=1.2.0)", "sphinx-rtd-theme (>=1.2.2)", "sphinxcontrib-jquery"]
 test = ["anyio[trio]", "coverage[toml] (>=4.5)", "hypothesis (>=4.0)", "mock (>=4)", "psutil (>=5.9)", "pytest (>=7.0)", "pytest-mock (>=3.6.1)", "trustme", "uvloop (>=0.17)"]
 trio = ["trio (<0.22)"]
+
+[[package]]
+name = "appdirs"
+version = "1.4.4"
+description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+optional = false
+python-versions = "*"
+files = [
+    {file = "appdirs-1.4.4-py2.py3-none-any.whl", hash = "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"},
+    {file = "appdirs-1.4.4.tar.gz", hash = "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"},
+]
 
 [[package]]
 name = "attrs"
@@ -600,6 +625,17 @@ python-versions = ">=3.7"
 files = [
     {file = "iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374"},
     {file = "iniconfig-2.0.0.tar.gz", hash = "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3"},
+]
+
+[[package]]
+name = "iso8601"
+version = "1.1.0"
+description = "Simple module to parse ISO 8601 dates"
+optional = false
+python-versions = ">=3.6.2,<4.0"
+files = [
+    {file = "iso8601-1.1.0-py3-none-any.whl", hash = "sha256:8400e90141bf792bce2634df533dc57e3bee19ea120a87bebcd3da89a58ad73f"},
+    {file = "iso8601-1.1.0.tar.gz", hash = "sha256:32811e7b81deee2063ea6d2e94f8819a86d1f3811e49d23623a41fa832bef03f"},
 ]
 
 [[package]]
@@ -1265,6 +1301,17 @@ files = [
 ]
 
 [[package]]
+name = "pypika-tortoise"
+version = "0.1.6"
+description = "Forked from pypika and streamline just for tortoise-orm"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "pypika-tortoise-0.1.6.tar.gz", hash = "sha256:d802868f479a708e3263724c7b5719a26ad79399b2a70cea065f4a4cadbebf36"},
+    {file = "pypika_tortoise-0.1.6-py3-none-any.whl", hash = "sha256:2d68bbb7e377673743cff42aa1059f3a80228d411fbcae591e4465e173109fd8"},
+]
+
+[[package]]
 name = "pytest"
 version = "7.4.4"
 description = "pytest: simple powerful testing with Python"
@@ -1334,6 +1381,17 @@ python-versions = ">=3.7"
 files = [
     {file = "pytube-15.0.0-py3-none-any.whl", hash = "sha256:07b9904749e213485780d7eb606e5e5b8e4341aa4dccf699160876da00e12d78"},
     {file = "pytube-15.0.0.tar.gz", hash = "sha256:076052efe76f390dfa24b1194ff821d4e86c17d41cb5562f3a276a8bcbfc9d1d"},
+]
+
+[[package]]
+name = "pytz"
+version = "2024.1"
+description = "World timezone definitions, modern and historical"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pytz-2024.1-py2.py3-none-any.whl", hash = "sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"},
+    {file = "pytz-2024.1.tar.gz", hash = "sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812"},
 ]
 
 [[package]]
@@ -1789,6 +1847,31 @@ files = [
 ]
 
 [[package]]
+name = "tortoise-orm"
+version = "0.20.0"
+description = "Easy async ORM for python, built with relations in mind"
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "tortoise_orm-0.20.0-py3-none-any.whl", hash = "sha256:1891ad935de689ddf002c5c65c864176d28659ab6069e45f0e2cde32359bb8d9"},
+    {file = "tortoise_orm-0.20.0.tar.gz", hash = "sha256:283af584d685dcc58d6cc1da35b9115bb1e41c89075eae2a19c493b39b9b41f7"},
+]
+
+[package.dependencies]
+aiosqlite = ">=0.16.0,<0.18.0"
+iso8601 = ">=1.0.2,<2.0.0"
+pypika-tortoise = ">=0.1.6,<0.2.0"
+pytz = "*"
+
+[package.extras]
+accel = ["ciso8601", "orjson", "uvloop"]
+aiomysql = ["aiomysql"]
+asyncmy = ["asyncmy (>=0.2.8,<0.3.0)"]
+asyncodbc = ["asyncodbc (>=0.1.1,<0.2.0)"]
+asyncpg = ["asyncpg"]
+psycopg = ["psycopg[binary,pool] (>=3.0.12,<4.0.0)"]
+
+[[package]]
 name = "tqdm"
 version = "4.66.2"
 description = "Fast, Extensible Progress Meter"
@@ -1957,4 +2040,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b554386439214bcfbf780f0f51b65b020e63ed7b089b999ff50ab025c7a61d82"
+content-hash = "8aeaa868cf50b88cb5fe45acd69f7c3729ecf2ed5f4a3235860633bcaef831a2"

@@ -6,6 +6,8 @@ import tomllib
 import shutil
 import sys
 
+from thundra.profiler import Profiler
+
 
 arg = argparse.ArgumentParser()
 action = arg.add_subparsers(title="action", dest="action", required=True)
@@ -13,7 +15,7 @@ create = action.add_parser(name="create")
 create.add_argument("--name", type=str, nargs=1)
 
 run = action.add_parser(name="run")
-run.add_argument("--phone-number", type=str, help="pairphone method")
+run.add_argument("--phone-number", type=str, help="using pairphone as authentication, default qr")
 run.add_argument("--push-notification", action="store_true", default=False)
 test = action.add_parser(name="test")
 
@@ -22,7 +24,11 @@ types = plugins.add_subparsers(title="type", dest="type", required=True)
 types.add_parser("install")
 types.add_parser("uninstall")
 types.add_parser("info")
-
+profile = action.add_parser("profile")
+profile_action = profile.add_subparsers(title="action", dest="profile_action", required=True)
+delete_profile = profile_action.add_parser("delete")
+delete_profile.add_argument("ids", nargs="*")
+profile_action.add_parser("list")
 parse = arg.parse_args()
 
 
@@ -54,7 +60,6 @@ def main():
             from .config import config_toml
 
             sys.path.insert(0, workdir.__str__())
-            print(config_toml, "wk")
             dirs, client = config_toml["thundra"]["app"].split(":")
             app = __import__(dirs)
             sys.path.remove(workdir.__str__())
@@ -76,9 +81,9 @@ def main():
             print(
                 f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
             )
-            if parse.pairphone:
+            if parse.phone_number:
                 app.__getattribute__(client).PairPhone(
-                    parse.pairphone, parse.push_notification
+                    parse.phone_number, parse.push_notification
                 )
             else:
                 app.__getattribute__(client).connect()
@@ -86,9 +91,17 @@ def main():
             from .config import config_toml
             from thundra.config import config_format
 
-            print(config_format(config_toml))
+            # print(config_format(config_toml))
+            import re
             print("NotImplemented yet")
-
-
+        case "profile":
+            match parse.profile_action:
+                case "list":
+                    for profile in Profiler.get_profiler():
+                        print(f"""
+                        {profile.get_id()}:\n\tworkpace: {profile.workspace}\n\t{(f'db: {profile.db_path()}') if profile.db_exist() else ''}\n\tpushname: {profile.pushname}\n\tphone number: {profile.phonenumber}
+                        """.strip())
+                case "delete":
+                    Profiler.get_profiler().delete_profile(*parse.ids)
 if __name__ == "__main__":
     main()

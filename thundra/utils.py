@@ -24,6 +24,7 @@ log.addHandler(logging.FileHandler("log.txt", "w"))
 cwd = os.getcwd().split("/")
 base_workdir = Path(__file__).parent
 workdir = ""
+
 for i in range(len(cwd) - 1):
     if i == 0:
         dir_path = os.getcwd()

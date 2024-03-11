@@ -5,8 +5,29 @@ from enum import Enum
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain.schema import SystemMessage
 from langchain_community.chat_message_histories.in_memory import ChatMessageHistory
-from ..config import config_toml
+from ..config import config_format, config_toml
 
+import re
+
+# Definisikan pola regex untuk mencocokkan setiap pengganti
+
+# Temukan semua kecocokan dalam teks
+def build_system_message():
+    pattern = r'\{([^}]*)\}'
+    base_system_message = config_toml["openai"]["agent"]["system_message"]
+    matches = re.finditer(pattern, config_toml["openai"]["agent"]["system_message"])
+    system_message_format = ""
+    end_index = 0
+    config_format_json = config_format(config_toml)
+    for match in matches:
+        start_index = match.start()
+        system_message_format += base_system_message[end_index:start_index]
+        end_index = match.end()
+        system_message_format+= config_format_json.get(base_system_message[start_index + 1: end_index - 1], '')
+    system_message_format += base_system_message[end_index:]
+    return system_message_format
+
+print(build_system_message())
 
 @dataclass
 class UserMemory:
@@ -17,7 +38,7 @@ class UserMemory:
     @classmethod
     def create_ai_instance(cls, k: int):
         system_message = SystemMessage(
-            content=config_toml["openai"]["agent"]["system_message"]
+            content=build_system_message()
         )
         return cls(
             system_message=system_message,
