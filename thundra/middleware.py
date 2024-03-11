@@ -1,12 +1,9 @@
 from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
-from .types import MessageType, MediaMessageType
-from .utils import get_message_type, get_user_id, log, download_media
-from .storage.file import File, storage
-from typing import Generator, Sequence, Type, Optional
-from neonize.types import MessageWithContextInfo
+from .utils import log
+from typing import Generator, Type, Optional
 from .core.graph import Graph
-from abc import ABC, abstractclassmethod, abstractmethod
+from abc import ABC,  abstractmethod
 
 
 class Middleware(ABC):
@@ -45,16 +42,4 @@ class MiddlewareRegister(list[Middleware], Graph):
                 return middleware
 
 
-class SaveMediaMessage(Middleware):
-    def run(self, client: NewClient, message: Message):
-        msg = get_message_type(message.Message)
-        if isinstance(msg, MediaMessageType):
-            storage.save(
-                get_user_id(message),
-                message.Info.ID,
-                File.from_message(msg),
-            )
-
-
 middleware = MiddlewareRegister()
-middleware.add(SaveMediaMessage)

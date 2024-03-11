@@ -26,15 +26,6 @@ def ptree(start, tree, indent_width=4):
     _ptree(start, parent, tree)
 
 
-def test():
-    log.setLevel(DEBUG)
-    from .__main__ import command, middleware
-    from .agents.base import agent
-
-    print(
-        f"{agent.__len__()} Agents, {middleware.__len__()} Middlewares, and {command.__len__()} Commands passed"
-    )
-
 
 def tree_test():
     from .middleware import middleware
@@ -58,10 +49,10 @@ def tree_test():
         dtree[1]["child"].append(idn)
         dtree.update({idn: {"name": item.name, "child": []}})
         start += 1
-    for item in command:
+    for item in command.values():
         idn = start
         dtree[2]["child"].append(idn)
-        dtree.update({idn: {"name": item, "child": []}})
+        dtree.update({idn: {"name": item.name, "child": []}})
         start += 1
     ptree(-1, dtree)
     print(

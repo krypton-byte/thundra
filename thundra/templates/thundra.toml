@@ -10,7 +10,6 @@ app = "app:app"
 sticker = {url="https://github.com/krypton-byte/sticker", branch="master", path="commands/sticker"}
 
 [openai.auth]
-agent = true
 api_key = ""
 endpoint = ""
 deployment_name = ""

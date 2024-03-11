@@ -2,9 +2,8 @@ import argparse, os
 import tomllib
 from typing import Dict, Optional
 from tomli_w import dumps
-print('t')
 from .utils import workdir
-print('t')
+
 
 from .config import config_toml
 import shutil
@@ -15,9 +14,17 @@ arg = argparse.ArgumentParser()
 action = arg.add_subparsers(title="action", dest="action", required=True)
 create = action.add_parser(name="create")
 create.add_argument("--name", type=str, nargs=1)
+
 run = action.add_parser(name="run")
+
 test = action.add_parser(name="test")
+
 plugins = action.add_parser("plugin")
+types=plugins.add_subparsers(title="type", dest="type", required=True)
+types.add_parser("install")
+types.add_parser("uninstall")
+types.add_parser("info")
+
 parse = arg.parse_args()
 
 
@@ -53,7 +60,7 @@ def main():
             app = __import__(dirs)
             sys.path.remove(workdir.__str__())
             app.__getattribute__(client).connect()
-        case "plugins":
+        case "plugin":
             print("NotImplemented yet")
 
 

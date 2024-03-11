@@ -22,7 +22,7 @@ evaluate_module(workdir / "agents")
 from thundra.command import command
 
 app = NewClient(
-    "db.sqlite3", DeviceProps(os=config_toml['thundra']['name'], platformType=DeviceProps.PlatformType.SAFARI)
+    config_toml['thundra']['db'], DeviceProps(os=config_toml['thundra']['name'], platformType=DeviceProps.PlatformType.SAFARI)
 )
 
 signal.signal(signal.SIGINT, lambda *x: event.set())

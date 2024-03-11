@@ -110,7 +110,7 @@ class CommandFunc:
 
 
 class GlobalCommand(dict[str, CommandFunc], Graph):
-    start_point: int = 0
+    start_point: int = 1
 
     def get_all_names(self) -> Generator[str, None, None]:
         for command_name in self.keys():
@@ -129,13 +129,10 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
     def add(self, command: CommandFunc):
         self.update(
             {
-                self.generate_name(self.start_point)
-                if not command.name
-                else command.name: command
+                self.generate_name(self.start_point): command
             }
         )
-        if not command.name:
-            self.start_point += 1
+        self.start_point += 1
 
     def execute(self, client: NewClient, message: Message):
         for k, v in self.items():
