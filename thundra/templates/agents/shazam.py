@@ -4,7 +4,7 @@ import magic
 from neonize.utils.ffmpeg import FFmpeg
 from thundra.agents import agent, tool, ExtendedTextMessage
 from neonize.proto.def_pb2 import AudioMessage, VideoMessage
-from thundra.utils import  download_media, get_user_id
+from thundra.utils import download_media, get_user_id
 from thundra.storage.file import storage
 import json
 from shazamio import Shazam

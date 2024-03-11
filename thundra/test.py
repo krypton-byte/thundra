@@ -26,14 +26,13 @@ def ptree(start, tree, indent_width=4):
     _ptree(start, parent, tree)
 
 
-
 def tree_test():
     from .middleware import middleware
     from .command import command
     from .agents import agent
 
     dtree = {
-        -1: {"name": config_toml['thundra']['name'], "child": [0, 1, 2]},
+        -1: {"name": config_toml["thundra"]["name"], "child": [0, 1, 2]},
         0: {"name": "Agents", "child": []},
         1: {"name": "Middlewares", "child": []},
         2: {"name": "Commands", "child": []},

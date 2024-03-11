@@ -127,11 +127,7 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         return uid[::-1]
 
     def add(self, command: CommandFunc):
-        self.update(
-            {
-                self.generate_name(self.start_point): command
-            }
-        )
+        self.update({self.generate_name(self.start_point): command})
         self.start_point += 1
 
     def execute(self, client: NewClient, message: Message):
@@ -203,5 +199,4 @@ class MessageType(Filter):
 
 class Owner(Filter):
     def filter(self, client: NewClient, message: Message):
-        return message.Info.MessageSource.Sender.User == config_toml['thundra']['owner']
-
+        return message.Info.MessageSource.Sender.User == config_toml["thundra"]["owner"]

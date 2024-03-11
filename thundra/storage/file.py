@@ -49,7 +49,7 @@ class File:
 
 
 class FileRegistry(dict[str, File]):
-    def update(self, id: str, data: File, max_data: int): # type: ignore
+    def update(self, id: str, data: File, max_data: int):  # type: ignore
         n = self.__len__() - max_data
         if n > 0:
             for _, k in zip(range(n), self.keys()):

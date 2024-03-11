@@ -42,4 +42,25 @@ TextMessageType = Union[
 ]
 
 MessageType = Union[MediaMessageType, TextMessageType]
-MessageWithContextInfoType = ImageMessage|ContactsArrayMessage|ExtendedTextMessage|DocumentMessage|AudioMessage|VideoMessage|LiveLocationMessage|StickerMessage|GroupInviteMessage|GroupInviteMessage|ProductMessage|ListMessage|ListMessage|ListResponseMessage|ButtonsMessage|ButtonsMessage|PollCreationMessage|MessageHistoryBundle|EventMessage|ContactsArrayMessage
+MessageWithContextInfoType = (
+    ImageMessage
+    | ContactsArrayMessage
+    | ExtendedTextMessage
+    | DocumentMessage
+    | AudioMessage
+    | VideoMessage
+    | LiveLocationMessage
+    | StickerMessage
+    | GroupInviteMessage
+    | GroupInviteMessage
+    | ProductMessage
+    | ListMessage
+    | ListMessage
+    | ListResponseMessage
+    | ButtonsMessage
+    | ButtonsMessage
+    | PollCreationMessage
+    | MessageHistoryBundle
+    | EventMessage
+    | ContactsArrayMessage
+)

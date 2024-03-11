@@ -3,7 +3,7 @@ from neonize.proto.Neonize_pb2 import Message
 from .utils import log
 from typing import Generator, Type, Optional
 from .core.graph import Graph
-from abc import ABC,  abstractmethod
+from abc import ABC, abstractmethod
 
 
 class Middleware(ABC):

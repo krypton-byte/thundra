@@ -15,6 +15,7 @@ from neonize.events import event
 # evaluate all module
 from thundra.evaluater import evaluate_module
 from thundra.config import config_toml
+
 evaluate_module(workdir / "commands")
 evaluate_module(workdir / "middleware")
 evaluate_module(workdir / "agents")
@@ -22,10 +23,15 @@ evaluate_module(workdir / "agents")
 from thundra.command import command
 
 app = NewClient(
-    config_toml['thundra']['db'], DeviceProps(os=config_toml['thundra']['name'], platformType=DeviceProps.PlatformType.SAFARI)
+    config_toml["thundra"]["db"],
+    DeviceProps(
+        os=config_toml["thundra"]["name"], platformType=DeviceProps.PlatformType.SAFARI
+    ),
 )
 
 signal.signal(signal.SIGINT, lambda *x: event.set())
+
+
 @app.event(ConnectedEv)
 def connected(client: NewClient, connect: ConnectedEv):
     me = app.get_me()

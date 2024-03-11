@@ -12,6 +12,7 @@ from neonize.proto.def_pb2 import (
     ExtendedTextMessage,
 )
 
+
 @command.register(name="owner test", filter=Command("owner") & Owner())
 def owner_test(client: NewClient, message: Message):
     client.reply_message("owner", message)
@@ -49,7 +50,6 @@ def evaluater(client: NewClient, message: Message):
 
 @command.register(name="graph", filter=Command("graph"))
 def graph(client: NewClient, message: Message):
-
     gv = command.combine_graph(middleware, command, agent)
     fname = tempfile.gettempdir() + "/" + time.time().__str__()
     outfile = tempfile.gettempdir() + "/" + time.time().__str__() + "_out.jpeg"

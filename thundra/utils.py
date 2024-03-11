@@ -1,4 +1,5 @@
 from logging import exception
+import sys
 import magic
 from typing import Iterable, Literal, Optional, Self, Tuple, Type, TypeVar
 from enum import Enum
@@ -20,17 +21,21 @@ import os
 
 log = getLogger("Thundra")
 log.addHandler(logging.FileHandler("log.txt", "w"))
-cwd = os.getcwd().split('/')
+cwd = os.getcwd().split("/")
 base_workdir = Path(__file__).parent
+workdir = ""
 for i in range(len(cwd) - 1):
     if i == 0:
         dir_path = os.getcwd()
     else:
-        dir_path = '/'.join(cwd[:-i])
-    if 'thundra.toml' in os.listdir(dir_path):
+        dir_path = "/".join(cwd[:-i])
+    if "thundra.toml" in os.listdir(dir_path):
         workdir = Path(dir_path)
         break
 
+if not workdir:
+    print("📛 Workdir Undefined")
+    sys.exit(1)
 
 
 @dataclass
