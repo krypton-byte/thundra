@@ -61,7 +61,6 @@ class ChainMessage:
                 ),
             }
         }
-        print("type", type)
         if isinstance(type, MediaMessageType.__args__) and self.neonize_message:
             data["message"]["file_id"] = self.neonize_message.Info.ID
         try:
@@ -170,7 +169,6 @@ def download_media(
     else:
         quoted = get_message_type(media_message.contextInfo.quotedMessage)
         if isinstance(quoted, types_tuple):
-            print("from_quoted ya", media_message.contextInfo.quotedMessage)
             return client.download_any(media_message.contextInfo.quotedMessage)
 
 

@@ -113,8 +113,8 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
     start_point: int = 1
 
     def get_all_names(self) -> Generator[str, None, None]:
-        for command_name in self.keys():
-            yield command_name
+        for command in self.values():
+            yield command.name
 
     @classmethod
     def generate_name(cls, start_point: int):
@@ -147,7 +147,7 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
             log.debug(f"{name} command loaded")
             self.add(
                 CommandFunc(
-                    name=name,
+                    name=name or f.__name__,
                     filter=filter,
                     description=description,
                     func=f,

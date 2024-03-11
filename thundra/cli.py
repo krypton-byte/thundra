@@ -15,7 +15,9 @@ create = action.add_parser(name="create")
 create.add_argument("--name", type=str, nargs=1)
 
 run = action.add_parser(name="run")
-run.add_argument("--phone-number", type=str, help="using pairphone as authentication, default qr")
+run.add_argument(
+    "--phone-number", type=str, help="using pairphone as authentication, default qr"
+)
 run.add_argument("--push-notification", action="store_true", default=False)
 test = action.add_parser(name="test")
 
@@ -25,7 +27,9 @@ types.add_parser("install")
 types.add_parser("uninstall")
 types.add_parser("info")
 profile = action.add_parser("profile")
-profile_action = profile.add_subparsers(title="action", dest="profile_action", required=True)
+profile_action = profile.add_subparsers(
+    title="action", dest="profile_action", required=True
+)
 delete_profile = profile_action.add_parser("delete")
 delete_profile.add_argument("ids", nargs="*")
 profile_action.add_parser("list")
@@ -93,15 +97,20 @@ def main():
 
             # print(config_format(config_toml))
             import re
+
             print("NotImplemented yet")
         case "profile":
             match parse.profile_action:
                 case "list":
                     for profile in Profiler.get_profiler():
-                        print(f"""
+                        print(
+                            f"""
                         {profile.get_id()}:\n\tworkpace: {profile.workspace}\n\t{(f'db: {profile.db_path()}') if profile.db_exist() else ''}\n\tpushname: {profile.pushname}\n\tphone number: {profile.phonenumber}
-                        """.strip())
+                        """.strip()
+                        )
                 case "delete":
                     Profiler.get_profiler().delete_profile(*parse.ids)
+
+
 if __name__ == "__main__":
     main()

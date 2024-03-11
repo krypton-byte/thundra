@@ -28,7 +28,7 @@ app = NewClient(
     DeviceProps(
         os=config_toml["thundra"]["name"], platformType=DeviceProps.PlatformType.SAFARI
     ),
-    uuid=config_toml["thundra"]["name"]
+    uuid=config_toml["thundra"]["name"],
 )
 
 signal.signal(signal.SIGINT, lambda *x: event.set())
@@ -38,7 +38,11 @@ signal.signal(signal.SIGINT, lambda *x: event.set())
 def connected(client: NewClient, connect: ConnectedEv):
     me = app.get_me()
     me_jid = me.JID
-    Profiler.add_profile(Profile(workspace=workdir.__str__(), phonenumber=me_jid.User, pushname=me.PushName))
+    Profiler.add_profile(
+        Profile(
+            workspace=workdir.__str__(), phonenumber=me_jid.User, pushname=me.PushName
+        )
+    )
     # def set_debug(x: bytes):
     #     getLogger().setLevel([NOTSET, DEBUG][int(x.decode())])
 
