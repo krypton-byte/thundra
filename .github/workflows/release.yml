@@ -22,7 +22,6 @@ jobs:
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python - -y
-        poetry install
     - name: Publish
       run: |
         poetry version ${{ github.event.inputs.version }}
