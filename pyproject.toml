@@ -3,9 +3,17 @@ name = "thundra-ai"
 version = "0.1.0"
 description = "Neonize Abstraction"
 authors = ["krypton-byte <rosid6434@gmail.com>"]
-license = "MIT"
+license = "Apache 2.0"
 readme = "README.md"
-packages = [{include="*", from="thundra"}]
+packages = [{include="thundra"}]
+include=[
+    "assets/logo.jpg"
+]
+homepage = "https://github.com/krypton-byte/thundra"
+repository = "https://github.com/krypton-byte/thundra.git"
+keywords = ["neonize", "whatsapp", "framework", "websocket", "bot"]
+
+
 [tool.poetry.dependencies]
 python = "^3.11"
 neonize = "^0.0.9"
@@ -17,6 +25,11 @@ shazamio = "^0.5.1"
 graphviz = "^0.20.1"
 appdirs = "^1.4.4"
 
+
+[[tool.poetry.source]]
+name = "thundra-ai"
+url = "https://github.com/krypton-byte/thundra"
+priority = "primary"
 
 [build-system]
 requires = ["poetry-core"]
