@@ -1,7 +1,12 @@
 from thundra.agents import agent
 from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
-from neonize.proto.def_pb2 import ExtendedTextMessage, ImageMessage, VideoMessage, StickerMessage
+from neonize.proto.def_pb2 import (
+    ExtendedTextMessage,
+    ImageMessage,
+    VideoMessage,
+    StickerMessage,
+)
 from thundra.utils import download_media, get_user_id
 from neonize.utils.enum import MediaType
 from thundra.storage import storage
@@ -10,7 +15,9 @@ from langchain.tools import tool
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
-print('wokerrgksih')
+print("wokerrgksih")
+
+
 @agent.tool(str, ExtendedTextMessage, ImageMessage, VideoMessage)
 def sticker(client: NewClient, message: Message):
     @tool("stickerMaker", return_direct=True)
