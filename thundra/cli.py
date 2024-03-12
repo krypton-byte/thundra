@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 from tomli_w import dumps
 
 import argparse, os
@@ -6,6 +7,7 @@ import tomllib
 import shutil
 import sys
 import os
+from thundra.plugins import Plugin
 from thundra.profiler import Profiler, VirtualEnv
 
 
@@ -25,9 +27,15 @@ run.add_argument("--push-notification", action="store_true", default=False)
 test = action.add_parser(name="test")
 
 plugins = action.add_parser("plugin")
-types = plugins.add_subparsers(title="type", dest="type", required=True)
-types.add_parser("install")
-types.add_parser("uninstall")
+types = plugins.add_subparsers(title="type", dest="plugin_action", required=True)
+plugin_install = types.add_parser("install")
+plugin_uninstall = types.add_parser("uninstall")
+plugin_install.add_argument('-r', nargs=1, help='github repository, user/repo', dest='git_url', required=True)
+plugin_uninstall.add_argument('-r', nargs=1, help='github repository, user/repo', dest='git_url', required=True)
+
+plugin_install.add_argument('-b', type=str, help='branch name e.g "master", "main"', dest="branch")
+plugin_uninstall.add_argument('-b', type=str, help='branch name e.g "master", "main"', dest="branch")
+types.add_parser("list")
 types.add_parser("info")
 profile = action.add_parser("profile")
 profile_action = profile.add_subparsers(
@@ -124,14 +132,29 @@ def main():
             else:
                 app.__getattribute__(client).connect()
         case "plugin":
-            from .config import config_toml
-            from thundra.config import config_format
-
-            # print(config_format(config_toml))
-            import re
-
-            print(config_toml)
-            print("NotImplemented yet")
+            from .plugins import PluginSource
+            match parse.plugin_action:
+                case "install":
+                    username, repo=parse.git_url[0].split("/")
+                    plugin = PluginSource(username=username, repository=repo)
+                    if not parse.branch:
+                        parse.branch = plugin.branch()[0]['name']
+                    plugin.download_head(parse.branch).install()
+                case "uninstall":
+                    username, repo=parse.git_url[0].split("/")
+                    plugins: List[Plugin] = []
+                    if parse.branch:
+                        plugins.append(Plugin.find_full_args(username, repo, parse.branch))
+                    else:
+                        plugins.extend(Plugin.find_by_author_and_name(username, repo))
+                    for plugin in plugins:
+                        shutil.rmtree(plugin.path)
+                        print(f'[deleted] {plugin.name}')
+                    if not plugins:
+                        print(f"[plugin] {parse.git_url[0]} not found")
+                case "list":
+                    for plugin in Plugin.get_all_plugins():
+                        print(plugin.stringify())
         case "profile":
             profiler = Profiler.get_profiler()
             match parse.profile_action:

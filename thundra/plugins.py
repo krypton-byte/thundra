@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from io import BytesIO
+from os import path
 from pathlib import Path
 from pyoverload import overload, params, override
-from typing import Iterable, List, Literal, Optional, Self
+from typing import Any, Iterable, List, Literal, Optional, Self
 import appdirs
 import requests
 import zipfile
@@ -58,6 +59,9 @@ class Plugin:
     dependencies: List[str]
     version: str
     includes: List[PluginDirType]
+    path: Path
+    def stringify(self):
+        return f"name: {self.name}\nauthor: {self.author}\nbranch: {self.branch}\nversion: {self.version}\ndependencies: \n\t-" + "\n\t-".join(self.dependencies)
     @classmethod
     def find_full_args(cls, author: str, name: str, branch: str) -> Self:
         with open(extract_path / author / f'{name}-{branch}' / 'thundra-plugin.toml') as file:
@@ -68,7 +72,8 @@ class Plugin:
                 branch=branch,
                 dependencies=config['plugin']['dependencies'],
                 version=config['plugin']['version'],
-                includes=[]
+                includes=[],
+                path = extract_path / author / f'{name}-{branch}'
             )
             for plugin_type in ['command', 'agent', 'middleware']:
                 val = config['plugin'].get(plugin_type)
@@ -88,7 +93,13 @@ class Plugin:
             if full_path.is_dir():
                 yield from cls.find_by_author_and_name(author, '-'.join(full_path.name.split('-')[:-1]))
         yield from []
-
+    @classmethod
+    def get_all_plugins(cls):
+        g = Path(f'{extract_path}/')
+        for full_path in g.iterdir():
+            if full_path.is_dir():
+                yield from cls.find_by_author(full_path.name)
+        yield from []
 class PluginSource(requests.Session):
     def __init__(self, username: str, repository: str) -> None:
         super().__init__()
@@ -112,3 +123,5 @@ class PluginSource(requests.Session):
         if req.status_code == 200:
             return PluginZip(BytesIO(req.content), self.git_username, self.repository, branch)
         raise Response404(branch)
+    def branch(self) -> List:
+        return requests.get(f"https://api.github.com/repos/{self.git_username}/{self.repository}/branches").json()
