@@ -31,11 +31,19 @@ plugins = action.add_parser("plugin")
 types = plugins.add_subparsers(title="type", dest="plugin_action", required=True)
 plugin_install = types.add_parser("install")
 plugin_uninstall = types.add_parser("uninstall")
-plugin_install.add_argument('-r', nargs=1, help='github repository, user/repo', dest='git_url', required=True)
-plugin_uninstall.add_argument('-r', nargs=1, help='github repository, user/repo', dest='git_url', required=True)
+plugin_install.add_argument(
+    "-r", nargs=1, help="github repository, user/repo", dest="git_url", required=True
+)
+plugin_uninstall.add_argument(
+    "-r", nargs=1, help="github repository, user/repo", dest="git_url", required=True
+)
 
-plugin_install.add_argument('-b', type=str, help='branch name e.g "master", "main"', dest="branch")
-plugin_uninstall.add_argument('-b', type=str, help='branch name e.g "master", "main"', dest="branch")
+plugin_install.add_argument(
+    "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
+)
+plugin_uninstall.add_argument(
+    "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
+)
 types.add_parser("list")
 types.add_parser("info")
 profile = action.add_parser("profile")
@@ -64,7 +72,9 @@ def main():
                 input("Owner [6283172366463]: ") or "6283172366463"
             ]
             toml_template["thundra"]["prefix"] = input(r"Prefix [\\.] : ") or "\\."
-            importable_name = re.findall(r'[\w\ ]+',re.sub(r'[\ \-]+', '_', toml_template['thundra']['name']))[0]
+            importable_name = re.findall(
+                r"[\w\ ]+", re.sub(r"[\ \-]+", "_", toml_template["thundra"]["name"])
+            )[0]
             dest = os.getcwd() + "/" + importable_name
             print("🚀 create %r project" % toml_template["thundra"]["name"])
             os.mkdir(importable_name)
@@ -74,7 +84,7 @@ def main():
                         shutil.copytree(content, dest, dirs_exist_ok=True)
                 else:
                     shutil.copy(content, os.getcwd())
-            toml_template['thundra']['app'] = f"{importable_name}.app:app"
+            toml_template["thundra"]["app"] = f"{importable_name}.app:app"
             open("thundra.toml", "w").write(dumps(toml_template))
         case "test":
             from .config import config_toml
@@ -92,15 +102,17 @@ def main():
         case "install":
             from .config import config_toml
             from .plugins import PluginSource
+
             for package in config_toml["plugins"].values():
-                PluginSource(package['username'], package['repository']).download_head(package['branch']).install()
+                PluginSource(package["username"], package["repository"]).download_head(
+                    package["branch"]
+                ).install()
         case "run":
             from .utils import workdir
+
             profiler = Profiler.get_profiler()
             with open(workdir.db / "thundra.toml") as file:
-                workdir_db = (
-                    workdir.db / tomllib.loads(file.read())["thundra"]["db"]
-                )
+                workdir_db = workdir.db / tomllib.loads(file.read())["thundra"]["db"]
             if parse.workspace:
                 profile = profiler.get_profile(parse.workspace)
                 workdir.workspace_dir = Path(profile.workspace)
@@ -130,7 +142,7 @@ def main():
             print(
                 f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
             )
-            for attr in dirs.split('.')[1:]:
+            for attr in dirs.split(".")[1:]:
                 app = getattr(app, attr)
             if parse.phone_number:
                 app.__getattribute__(client).PairPhone(
@@ -140,23 +152,26 @@ def main():
                 app.__getattribute__(client).connect()
         case "plugin":
             from .plugins import PluginSource, Plugin
+
             match parse.plugin_action:
                 case "install":
-                    username, repo=parse.git_url[0].split("/")
+                    username, repo = parse.git_url[0].split("/")
                     plugin = PluginSource(username=username, repository=repo)
                     if not parse.branch:
-                        parse.branch = plugin.branch()[0]['name']
+                        parse.branch = plugin.branch()[0]["name"]
                     plugin.download_head(parse.branch).install()
                 case "uninstall":
-                    username, repo=parse.git_url[0].split("/")
+                    username, repo = parse.git_url[0].split("/")
                     plugins: List[Plugin] = []
                     if parse.branch:
-                        plugins.append(Plugin.find_full_args(username, repo, parse.branch))
+                        plugins.append(
+                            Plugin.find_full_args(username, repo, parse.branch)
+                        )
                     else:
                         plugins.extend(Plugin.find_by_author_and_name(username, repo))
                     for plugin in plugins:
                         shutil.rmtree(plugin.path)
-                        print(f'[deleted] {plugin.name}')
+                        print(f"[deleted] {plugin.name}")
                     if not plugins:
                         print(f"[plugin] {parse.git_url[0]} not found")
                 case "list":

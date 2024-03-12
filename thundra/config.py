@@ -6,9 +6,12 @@ from .utils import workdir
 
 with open(workdir.workspace / "thundra.toml", "r") as file:
     config_toml = tomllib.loads(file.read())
+
+
 def write_config_toml(config: dict):
     with open(workdir.workspace / "thundra.toml", "wb") as file:
         tomli_w.dump(config, file)
+
 
 def config_format(config: Optional[Dict] = None, path="") -> dict:
     result = {}

@@ -22,11 +22,6 @@ def execute_agent(memory, client: NewClient, message: Message):
         tool.agent(client, message)
         for tool in agent.filter_tools(get_message_type(message.Message).__class__)
     ]
-    # agent_executor = create_json_chat_agent(llm=llm, tools=tools, prompt=ChatPromptTemplate.from_messages([]))
-    # return AgentExecutor(
-    #     tools=tools,
-    #     agent=create_json_chat_agent(llm, tools, memory)
-    # )
     return initialize_agent(
         agent="chat-conversational-react-description",
         tools=tools,

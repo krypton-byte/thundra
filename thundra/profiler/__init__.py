@@ -9,6 +9,7 @@ import json
 
 from ..evaluater import evaluate_module
 from ..utils import workdir
+
 APP_DATA = Path(appdirs.user_data_dir("thundra"))
 if not APP_DATA.exists():
     APP_DATA.mkdir()
@@ -17,40 +18,53 @@ if not APP_DATA.exists():
 class ProfileNotExist(Exception):
     pass
 
+
 VENV_CONFIG = APP_DATA / "env.json"
 if not VENV_CONFIG.exists():
-    open(VENV_CONFIG, 'w').write('[]')
+    open(VENV_CONFIG, "w").write("[]")
 PLUGINS_PATH = APP_DATA / "plugins"
 if not PLUGINS_PATH.exists():
     PLUGINS_PATH.mkdir()
+
+
 class EnvNotExist(Exception):
     pass
+
+
 @dataclass
 class Env:
     workspace: Path
     env: Path
+
     def __post_init__(self):
         if not self.env.exists():
             self.env.mkdir()
+
+
 class VirtualEnv(Dict[str, str]):
     def save(self):
-        with open(VENV_CONFIG, 'w') as file:
+        with open(VENV_CONFIG, "w") as file:
             file.write(json.dumps(self))
+
     @classmethod
     def get_env(cls):
-        return cls(json.loads(open(VENV_CONFIG, 'r').read()))
-    def activate(self, workspace: str, autocreate: bool = True, load_plugin: bool = True) -> Env:
+        return cls(json.loads(open(VENV_CONFIG, "r").read()))
+
+    def activate(
+        self, workspace: str, autocreate: bool = True, load_plugin: bool = True
+    ) -> Env:
         env_str = self.get(workspace)
         env = None
         if isinstance(env_str, str):
             if not Path(env_str).exists():
                 Path(env_str).mkdir(parents=True)
-            env=Env(workspace=Path(workspace), env=Path(env_str))
+            env = Env(workspace=Path(workspace), env=Path(env_str))
         if env_str is None:
             if autocreate:
-                env=Env(
+                env = Env(
                     workspace=workdir.workspace,
-                    env=PLUGINS_PATH/f"{workdir.workspace.name}-{secrets.token_urlsafe(5)}"
+                    env=PLUGINS_PATH
+                    / f"{workdir.workspace.name}-{secrets.token_urlsafe(5)}",
                 )
                 self[workspace] = env.env.__str__()
                 self.save()
@@ -59,6 +73,8 @@ class VirtualEnv(Dict[str, str]):
                 evaluate_module(env.env, env.env)
             return env
         raise EnvNotExist()
+
+
 @dataclass
 class Profile:
     workspace: str
