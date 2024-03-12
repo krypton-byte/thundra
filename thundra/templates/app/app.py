@@ -1,4 +1,5 @@
 from logging import NOTSET, DEBUG, getLogger
+from pathlib import Path
 from neonize.client import DeviceProps, NewClient
 from neonize.events import MessageEv, ConnectedEv
 import yaml
@@ -17,9 +18,9 @@ from neonize.events import event
 from thundra.evaluater import evaluate_module
 from thundra.config import config_toml
 
-evaluate_module(workdir.workspace / "commands")
-evaluate_module(workdir.workspace / "middleware")
-evaluate_module(workdir.workspace / "agents")
+evaluate_module(Path(__file__).parent / "commands")
+evaluate_module(Path(__file__).parent / "middleware")
+evaluate_module(Path(__file__).parent / "agents")
 from thundra.command import command
 
 app = NewClient(
