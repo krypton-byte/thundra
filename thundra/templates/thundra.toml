@@ -6,9 +6,6 @@ prefix = "\\."
 db = "db.sqlite3"
 app = "app:app"
 
-[plugins]
-sticker = {url="https://github.com/krypton-byte/sticker", branch="master", path="commands/sticker"}
-
 [openai.auth]
 api_key = ""
 endpoint = ""
@@ -24,3 +21,6 @@ memory_size = 7
 
 [middleware.file]
 size = 10
+
+
+[plugins]

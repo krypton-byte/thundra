@@ -2,6 +2,8 @@ from .utils import log
 from logging import NOTSET, DEBUG
 from .config import config_toml
 import os
+
+
 def ptree(start, tree, indent_width=4):
     def _ptree(start, parent, tree, grandpa=None, indent=""):
         if parent != start:
@@ -54,5 +56,5 @@ def tree_test():
         start += 1
     ptree(-1, dtree)
     print(
-                f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
-            )
+        f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
+    )

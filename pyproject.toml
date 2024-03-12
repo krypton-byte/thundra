@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "thundra"
+name = "thundra-ai"
 version = "0.1.0"
 description = "Neonize Abstraction"
 authors = ["krypton-byte <rosid6434@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-
+packages = [{include="*", from="thundra"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 neonize = "^0.0.9"
@@ -16,6 +16,7 @@ langchain-openai = "^0.0.8"
 shazamio = "^0.5.1"
 graphviz = "^0.20.1"
 appdirs = "^1.4.4"
+pyoverload = "^1.1.31"
 
 
 [build-system]

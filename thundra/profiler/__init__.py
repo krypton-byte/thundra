@@ -1,15 +1,64 @@
 from dataclasses import dataclass
 from os import path
 from pathlib import Path
-from typing import List
+import secrets
+from typing import Dict, List
 import tomllib
 import appdirs
 import json
 
+from ..evaluater import evaluate_module
+from ..utils import workdir
+APP_DATA = Path(appdirs.user_data_dir("thundra"))
+if not APP_DATA.exists():
+    APP_DATA.mkdir()
+
+
 class ProfileNotExist(Exception):
     pass
 
-
+VENV_CONFIG = APP_DATA / "env.json"
+if not VENV_CONFIG.exists():
+    open(VENV_CONFIG, 'w').write('[]')
+PLUGINS_PATH = APP_DATA / "plugins"
+if not PLUGINS_PATH.exists():
+    PLUGINS_PATH.mkdir()
+class EnvNotExist(Exception):
+    pass
+@dataclass
+class Env:
+    workspace: Path
+    env: Path
+    def __post_init__(self):
+        if not self.env.exists():
+            self.env.mkdir()
+class VirtualEnv(Dict[str, str]):
+    def save(self):
+        with open(VENV_CONFIG, 'w') as file:
+            file.write(json.dumps(self))
+    @classmethod
+    def get_env(cls):
+        return cls(json.loads(open(VENV_CONFIG, 'r').read()))
+    def activate(self, workspace: str, autocreate: bool = True, load_plugin: bool = True) -> Env:
+        env_str = self.get(workspace)
+        env = None
+        if isinstance(env_str, str):
+            if not Path(env_str).exists():
+                Path(env_str).mkdir(parents=True)
+            env=Env(workspace=Path(workspace), env=Path(env_str))
+        if env_str is None:
+            if autocreate:
+                env=Env(
+                    workspace=workdir.workspace,
+                    env=PLUGINS_PATH/f"{workdir.workspace.name}-{secrets.token_urlsafe(5)}"
+                )
+                self[workspace] = env.env.__str__()
+                self.save()
+        if env:
+            if load_plugin:
+                evaluate_module(env.env, env.env)
+            return env
+        raise EnvNotExist()
 @dataclass
 class Profile:
     workspace: str
@@ -104,7 +153,7 @@ class Profiler(List[Profile]):
         new_list = [profile for profile in self if profile.get_id() not in alias]
         if len(new_list) != len(self):
             Profiler(new_list).save()
-    
+
     def get_profile(self, alias: str) -> Profile:
         for profile in self:
             if profile.get_id() == alias:

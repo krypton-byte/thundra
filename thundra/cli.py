@@ -6,11 +6,12 @@ import tomllib
 import shutil
 import sys
 import os
-from thundra.profiler import Profiler
+from thundra.profiler import Profiler, VirtualEnv
 
 
 arg = argparse.ArgumentParser()
 action = arg.add_subparsers(title="action", dest="action", required=True)
+action.add_parser("install")
 create = action.add_parser(name="create")
 create.add_argument("--name", type=str, nargs=1)
 
@@ -64,7 +65,8 @@ def main():
                     shutil.copy(content, dest)
         case "test":
             from .config import config_toml
-            os.environ.update(config_toml['thundra'].get('env', {}))
+
+            os.environ.update(config_toml["thundra"].get("env", {}))
             from .utils import workdir
 
             sys.path.insert(0, workdir.workspace_dir.__str__())
@@ -74,32 +76,40 @@ def main():
             from .test import tree_test
 
             tree_test()
+        case "install":
+            from .config import config_toml
+            from .plugins import PluginSource
+            for package in config_toml["plugins"].values():
+                PluginSource(package['username'], package['repository']).download_head(package['branch']).install()
         case "run":
             from .utils import workdir
-            profiler=Profiler.get_profiler()
+            profiler = Profiler.get_profiler()
+            with open(workdir.db / "thundra.toml") as file:
+                workdir_db = (
+                    workdir.db / tomllib.loads(file.read())["thundra"]["db"]
+                )
             if parse.workspace:
-                profile=profiler.get_profile(parse.workspace)
+                profile = profiler.get_profile(parse.workspace)
                 workdir.workspace_dir = Path(profile.workspace)
                 os.chdir(workdir.workspace)
-                if workdir.db.__str__() == '.':
-                    print(profile.db_path())
+                if workdir.db.__str__() == ".":
                     workdir.db = Path(profile.db_path()).parent
                     workdir_db = profile.db_path()
-                else:
-                    with open(workdir.db / "thundra.toml") as file:
-                        workdir_db = workdir.db / tomllib.loads(file.read())['thundra']['db']
             if parse.db:
-                profile=profiler.get_profile(parse.db)
+                profile = profiler.get_profile(parse.db)
                 workdir.db = Path(profile.db_path()).parent
                 workdir_db = profile.db_path()
             from .config import config_toml
-            os.environ.update(config_toml['thundra'].get('env', {}))
+
+            os.environ.update(config_toml["thundra"].get("env", {}))
+            VirtualEnv.get_env().activate(workdir.workspace.__str__())
             from .utils import workdir
             from .agents import agent
             from .command import command
             from .middleware import middleware
+
             print("🚀 starting %r" % config_toml["thundra"]["name"])
-            config_toml['thundra']['db'] = workdir_db.__str__()
+            config_toml["thundra"]["db"] = workdir_db.__str__()
             sys.path.insert(0, workdir.workspace_dir.__str__())
             dirs, client = config_toml["thundra"]["app"].split(":")
             app = __import__(dirs)
@@ -137,10 +147,11 @@ def main():
                 case "info":
                     profile = profiler.get_profile(parse.id[0])
                     print(
-                            f"""
+                        f"""
                         {parse.id[0]}:\n\tworkpace: {profile.workspace}\n\t{(f'db: {profile.db_path()}') if profile.db_exist() else ''}\n\tpushname: {profile.pushname}\n\tphone number: {profile.phonenumber}
                         """.strip()
-                        )
+                    )
+
 
 if __name__ == "__main__":
     main()

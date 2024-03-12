@@ -23,17 +23,23 @@ log = getLogger("Thundra")
 log.addHandler(logging.FileHandler("log.txt", "w"))
 cwd = os.getcwd().split("/")
 base_workdir = Path(__file__).parent
+
+
 @dataclass
 class Workdir:
     db: Path
     workspace_dir: Optional[Path] = None
+
     @property
     def workspace(self) -> Path:
         return self.workspace_dir or self.db_workspace
+
     @property
     def db_workspace(self):
         return self.db
-workdir = Workdir(db=Path(''))
+
+
+workdir = Workdir(db=Path(""))
 
 for i in range(len(cwd) - 1):
     if i == 0:

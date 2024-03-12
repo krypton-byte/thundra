@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 log.txt
 bot_examples/
+plugins_example/
 # C extensions
 *.so
 

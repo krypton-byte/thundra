@@ -1213,6 +1213,17 @@ files = [
 ]
 
 [[package]]
+name = "pycamia"
+version = "1.0.38"
+description = "The main package and a background support of project PyCAMIA."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pycamia-1.0.38-py3-none-any.whl", hash = "sha256:6657878983939d4baa8484cadce36238848d42a0ca8ac0f345c1f5d742967cf6"},
+    {file = "pycamia-1.0.38.tar.gz", hash = "sha256:170d9eeb3d6a1d965d183bb1f37ea0b30648178985f957322ec579f9f9dec358"},
+]
+
+[[package]]
 name = "pydantic"
 version = "1.10.14"
 description = "Data validation and settings management using python type hints"
@@ -1274,6 +1285,20 @@ files = [
     {file = "pydub-0.25.1-py2.py3-none-any.whl", hash = "sha256:65617e33033874b59d87db603aa1ed450633288aefead953b30bded59cb599a6"},
     {file = "pydub-0.25.1.tar.gz", hash = "sha256:980a33ce9949cab2a569606b65674d748ecbca4f0796887fd6f46173a7b0d30f"},
 ]
+
+[[package]]
+name = "pyoverload"
+version = "1.1.31"
+description = "'pyoverload' overloads the functions by simply using typehints and adding decorator '@overload'."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyoverload-1.1.31-py3-none-any.whl", hash = "sha256:f5b270595243f2283d68eb0e1b2080df4e0240fc8780c41bc8bdedbb41f8bb88"},
+    {file = "pyoverload-1.1.31.tar.gz", hash = "sha256:aaf2774f2e0c69ebbd192f9c3b1fa1eb8f718f03e8fa24d3c8613a66ee8c00cc"},
+]
+
+[package.dependencies]
+pycamia = "*"
 
 [[package]]
 name = "pytest"
@@ -1968,4 +1993,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b31ac4925e992eef5ce057fa962d589ed139f469212e4548d11e211758667e17"
+content-hash = "c667b07046e505a8f33cec6d0dcde6930a7535e0b878af9d86c61b051fda27dd"
