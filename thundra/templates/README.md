@@ -19,23 +19,18 @@ To get started with Thundra, follow these steps:
 1. **Installation**: Install Thundra via pip:
 
     ```
-    pip install thundra-ai
+    > pip install thundra-ai
+    > thundra install
     ```
 
 2. **Configuration**: Set up your WhatsApp account credentials and other configurations in the `thundra.toml` file.
 
-3. **Create a Bot**: Write your bot logic using the Thundra framework. Here's a simple example:
+3. **Run**: Write your bot logic using the Thundra framework. Here's to run this bot:
 
     ```bash
-    > thundra create
     > thundra run
     ```
 
-4. **Deploy**: Deploy your bot to your preferred hosting environment. Thundra is compatible with various deployment options, including cloud platforms and self-hosted servers.
-
-5. **Interact**: Once deployed, your bot is ready to interact with users on WhatsApp. Start sending messages and observing bot responses.
-
-For more detailed instructions and examples, refer to the [documentation](https://thundra.krypton-byte.me).
 
 ## Contributing
 
