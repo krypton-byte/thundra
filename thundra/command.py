@@ -163,16 +163,18 @@ command = GlobalCommand()
 
 
 class Command(Filter):
-    def __init__(self, command: str, prefix: Optional[str] = None) -> None:
-        self.command = command
-        self.prefix = prefix
+    def __init__(self, command: str, prefix: Optional[str] = None, space_detection: bool = False) -> None:
+        self.command = command + (' 'if space_detection else '')
+        self.prefix = config.prefix if prefix is None else prefix
         super().__init__()
 
     def filter(self, client: NewClient, message: Message) -> bool:
         text = ChainMessage.extract_text(message.Message)
-        return text.startswith(
-            (config.prefix if self.prefix is None else self.prefix) + self.command
-        )
+        matched = re.match(self.prefix, text)
+        if matched:
+            _, end = matched.span(0)
+            return text[end:].startswith(self.command)
+        return False
 
     def __repr__(self):
         return (
@@ -199,4 +201,4 @@ class MessageType(Filter):
 
 class Owner(Filter):
     def filter(self, client: NewClient, message: Message):
-        return message.Info.MessageSource.Sender.User == config_toml["thundra"]["owner"]
+        return message.Info.MessageSource.Sender.User in config_toml["thundra"]["owner"]

@@ -2,7 +2,7 @@
 name = "Thundra AI"
 owner = ["6283172366463"]
 author = "krypton-byte"
-prefix = "\\."
+prefix = "^\\."
 db = "db.sqlite3"
 app = "app:app"
 
