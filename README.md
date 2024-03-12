@@ -1,5 +1,5 @@
 ## <p align="center">Thundra</p>
-<p align="center"><img src="assets/logo.jpg" width="150px"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/krypton-byte/thundra/master/assets/logo.jpg" width="150px"/></p>
 
 Thundra is a framework designed to streamline the development of WhatsApp bots and automations. It provides a solid foundation and abstraction layer to simplify the process of creating and managing WhatsApp bots for various purposes.
 
