@@ -1,20 +1,16 @@
-from logging import exception
-import sys
-import magic
-from typing import Iterable, Literal, Optional, Self, Tuple, Type, TypeVar
+from typing import Iterable, Optional, Type
 from enum import Enum
 from neonize import NewClient
-from neonize.proto.def_pb2 import Conversation, ImageMessage, Message as MessageProto
+from neonize.proto.def_pb2 import ImageMessage, Message as MessageProto
 from neonize.proto.Neonize_pb2 import Message
 from neonize.proto.def_pb2 import (
     ExtendedTextMessage,
     VideoMessage,
 )
-from .types import MessageType, MediaMessageType, TextMessageType
+from .types import MessageType, MediaMessageType
 from dataclasses import dataclass
 from pathlib import Path
 from logging import getLogger
-import logging
 import math
 import os
 

@@ -1,9 +1,11 @@
 from pytube import YouTube, Search
-from thundra.agents import agent, tool, ExtendedTextMessage
+from thundra.agents import agent
+from langchain.tools import tool
 from neonize.utils.ffmpeg import FFmpeg
 from thundra.utils import convert_size
 from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
+from neonize.proto.def_pb2 import ExtendedTextMessage
 from pytube import Search, YouTube, Stream
 import os
 import tempfile

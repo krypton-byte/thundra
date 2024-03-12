@@ -1,40 +1,22 @@
 from __future__ import annotations
-import os
 import re
-from neonize.utils.ffmpeg import tempfile
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
-import time
 from typing import (
     Any,
     Callable,
     Generator,
     Sequence,
-    List,
     Optional,
-    Self,
-    Union,
     TypeVar,
     Type,
 )
 
 from .core.graph import Graph
 from .config import config
-from neonize.client import NewClient, JID
+from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
-from neonize.proto.def_pb2 import (
-    ImageMessage,
-    Conversation,
-    ListMessage,
-    Message as MessageProto,
-    VideoMessage,
-    DocumentMessage,
-    MessageContextInfo,
-    ExtendedTextMessage,
-    FutureProofMessage,
-    ContextInfo,
-)
 from .utils import ChainMessage, log
 from .types import MessageType as IMessageType
 from .config import config_toml

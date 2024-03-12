@@ -16,7 +16,7 @@ model_name = ""
 api_version = ""
 
 [openai.openai]
-api_key = ""
+api_key = "ya"
 model = ""
 
 [openai.agent]

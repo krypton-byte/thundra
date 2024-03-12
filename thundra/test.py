@@ -1,5 +1,3 @@
-from .utils import log
-from logging import NOTSET, DEBUG
 from .config import config_toml
 import os
 

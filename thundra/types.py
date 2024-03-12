@@ -1,7 +1,6 @@
-from typing import NewType, TypeVar, Union
+from typing import Union
 from neonize.proto.def_pb2 import (
     ImageMessage,
-    Conversation,
     VideoMessage,
     DocumentMessage,
     ExtendedTextMessage,

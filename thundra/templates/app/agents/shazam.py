@@ -1,9 +1,9 @@
 from neonize.proto.Neonize_pb2 import Message
 from neonize.client import NewClient, MediaType
-import magic
 from neonize.utils.ffmpeg import FFmpeg
-from thundra.agents import agent, tool, ExtendedTextMessage
-from neonize.proto.def_pb2 import AudioMessage, VideoMessage
+from thundra.agents import agent
+from langchain.tools import tool
+from neonize.proto.def_pb2 import AudioMessage, VideoMessage, ExtendedTextMessage
 from thundra.utils import download_media, get_user_id
 from thundra.storage.file import storage
 import json

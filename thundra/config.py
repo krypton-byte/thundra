@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional, Dict
-import tomllib, os
+import tomllib
 import tomli_w
 from .utils import workdir
 

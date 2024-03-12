@@ -2,7 +2,6 @@ from pathlib import Path
 import os
 import sys
 from typing import Optional
-from .utils import workdir
 
 
 def evaluate_module(root_path: Path, workspace: Optional[Path] = None):

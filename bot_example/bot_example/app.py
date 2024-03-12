@@ -1,4 +1,3 @@
-from logging import NOTSET, DEBUG, getLogger
 from pathlib import Path
 from neonize.client import DeviceProps, NewClient
 from neonize.events import MessageEv, ConnectedEv
