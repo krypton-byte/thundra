@@ -3,14 +3,14 @@ from typing import Optional, Dict
 import tomllib, os
 from .utils import workdir
 
-with open(workdir / "thundra.toml", "r") as file:
+with open(workdir.workspace / "thundra.toml", "r") as file:
     config_toml = tomllib.loads(file.read())
 
 
 def config_format(config: Optional[Dict] = None, path="") -> dict:
     result = {}
     if config is None:
-        with open(workdir / "thundra.toml", "r") as file:
+        with open(workdir.workspace / "thundra.toml", "r") as file:
             config = tomllib.loads(file.read())
     for k, v in config.items():
         if isinstance(v, dict):

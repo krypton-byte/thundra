@@ -37,11 +37,12 @@ signal.signal(signal.SIGINT, lambda *x: event.set())
 def connected(client: NewClient, connect: ConnectedEv):
     me = app.get_me()
     me_jid = me.JID
-    Profiler.add_profile(
-        Profile(
-            workspace=workdir.__str__(), phonenumber=me_jid.User, pushname=me.PushName
+    if workdir.workspace_dir.__str__() == workdir.db.__str__():
+        Profiler.add_profile(
+            Profile(
+                workspace=workdir.workspace_dir.__str__(), phonenumber=me_jid.User, pushname=me.PushName
+            )
         )
-    )
     # def set_debug(x: bytes):
     #     getLogger().setLevel([NOTSET, DEBUG][int(x.decode())])
 

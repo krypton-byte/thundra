@@ -5,7 +5,6 @@ author = "krypton-byte"
 prefix = "\\."
 db = "db.sqlite3"
 app = "app:app"
-
 [plugins]
 sticker = {url="https://github.com/krypton-byte/sticker", branch="master", path="commands/sticker"}
 

@@ -23,7 +23,17 @@ log = getLogger("Thundra")
 log.addHandler(logging.FileHandler("log.txt", "w"))
 cwd = os.getcwd().split("/")
 base_workdir = Path(__file__).parent
-workdir = ""
+@dataclass
+class Workdir:
+    db: Path
+    workspace_dir: Optional[Path] = None
+    @property
+    def workspace(self) -> Path:
+        return self.workspace_dir or self.db_workspace
+    @property
+    def db_workspace(self):
+        return self.db
+workdir = Workdir(db=Path(''))
 
 for i in range(len(cwd) - 1):
     if i == 0:
@@ -31,12 +41,12 @@ for i in range(len(cwd) - 1):
     else:
         dir_path = "/".join(cwd[:-i])
     if "thundra.toml" in os.listdir(dir_path):
-        workdir = Path(dir_path)
+        workdir = Workdir(db=Path(dir_path), workspace_dir=Path(dir_path))
         break
 
-if not workdir:
-    print("📛 Workdir Undefined")
-    sys.exit(1)
+# if not vars().get('workdir'):
+#     print("📛 Workdir Undefined")
+#     sys.exit(1)
 
 
 @dataclass

@@ -7,7 +7,7 @@ from .utils import workdir
 def evaluate_module(root_path: Path):
     sys.path.append(root_path.__str__())
     for path, _, files in os.walk(root_path):
-        path_o = Path(path).relative_to(workdir.parent)
+        path_o = Path(path).relative_to(workdir.workspace.parent)
         for file in filter(lambda x: x.endswith(".py"), files):
             path_list = (
                 path_o.__str__().strip("/").split("/")

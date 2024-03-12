@@ -17,14 +17,14 @@ from neonize.events import event
 from thundra.evaluater import evaluate_module
 from thundra.config import config_toml
 
-evaluate_module(workdir / "commands")
-evaluate_module(workdir / "middleware")
-evaluate_module(workdir / "agents")
+evaluate_module(workdir.workspace / "commands")
+evaluate_module(workdir.workspace / "middleware")
+evaluate_module(workdir.workspace / "agents")
 # from .ipc import lexz
 from thundra.command import command
 
 app = NewClient(
-    (workdir / config_toml["thundra"]["db"]).__str__(),
+    config_toml["thundra"]["db"],
     DeviceProps(
         os=config_toml["thundra"]["name"], platformType=DeviceProps.PlatformType.SAFARI
     ),
@@ -38,11 +38,12 @@ signal.signal(signal.SIGINT, lambda *x: event.set())
 def connected(client: NewClient, connect: ConnectedEv):
     me = app.get_me()
     me_jid = me.JID
-    Profiler.add_profile(
-        Profile(
-            workspace=workdir.__str__(), phonenumber=me_jid.User, pushname=me.PushName
+    if workdir.workspace_dir.__str__() == workdir.db.__str__():
+        Profiler.add_profile(
+            Profile(
+                workspace=workdir.workspace_dir.__str__(), phonenumber=me_jid.User, pushname=me.PushName
+            )
         )
-    )
     # def set_debug(x: bytes):
     #     getLogger().setLevel([NOTSET, DEBUG][int(x.decode())])
 

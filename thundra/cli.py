@@ -5,7 +5,7 @@ import argparse, os
 import tomllib
 import shutil
 import sys
-
+import os
 from thundra.profiler import Profiler
 
 
@@ -18,6 +18,8 @@ run = action.add_parser(name="run")
 run.add_argument(
     "--phone-number", type=str, help="using pairphone as authentication, default qr"
 )
+run.add_argument("--workspace", type=str, help="Profile ID of workspace")
+run.add_argument("--db", type=str, help="Profile ID of db")
 run.add_argument("--push-notification", action="store_true", default=False)
 test = action.add_parser(name="test")
 
@@ -33,6 +35,7 @@ profile_action = profile.add_subparsers(
 delete_profile = profile_action.add_parser("delete")
 delete_profile.add_argument("ids", nargs="*")
 profile_action.add_parser("list")
+profile_action.add_parser("info").add_argument("id", nargs=1)
 parse = arg.parse_args()
 
 
@@ -60,28 +63,47 @@ def main():
                 else:
                     shutil.copy(content, dest)
         case "test":
-            from .utils import workdir
             from .config import config_toml
+            os.environ.update(config_toml['thundra'].get('env', {}))
+            from .utils import workdir
 
-            sys.path.insert(0, workdir.__str__())
+            sys.path.insert(0, workdir.workspace_dir.__str__())
             dirs, client = config_toml["thundra"]["app"].split(":")
             app = __import__(dirs)
-            sys.path.remove(workdir.__str__())
+            sys.path.remove(workdir.workspace_dir.__str__())
             from .test import tree_test
 
             tree_test()
         case "run":
             from .utils import workdir
+            profiler=Profiler.get_profiler()
+            if parse.workspace:
+                profile=profiler.get_profile(parse.workspace)
+                workdir.workspace_dir = Path(profile.workspace)
+                os.chdir(workdir.workspace)
+                if workdir.db.__str__() == '.':
+                    print(profile.db_path())
+                    workdir.db = Path(profile.db_path()).parent
+                    workdir_db = profile.db_path()
+                else:
+                    with open(workdir.db / "thundra.toml") as file:
+                        workdir_db = workdir.db / tomllib.loads(file.read())['thundra']['db']
+            if parse.db:
+                profile=profiler.get_profile(parse.db)
+                workdir.db = Path(profile.db_path()).parent
+                workdir_db = profile.db_path()
             from .config import config_toml
+            os.environ.update(config_toml['thundra'].get('env', {}))
+            from .utils import workdir
             from .agents import agent
             from .command import command
             from .middleware import middleware
-
             print("🚀 starting %r" % config_toml["thundra"]["name"])
-            sys.path.insert(0, workdir.__str__())
+            config_toml['thundra']['db'] = workdir_db.__str__()
+            sys.path.insert(0, workdir.workspace_dir.__str__())
             dirs, client = config_toml["thundra"]["app"].split(":")
             app = __import__(dirs)
-            sys.path.remove(workdir.__str__())
+            sys.path.remove(workdir.workspace_dir.__str__())
             print(
                 f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
             )
@@ -98,19 +120,27 @@ def main():
             # print(config_format(config_toml))
             import re
 
+            print(config_toml)
             print("NotImplemented yet")
         case "profile":
+            profiler = Profiler.get_profiler()
             match parse.profile_action:
                 case "list":
-                    for profile in Profiler.get_profiler():
+                    for profile in profiler:
                         print(
                             f"""
                         {profile.get_id()}:\n\tworkpace: {profile.workspace}\n\t{(f'db: {profile.db_path()}') if profile.db_exist() else ''}\n\tpushname: {profile.pushname}\n\tphone number: {profile.phonenumber}
                         """.strip()
                         )
                 case "delete":
-                    Profiler.get_profiler().delete_profile(*parse.ids)
-
+                    profiler.delete_profile(*parse.ids)
+                case "info":
+                    profile = profiler.get_profile(parse.id[0])
+                    print(
+                            f"""
+                        {parse.id[0]}:\n\tworkpace: {profile.workspace}\n\t{(f'db: {profile.db_path()}') if profile.db_exist() else ''}\n\tpushname: {profile.pushname}\n\tphone number: {profile.phonenumber}
+                        """.strip()
+                        )
 
 if __name__ == "__main__":
     main()

@@ -2,10 +2,12 @@ from dataclasses import dataclass
 from os import path
 from pathlib import Path
 from typing import List
-from tortoise.models import Model
-from tortoise import fields, Tortoise, json
 import tomllib
 import appdirs
+import json
+
+class ProfileNotExist(Exception):
+    pass
 
 
 @dataclass
@@ -102,3 +104,9 @@ class Profiler(List[Profile]):
         new_list = [profile for profile in self if profile.get_id() not in alias]
         if len(new_list) != len(self):
             Profiler(new_list).save()
+    
+    def get_profile(self, alias: str) -> Profile:
+        for profile in self:
+            if profile.get_id() == alias:
+                return profile
+        raise ProfileNotExist()
