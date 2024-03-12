@@ -30,7 +30,7 @@ def config_format(config: Optional[Dict] = None, path="") -> dict:
 
 @dataclass
 class Config:
-    prefix: str = config_toml['thundra']['prefix']
+    prefix: str = config_toml["thundra"]["prefix"]
 
 
 config = Config()

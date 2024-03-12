@@ -163,8 +163,10 @@ command = GlobalCommand()
 
 
 class Command(Filter):
-    def __init__(self, command: str, prefix: Optional[str] = None, space_detection: bool = False) -> None:
-        self.command = command + (' 'if space_detection else '')
+    def __init__(
+        self, command: str, prefix: Optional[str] = None, space_detection: bool = False
+    ) -> None:
+        self.command = command + (" " if space_detection else "")
         self.prefix = config.prefix if prefix is None else prefix
         super().__init__()
 
