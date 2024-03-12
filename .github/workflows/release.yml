@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: set release version
+        required: true
+
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '^1.21.5'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python - -y
+        poetry install
+    - name: Publish
+      run: |
+        poetry version ${{ github.event.inputs.version }}
+        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+        poetry build && poetry publish

@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+from neonize.client import re
 from tomli_w import dumps
 
 import argparse, os
@@ -7,7 +8,7 @@ import tomllib
 import shutil
 import sys
 import os
-from thundra.plugins import Plugin
+
 from thundra.profiler import Profiler, VirtualEnv
 
 
@@ -63,14 +64,18 @@ def main():
                 input("Owner [6283172366463]: ") or "6283172366463"
             ]
             toml_template["thundra"]["prefix"] = input(r"Prefix [\\.] : ") or "\\."
-            open("thundra.toml", "w").write(dumps(toml_template))
-            dest = os.getcwd()
+            importable_name = re.findall(r'[\w\ ]+',re.sub(r'[\ \-]+', '_', toml_template['thundra']['name']))[0]
+            dest = os.getcwd() + "/" + importable_name
             print("🚀 create %r project" % toml_template["thundra"]["name"])
+            os.mkdir(importable_name)
             for content in Path(os.path.dirname(__file__) + "/templates").iterdir():
                 if content.is_dir():
-                    shutil.copytree(content, dest + "/" + content.name)
+                    if content.name == "app":
+                        shutil.copytree(content, dest, dirs_exist_ok=True)
                 else:
-                    shutil.copy(content, dest)
+                    shutil.copy(content, os.getcwd())
+            toml_template['thundra']['app'] = f"{importable_name}.app:app"
+            open("thundra.toml", "w").write(dumps(toml_template))
         case "test":
             from .config import config_toml
 
@@ -125,6 +130,8 @@ def main():
             print(
                 f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
             )
+            for attr in dirs.split('.')[1:]:
+                app = getattr(app, attr)
             if parse.phone_number:
                 app.__getattribute__(client).PairPhone(
                     parse.phone_number, parse.push_notification
@@ -132,7 +139,7 @@ def main():
             else:
                 app.__getattribute__(client).connect()
         case "plugin":
-            from .plugins import PluginSource
+            from .plugins import PluginSource, Plugin
             match parse.plugin_action:
                 case "install":
                     username, repo=parse.git_url[0].split("/")

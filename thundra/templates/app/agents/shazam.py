@@ -1,5 +1,6 @@
 from neonize.proto.Neonize_pb2 import Message
 from neonize.client import NewClient, MediaType
+import magic
 from neonize.utils.ffmpeg import FFmpeg
 from thundra.agents import agent, tool, ExtendedTextMessage
 from neonize.proto.def_pb2 import AudioMessage, VideoMessage

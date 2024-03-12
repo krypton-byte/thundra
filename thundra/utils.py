@@ -20,7 +20,6 @@ import os
 
 
 log = getLogger("Thundra")
-log.addHandler(logging.FileHandler("log.txt", "w"))
 cwd = os.getcwd().split("/")
 base_workdir = Path(__file__).parent
 

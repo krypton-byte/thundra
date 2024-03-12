@@ -4,8 +4,8 @@ from neonize.events import MessageEv, ConnectedEv
 import yaml
 from neonize.utils.jid import Jid2String, JIDToNonAD
 from thundra.chain import execute_agent
-from thundra.profiler import Profile, Profiler
 from thundra.storage import storage, File
+from thundra.profiler import Profile, Profiler
 from thundra.types import MediaMessageType, MessageWithContextInfoType
 from thundra.core.memory import memory
 from thundra.utils import ChainMessage, get_tag, get_user_id, workdir, get_message_type
@@ -20,7 +20,6 @@ from thundra.config import config_toml
 evaluate_module(workdir.workspace / "commands")
 evaluate_module(workdir.workspace / "middleware")
 evaluate_module(workdir.workspace / "agents")
-# from .ipc import lexz
 from thundra.command import command
 
 app = NewClient(
@@ -28,7 +27,6 @@ app = NewClient(
     DeviceProps(
         os=config_toml["thundra"]["name"], platformType=DeviceProps.PlatformType.SAFARI
     ),
-    uuid=config_toml["thundra"]["name"],
 )
 
 signal.signal(signal.SIGINT, lambda *x: event.set())
@@ -74,26 +72,26 @@ def on_message(client: NewClient, message: MessageEv):
     r = middleware.execute(client, message)
     if r in [False, None]:
         cmd = command.execute(client, message)
-        # if not cmd:
-        #     save_to_storage(message)
-        #     chat = message.Info.MessageSource.Chat
-        #     sender = message.Info.MessageSource.Sender
-        #     context = memory.get_memory(get_user_id(message))
-        #     if sender.User == chat.User:
-        #         yamlx = yaml.dump(ChainMessage(message.Message, message).to_json())
-        #         client.send_message(
-        #             chat,
-        #             execute_agent(context, client, message).invoke(yamlx)["output"],
-        #         )
-        #     elif client.my_tag in get_tag(message.Message):
-        #         save_to_storage(message)
-        #         yamlx = yaml.dump(
-        #             ChainMessage(message.Message, message).to_json()
-        #         ).replace(f"@{client.my_number}".strip(), "")
-        #         client.reply_message(
-        #             execute_agent(context, client, message).invoke(yamlx)["output"],
-        #             quoted=message,
-        #         )
+        if not cmd:
+            save_to_storage(message)
+            chat = message.Info.MessageSource.Chat
+            sender = message.Info.MessageSource.Sender
+            context = memory.get_memory(get_user_id(message))
+            if sender.User == chat.User:
+                yamlx = yaml.dump(ChainMessage(message.Message, message).to_json())
+                client.send_message(
+                    chat,
+                    execute_agent(context, client, message).invoke(yamlx)["output"],
+                )
+            elif client.my_tag in get_tag(message.Message):
+                save_to_storage(message)
+                yamlx = yaml.dump(
+                    ChainMessage(message.Message, message).to_json()
+                ).replace(f"@{client.my_number}".strip(), "")
+                client.reply_message(
+                    execute_agent(context, client, message).invoke(yamlx)["output"],
+                    quoted=message,
+                )
 
 
 if __name__ == "__main__":

@@ -9,10 +9,7 @@ from ..config import config_format, config_toml
 
 import re
 
-# Definisikan pola regex untuk mencocokkan setiap pengganti
 
-
-# Temukan semua kecocokan dalam teks
 def build_system_message():
     pattern = r"\{([^}]*)\}"
     base_system_message = config_toml["openai"]["agent"]["system_message"]
