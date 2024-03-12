@@ -15,8 +15,6 @@ from langchain.tools import tool
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
-print("wokerrgksih")
-
 
 @agent.tool(str, ExtendedTextMessage, ImageMessage, VideoMessage)
 def sticker(client: NewClient, message: Message):
