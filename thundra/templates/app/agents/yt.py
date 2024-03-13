@@ -21,7 +21,7 @@ def parse_duration(time: int):
 def search_music_yt(query: str) -> str:
     data = 'anda harus mengirimkannya secara eksplisit dan keseluruhan tidak hanya official saja dan tambahkan pesan "jika ingin mendownload anda bisa mereply sesuai nomer yg ingin di download"\n\n'
     video: YouTube
-    for index, video in enumerate(Search(query).results, 1):
+    for index, video in enumerate(Search(query).results or [], 1):
         data += f"""{index}. {video.title}\n  author: {video.author}\n  durasi: {parse_duration(video.length)}\n  link: {video.watch_url}\n"""
     return data
 
@@ -43,7 +43,6 @@ def YoutubeMusicDownloader(client: NewClient, message: Message):
         "Empower to download music from youtube by youtube url"
         selected: Stream = YouTube(url).streams.filter(type="audio").order_by("abr")[0]
         file = selected.download(tempfile.gettempdir())
-        print("file: ", file)
         with FFmpeg(file) as music:
             audio = music.to_mp3()
             client.send_audio(

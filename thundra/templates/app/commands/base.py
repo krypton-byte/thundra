@@ -39,12 +39,10 @@ def debug(client: NewClient, message: Message):
 
 @command.register(name="shell", filter=Command(">", prefix="") & Owner())
 def evaluater(client: NewClient, message: Message):
-    msg = ""
     try:
-        msg += eval(ChainMessage.extract_text(message.Message)[1:].strip()).__str__()
+        msg = eval(ChainMessage.extract_text(message.Message)[1:].strip()).__str__()
     except Exception as e:
-        msg += "Exception:" + e.__str__()
-        raise e
+        msg = "Exception:" + e.__str__()
     client.reply_message(msg, message)
 
 
