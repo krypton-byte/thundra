@@ -87,15 +87,26 @@ def main():
             toml_template["thundra"]["app"] = f"{importable_name}.app:app"
             open("thundra.toml", "w").write(dumps(toml_template))
         case "test":
-            from .config import config_toml
-
-            os.environ.update(config_toml["thundra"].get("env", {}))
             from .utils import workdir
+            with open(workdir.db / "thundra.toml") as file:
+                workdir_db = workdir.db / tomllib.loads(file.read())["thundra"]["db"]
+            from .config import config_toml
+            os.environ.update(config_toml["thundra"].get("env", {}))
+            VirtualEnv.get_env().activate(workdir.workspace.__str__())
+            from .utils import workdir
+            from .agents import agent
+            from .command import command
+            from .middleware import middleware
 
+            print("🚀 starting %r" % config_toml["thundra"]["name"])
+            config_toml["thundra"]["db"] = workdir_db.__str__()
             sys.path.insert(0, workdir.workspace_dir.__str__())
             dirs, client = config_toml["thundra"]["app"].split(":")
             app = __import__(dirs)
             sys.path.remove(workdir.workspace_dir.__str__())
+            print(
+                f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
+            )
             from .test import tree_test
 
             tree_test()
