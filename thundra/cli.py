@@ -88,9 +88,11 @@ def main():
             open("thundra.toml", "w").write(dumps(toml_template))
         case "test":
             from .utils import workdir
+
             with open(workdir.db / "thundra.toml") as file:
                 workdir_db = workdir.db / tomllib.loads(file.read())["thundra"]["db"]
             from .config import config_toml
+
             os.environ.update(config_toml["thundra"].get("env", {}))
             VirtualEnv.get_env().activate(workdir.workspace.__str__())
             from .utils import workdir

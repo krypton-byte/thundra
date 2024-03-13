@@ -148,11 +148,31 @@ class Command(Filter):
     def __init__(
         self, command: str, prefix: Optional[str] = None, space_detection: bool = False
     ) -> None:
+        """
+        Initializes a Command instance.
+
+        :param command: The command that this instance will represent.
+        :type command: str
+        :param prefix: An optional prefix for the command, defaults to None. If no prefix is provided, the prefix from the global config will be used.
+        :type prefix: Optional[str], optional
+        :param space_detection: A flag indicating whether to append a space to the command, defaults to False.
+        :type space_detection: bool, optional
+        """
         self.command = command + (" " if space_detection else "")
         self.prefix = config.prefix if prefix is None else prefix
         super().__init__()
 
     def filter(self, client: NewClient, message: Message) -> bool:
+        """
+        Checks whether the provided message starts with the command this instance represents.
+
+        :param client: The client that received the message.
+        :type client: NewClient
+        :param message: The message to check.
+        :type message: Message
+        :return: True if the message starts with the command, False otherwise.
+        :rtype: bool
+        """
         text = ChainMessage.extract_text(message.Message)
         matched = re.match(self.prefix, text)
         if matched:
@@ -168,15 +188,34 @@ class Command(Filter):
 
 class MessageType(Filter):
     def __init__(self, *types: Type[IMessageType]) -> None:
+        """Initialize MessageType filter with specified message types.
+
+        :param types: Types of messages to be filtered.
+        :type types: Type[IMessageType]
+        """
         self.types = types
 
-    def filter(self, client: NewClient, message: Message):
+    def filter(self, client: NewClient, message: Message) -> bool:
+        """Filter messages based on their types.
+
+        :param client: The client object.
+        :type client: NewClient
+        :param message: The message object.
+        :type message: Message
+        :return: True if the message type matches any of the specified types, False otherwise.
+        :rtype: bool
+        """
         for _, v in message.Message.ListFields():
             if v.__class__ in self.types:
                 return True
         return False
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Representation of MessageType filter.
+
+        :return: String representation of the filter.
+        :rtype: str
+        """
         types = " | ".join(map(lambda x: x.__name__, self.types))
         if self.types.__len__() > 1:
             return f"({types})"
@@ -184,5 +223,14 @@ class MessageType(Filter):
 
 
 class Owner(Filter):
-    def filter(self, client: NewClient, message: Message):
+    def filter(self, client: NewClient, message: Message) -> bool:
+        """Filter messages based on whether the sender is the owner.
+
+        :param client: The client object.
+        :type client: NewClient
+        :param message: The message object.
+        :type message: Message
+        :return: True if the sender is the owner, False otherwise.
+        :rtype: bool
+        """
         return message.Info.MessageSource.Sender.User in config_toml["thundra"]["owner"]
