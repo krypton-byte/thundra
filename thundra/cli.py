@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+import zipfile
 from neonize.client import re
 from tomli_w import dumps
 
@@ -32,15 +33,16 @@ types = plugins.add_subparsers(title="type", dest="plugin_action", required=True
 plugin_install = types.add_parser("install")
 plugin_uninstall = types.add_parser("uninstall")
 plugin_install.add_argument(
-    "-r", nargs=1, help="github repository, user/repo", dest="git_url", required=True
+    "git_url", nargs=1, help="github repository, user/repo"
 )
 plugin_uninstall.add_argument(
-    "-r", nargs=1, help="github repository, user/repo", dest="git_url", required=True
+    "git_url", nargs=1, help="github repository, user/repo"
 )
 
 plugin_install.add_argument(
     "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
 )
+plugin_install.add_argument("-s", type=str, help="sha/commits", dest="sha")
 plugin_uninstall.add_argument(
     "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
 )
@@ -117,7 +119,8 @@ def main():
             from .plugins import PluginSource
 
             for package in config_toml["plugins"].values():
-                PluginSource(package["username"], package["repository"]).download_head(
+                PluginSource(package["username"], package["repository"]).download_from_sha(
+                    package['sha'],
                     package["branch"]
                 ).install()
         case "run":
@@ -168,11 +171,16 @@ def main():
 
             match parse.plugin_action:
                 case "install":
-                    username, repo = parse.git_url[0].split("/")
-                    plugin = PluginSource(username=username, repository=repo)
-                    if not parse.branch:
-                        parse.branch = plugin.branch()[0]["name"]
-                    plugin.download_head(parse.branch).install()
+                    try:
+                        username, repo = parse.git_url[0].split("/")
+                        plugin = PluginSource(username=username, repository=repo)
+                        if not parse.branch:
+                            parse.branch = plugin.branch()[0]["name"]
+                        if not parse.sha:
+                            parse.sha = plugin.get_last_commit_sha(parse.branch)
+                        plugin.download_from_sha(parse.sha, parse.branch).install()
+                    except zipfile.BadZipFile:
+                        print(f"failed to install, check your git url")
                 case "uninstall":
                     username, repo = parse.git_url[0].split("/")
                     plugins: List[Plugin] = []
@@ -183,8 +191,7 @@ def main():
                     else:
                         plugins.extend(Plugin.find_by_author_and_name(username, repo))
                     for plugin in plugins:
-                        shutil.rmtree(plugin.path)
-                        print(f"[deleted] {plugin.name}")
+                        plugin.uninstall()
                     if not plugins:
                         print(f"[plugin] {parse.git_url[0]} not found")
                 case "list":
