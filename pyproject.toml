@@ -21,7 +21,6 @@ pytube = "^15.0.0"
 langchain = "^0.1.11"
 tomli-w = "^1.0.0"
 langchain-openai = "^0.0.8"
-shazamio = "^0.5.1"
 graphviz = "^0.20.1"
 appdirs = "^1.4.4"
 
