@@ -153,17 +153,15 @@ class Profiler(List[Profile]):
         if not cls.path.exists():
             return cls()
         for key, val in json.loads(open(cls.path, "r").read()).items():
-            args = {"workspace": key, **val}
-            profile = Profile(**args)
-            profile.duplicate_count = names.count(profile.get_name())
-            names.append(profile.get_name())
-            profiles.append(profile)
-        return cls(
-            [
-                Profile(**{"workspace": key, **val})
-                for key, val in json.loads(open(cls.path, "r").read()).items()
-            ]
-        )
+            try:
+                args = {"workspace": key, **val}
+                profile = Profile(**args)
+                profile.duplicate_count = names.count(profile.get_name())
+                names.append(profile.get_name())
+                profiles.append(profile)
+            except Exception:
+                pass
+        return profiles
 
     def delete_profile(self, *alias: str):
         new_list = [profile for profile in self if profile.get_id() not in alias]
