@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 from os import path
 from pathlib import Path
@@ -147,7 +148,7 @@ class Profiler(List[Profile]):
             )
 
     @classmethod
-    def get_profiler(cls):
+    def get_profiler(cls) -> Profiler:
         names = []
         profiles = []
         if not cls.path.exists():
@@ -161,7 +162,7 @@ class Profiler(List[Profile]):
                 profiles.append(profile)
             except Exception:
                 pass
-        return profiles
+        return cls(profiles)
 
     def delete_profile(self, *alias: str):
         new_list = [profile for profile in self if profile.get_id() not in alias]
