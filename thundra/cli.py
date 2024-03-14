@@ -32,12 +32,8 @@ plugins = action.add_parser("plugin")
 types = plugins.add_subparsers(title="type", dest="plugin_action", required=True)
 plugin_install = types.add_parser("install")
 plugin_uninstall = types.add_parser("uninstall")
-plugin_install.add_argument(
-    "git_url", nargs=1, help="github repository, user/repo"
-)
-plugin_uninstall.add_argument(
-    "git_url", nargs=1, help="github repository, user/repo"
-)
+plugin_install.add_argument("git_url", nargs=1, help="github repository, user/repo")
+plugin_uninstall.add_argument("git_url", nargs=1, help="github repository, user/repo")
 
 plugin_install.add_argument(
     "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
@@ -102,15 +98,11 @@ def main():
             from .command import command
             from .middleware import middleware
 
-            print("🚀 starting %r" % config_toml["thundra"]["name"])
             config_toml["thundra"]["db"] = workdir_db.__str__()
             sys.path.insert(0, workdir.workspace_dir.__str__())
             dirs, client = config_toml["thundra"]["app"].split(":")
             app = __import__(dirs)
             sys.path.remove(workdir.workspace_dir.__str__())
-            print(
-                f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
-            )
             from .test import tree_test
 
             tree_test()
@@ -119,10 +111,9 @@ def main():
             from .plugins import PluginSource
 
             for package in config_toml["plugins"].values():
-                PluginSource(package["username"], package["repository"]).download_from_sha(
-                    package['sha'],
-                    package["branch"]
-                ).install()
+                PluginSource(
+                    package["username"], package["repository"]
+                ).download_from_sha(package["sha"], package["branch"]).install()
         case "run":
             from .utils import workdir
 

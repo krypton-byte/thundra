@@ -24,7 +24,9 @@ class Response404(Exception):
 
 
 class PluginZip:
-    def __init__(self, fp: BytesIO, username: str, repos: str, branch: str,sha: str) -> None:
+    def __init__(
+        self, fp: BytesIO, username: str, repos: str, branch: str, sha: str
+    ) -> None:
         self.username = username
         self.repos = repos
         self.branch = branch
@@ -53,19 +55,22 @@ class PluginZip:
         from .config import config_toml
 
         name = self.username + "-" + self.repos
-        if not config_toml.get('plugins'):
-            config_toml['plugins'] = {}
+        if not config_toml.get("plugins"):
+            config_toml["plugins"] = {}
         config_toml["plugins"][name] = {
             "username": self.username,
             "repository": self.repos,
             "sha": self.sha,
-            "branch": self.branch
+            "branch": self.branch,
         }
         write_config_toml(config_toml)
         for lib in duplicate:
-            if self.username != lib.path.parent.name and self.repos != lib.repo_name and self.sha != lib.sha:
+            if (
+                self.username != lib.path.parent.name
+                and self.repos != lib.repo_name
+                and self.sha != lib.sha
+            ):
                 lib.uninstall()
-
 
 
 @dataclass
@@ -89,12 +94,15 @@ class Plugin:
             f"name: {self.name}\nauthor: {self.author}\nsha: {self.sha}\nversion: {self.version}\ndependencies: \n\t-"
             + "\n\t-".join(self.dependencies)
         )
+
     def uninstall(self):
         shutil.rmtree(self.path)
         from .config import config_toml
+
         name = self.path.parent.name + "-" + self.repo_name
-        config_toml['plugins'].pop(name)
+        config_toml["plugins"].pop(name)
         write_config_toml(config_toml)
+
     @classmethod
     def find_full_args(cls, author: str, name: str, sha: str) -> Self:
         with open(
@@ -115,14 +123,16 @@ class Plugin:
                 if isinstance(val, list):
                     plugin.includes.append(PluginDirType(plugin_type, val))
             return plugin
+
     @property
     def repo_name(self) -> str:
-        return re.search(r'(.*)\-(\w+)', self.path.name).group(1)  # type: ignore
+        return re.search(r"(.*)\-(\w+)", self.path.name).group(1)  # type: ignore
+
     @classmethod
     def find_by_author_and_name(cls, author: str, name: str) -> Iterable[Self]:
         g = f"{extract_path}/{author}/{name}-*"
         for full_path in glob.glob(g):
-            branch = re.search(r'(.*)\-(\w+)', full_path.split('/')[-1])
+            branch = re.search(r"(.*)\-(\w+)", full_path.split("/")[-1])
             if branch:
                 yield cls.find_full_args(author, name, branch.group(2))
 
@@ -175,7 +185,11 @@ class PluginSource(requests.Session):
         )
         if req.status_code == 200:
             return PluginZip(
-                BytesIO(req.content), self.git_username, self.repository, self.get_last_commit_sha(branch),branch
+                BytesIO(req.content),
+                self.git_username,
+                self.repository,
+                self.get_last_commit_sha(branch),
+                branch,
             )
         raise Response404(branch)
 
@@ -185,9 +199,27 @@ class PluginSource(requests.Session):
         ).json()
 
     def get_last_commit_sha(self, branch: str) -> str:
-        data = self.get(f"https://api.github.com/repos/{self.git_username}/{self.repository}/commits/{branch}").json()
-        print('[!] last update date %s by @%s' % (datetime.fromisoformat(data['commit']['author']['date']).strftime('%D'), data['commit']['author']['name']))
-        return data['sha']
-    
+        data = self.get(
+            f"https://api.github.com/repos/{self.git_username}/{self.repository}/commits/{branch}"
+        ).json()
+        print(
+            "[!] last update date %s by @%s"
+            % (
+                datetime.fromisoformat(data["commit"]["author"]["date"]).strftime("%D"),
+                data["commit"]["author"]["name"],
+            )
+        )
+        return data["sha"]
+
     def download_from_sha(self, sha: str, branch: str) -> PluginZip:
-        return PluginZip(BytesIO(self.get(f'https://codeload.github.com/{self.git_username}/{self.repository}/zip/{sha}').content), self.git_username, self.repository, branch,sha)
+        return PluginZip(
+            BytesIO(
+                self.get(
+                    f"https://codeload.github.com/{self.git_username}/{self.repository}/zip/{sha}"
+                ).content
+            ),
+            self.git_username,
+            self.repository,
+            branch,
+            sha,
+        )
