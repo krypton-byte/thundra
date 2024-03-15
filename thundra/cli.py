@@ -2,16 +2,17 @@ from pathlib import Path
 from typing import List
 import zipfile
 from neonize.client import re
+import logging
 from tomli_w import dumps
-
+import shlex
 import argparse, os
 import tomllib
 import shutil
 import sys
 import os
-
+from neonize.utils import log
 from thundra.profiler import Profiler, VirtualEnv
-
+import watchfiles
 
 arg = argparse.ArgumentParser()
 action = arg.add_subparsers(title="action", dest="action", required=True)
@@ -22,6 +23,12 @@ create.add_argument("--name", type=str, nargs=1)
 run = action.add_parser(name="run")
 run.add_argument(
     "--phone-number", type=str, help="using pairphone as authentication, default qr"
+)
+run.add_argument(
+    "--dev", action="store_true", default=False, help="activate dev mode (auto reload)"
+)
+run.add_argument(
+    "--verbose", action="store_true", default=False, help="set log level to verbose"
 )
 run.add_argument("--workspace", type=str, help="Profile ID of workspace")
 run.add_argument("--db", type=str, help="Profile ID of db")
@@ -117,46 +124,61 @@ def main():
         case "run":
             from .utils import workdir
 
-            profiler = Profiler.get_profiler()
-            with open(workdir.db / "thundra.toml") as file:
-                workdir_db = workdir.db / tomllib.loads(file.read())["thundra"]["db"]
-            if parse.workspace:
-                profile = profiler.get_profile(parse.workspace)
-                workdir.workspace_dir = Path(profile.workspace)
-                os.chdir(workdir.workspace)
-                if workdir.db.__str__() == ".":
-                    workdir.db = Path(profile.db_path()).parent
-                    workdir_db = profile.db_path()
-            if parse.db:
-                profile = profiler.get_profile(parse.db)
-                workdir.db = Path(profile.db_path()).parent
-                workdir_db = profile.db_path()
-            from .config import config_toml
-
-            os.environ.update(config_toml["thundra"].get("env", {}))
-            VirtualEnv.get_env().activate(workdir.workspace.__str__())
-            from .utils import workdir
-            from .agents import agent
-            from .command import command
-            from .middleware import middleware
-
-            print("🚀 starting %r" % config_toml["thundra"]["name"])
-            config_toml["thundra"]["db"] = workdir_db.__str__()
-            sys.path.insert(0, workdir.workspace_dir.__str__())
-            dirs, client = config_toml["thundra"]["app"].split(":")
-            app = __import__(dirs)
-            sys.path.remove(workdir.workspace_dir.__str__())
-            print(
-                f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
-            )
-            for attr in dirs.split(".")[1:]:
-                app = getattr(app, attr)
-            if parse.phone_number:
-                app.__getattribute__(client).PairPhone(
-                    parse.phone_number, parse.push_notification
+            if parse.dev:
+                cmd = sys.orig_argv.copy()
+                cmd.remove("--dev")
+                if "--verbose" not in cmd:
+                    cmd.append("--verbose")
+                watchfiles.run_process(
+                    ".",
+                    watch_filter=lambda mode, file: file.endswith(".py"),
+                    target=shlex.join(cmd),
                 )
             else:
-                app.__getattribute__(client).connect()
+                profiler = Profiler.get_profiler()
+                with open(workdir.db / "thundra.toml") as file:
+                    workdir_db = (
+                        workdir.db / tomllib.loads(file.read())["thundra"]["db"]
+                    )
+                if parse.workspace:
+                    profile = profiler.get_profile(parse.workspace)
+                    workdir.workspace_dir = Path(profile.workspace)
+                    os.chdir(workdir.workspace)
+                    if workdir.db.__str__() == ".":
+                        workdir.db = Path(profile.db_path()).parent
+                        workdir_db = profile.db_path()
+                if parse.db:
+                    profile = profiler.get_profile(parse.db)
+                    workdir.db = Path(profile.db_path()).parent
+                    workdir_db = profile.db_path()
+                from .config import config_toml
+
+                os.environ.update(config_toml["thundra"].get("env", {}))
+                VirtualEnv.get_env().activate(workdir.workspace.__str__())
+                from .utils import workdir
+                from .agents import agent
+                from .command import command
+                from .middleware import middleware
+
+                print("🚀 starting %r" % config_toml["thundra"]["name"])
+                config_toml["thundra"]["db"] = workdir_db.__str__()
+                sys.path.insert(0, workdir.workspace_dir.__str__())
+                dirs, client = config_toml["thundra"]["app"].split(":")
+                app = __import__(dirs)
+                if parse.verbose:
+                    log.setLevel(logging.DEBUG)
+                sys.path.remove(workdir.workspace_dir.__str__())
+                print(
+                    f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
+                )
+                for attr in dirs.split(".")[1:]:
+                    app = getattr(app, attr)
+                if parse.phone_number:
+                    app.__getattribute__(client).PairPhone(
+                        parse.phone_number, parse.push_notification
+                    )
+                else:
+                    app.__getattribute__(client).connect()
         case "plugin":
             from .plugins import PluginSource, Plugin
 

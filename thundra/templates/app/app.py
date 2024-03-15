@@ -44,10 +44,6 @@ def connected(client: NewClient, connect: ConnectedEv):
                 pushname=me.PushName,
             )
         )
-    # def set_debug(x: bytes):
-    #     getLogger().setLevel([NOTSET, DEBUG][int(x.decode())])
-
-    # lexz.set_handler("debug", set_debug)
     setattr(client, "my_tag", Jid2String(JIDToNonAD(me_jid)))
     setattr(client, "my_number", me_jid.User)
 
@@ -95,5 +91,4 @@ def on_message(client: NewClient, message: MessageEv):
 
 
 if __name__ == "__main__":
-    # app.connect()
-    pass
+    app.connect()

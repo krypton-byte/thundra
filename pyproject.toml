@@ -23,6 +23,7 @@ tomli-w = "^1.0.0"
 langchain-openai = "^0.0.8"
 graphviz = "^0.20.1"
 appdirs = "^1.4.4"
+watchfiles = "^0.21.0"
 
 
 [[tool.poetry.source]]
