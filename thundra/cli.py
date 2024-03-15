@@ -11,7 +11,7 @@ import shutil
 import sys
 import os
 from neonize.utils import log
-from thundra.profiler import Profiler, VirtualEnv
+from .profiler import Profiler, VirtualEnv
 import watchfiles
 
 arg = argparse.ArgumentParser()
