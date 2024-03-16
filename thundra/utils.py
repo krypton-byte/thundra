@@ -19,12 +19,35 @@ log = getLogger("Thundra")
 cwd = os.getcwd().split("/")
 base_workdir = Path(__file__).parent
 
+def hidder(parent: dict):
+    for k, v in parent.items():
+        if isinstance(v, dict):
+            hidder(v)
+        elif isinstance(v, list):
+            v.clear()
+        else:
+            parent[k] = ''
+    return parent
+
 
 @dataclass
 class Workdir:
     db: Path
+    config_path: Path
     workspace_dir: Optional[Path] = None
-
+    @classmethod
+    def find(cls, path: Path):
+        cwd = path.__str__().split('/')
+        for i in range(len(cwd) - 1):
+            if i == 0:
+                dir_path = Path(os.getcwd())
+            else:
+                dir_path = Path("/".join(cwd[:-i]))
+            if (dir_path / 'thundra-dev.toml').exists():
+                return Workdir(db=dir_path, workspace_dir=dir_path, config_path=dir_path / 'thundra-dev.toml')
+            if (dir_path / 'thundra.toml').exists():
+                return Workdir(db=dir_path, workspace_dir=dir_path, config_path=dir_path / 'thundra.toml')
+        raise TypeError("Workdir Not Found")
     @property
     def workspace(self) -> Path:
         return self.workspace_dir or self.db_workspace
@@ -34,16 +57,8 @@ class Workdir:
         return self.db
 
 
-workdir = Workdir(db=Path(""))
+workdir = Workdir.find(Path(os.getcwd()))
 
-for i in range(len(cwd) - 1):
-    if i == 0:
-        dir_path = os.getcwd()
-    else:
-        dir_path = "/".join(cwd[:-i])
-    if "thundra.toml" in os.listdir(dir_path):
-        workdir = Workdir(db=Path(dir_path), workspace_dir=Path(dir_path))
-        break
 
 # if not vars().get('workdir'):
 #     print("📛 Workdir Undefined")

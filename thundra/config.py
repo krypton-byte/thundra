@@ -4,19 +4,18 @@ import tomllib
 import tomli_w
 from .utils import workdir
 
-with open(workdir.workspace / "thundra.toml", "r") as file:
+with open(workdir.config_path, "r") as file:
     config_toml = tomllib.loads(file.read())
 
-
 def write_config_toml(config: dict):
-    with open(workdir.workspace / "thundra.toml", "wb") as file:
+    with open(workdir.config_path, "wb") as file:
         tomli_w.dump(config, file)
 
 
 def config_format(config: Optional[Dict] = None, path="") -> dict:
     result = {}
     if config is None:
-        with open(workdir.workspace / "thundra.toml", "r") as file:
+        with open(workdir.config_path, "r") as file:
             config = tomllib.loads(file.read())
     for k, v in config.items():
         if isinstance(v, dict):
