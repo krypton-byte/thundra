@@ -7,6 +7,7 @@ from .utils import workdir
 with open(workdir.config_path, "r") as file:
     config_toml = tomllib.loads(file.read())
 
+
 def write_config_toml(config: dict):
     with open(workdir.config_path, "wb") as file:
         tomli_w.dump(config, file)

@@ -19,6 +19,7 @@ log = getLogger("Thundra")
 cwd = os.getcwd().split("/")
 base_workdir = Path(__file__).parent
 
+
 def hidder(parent: dict):
     for k, v in parent.items():
         if isinstance(v, dict):
@@ -26,7 +27,7 @@ def hidder(parent: dict):
         elif isinstance(v, list):
             v.clear()
         else:
-            parent[k] = ''
+            parent[k] = ""
     return parent
 
 
@@ -35,19 +36,29 @@ class Workdir:
     db: Path
     config_path: Path
     workspace_dir: Optional[Path] = None
+
     @classmethod
     def find(cls, path: Path):
-        cwd = path.__str__().split('/')
+        cwd = path.__str__().split("/")
         for i in range(len(cwd) - 1):
             if i == 0:
                 dir_path = Path(os.getcwd())
             else:
                 dir_path = Path("/".join(cwd[:-i]))
-            if (dir_path / 'thundra-dev.toml').exists():
-                return Workdir(db=dir_path, workspace_dir=dir_path, config_path=dir_path / 'thundra-dev.toml')
-            if (dir_path / 'thundra.toml').exists():
-                return Workdir(db=dir_path, workspace_dir=dir_path, config_path=dir_path / 'thundra.toml')
+            if (dir_path / "thundra-dev.toml").exists():
+                return Workdir(
+                    db=dir_path,
+                    workspace_dir=dir_path,
+                    config_path=dir_path / "thundra-dev.toml",
+                )
+            if (dir_path / "thundra.toml").exists():
+                return Workdir(
+                    db=dir_path,
+                    workspace_dir=dir_path,
+                    config_path=dir_path / "thundra.toml",
+                )
         raise TypeError("Workdir Not Found")
+
     @property
     def workspace(self) -> Path:
         return self.workspace_dir or self.db_workspace
@@ -184,7 +195,7 @@ def download_media(
     client: NewClient,
     message: MessageProto,
     types: Iterable[Type[MessageType]] | Type[MessageType],
-) -> bytes:
+) -> bytes | None:
     media_message = get_message_type(message)
     if isinstance(types, type):
         types_tuple = (types,)

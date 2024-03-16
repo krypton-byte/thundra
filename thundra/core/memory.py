@@ -56,8 +56,8 @@ class UserMemory:
         if self.memory.chat_memory.messages.__len__() > self.k * 2 - 1:
             self.memory.chat_memory.messages = [
                 self.system_message,
-                *self.memory.chat_memory.messages,
-            ]  # unoptimized
+                *self.memory.chat_memory.messages[: -self.k * 2],
+            ]
         return self.memory
 
 
