@@ -36,8 +36,7 @@ class Filter(ABC):
         return self
 
     @abstractmethod
-    def filter(self, client: NewClient, message: Message) -> bool:
-        ...
+    def filter(self, client: NewClient, message: Message) -> bool: ...
 
     def _filter(self, client: NewClient, message: Message):
         result = self.filter(client, message)

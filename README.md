@@ -1,4 +1,12 @@
 ## <p align="center">Thundra</p>
+[![Label](https://img.shields.io/badge/WHATSAPP-AUTOMATION-20B2AA?style=for-the-badge&logo=whatsapp)]()
+[![Label](https://img.shields.io/badge/AGENT-LANGCHAIN-20B2AA?style=for-the-badge&logo=openai)]()
+[![Label](https://img.shields.io/badge/whatsmeow-wrapper-20B2AA?style=for-the-badge&logo=go)]()
+
+[![Release](https://github.com/krypton-byte/thundra/actions/workflows/release.yml/badge.svg)](https://github.com/krypton-byte/thundra/actions/workflows/release.yml)
+[![Pypi](https://img.shields.io/pypi/v/neonize.svg?logo=pypi)]()
+![PyPI - Downloads](https://img.shields.io/pypi/dm/thundra?logo=pypi)
+
 <p align="center"><img src="https://raw.githubusercontent.com/krypton-byte/thundra/master/assets/logo.jpg" width="150px"/></p>
 
 Thundra is a framework designed to streamline the development of WhatsApp bots and automations. It provides a solid foundation and abstraction layer to simplify the process of creating and managing WhatsApp bots for various purposes.

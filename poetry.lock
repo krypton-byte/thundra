@@ -1054,24 +1054,6 @@ files = [
 ]
 
 [[package]]
-name = "overtake"
-version = "0.4.0"
-description = "A runtime implementation of @typing.overload."
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "overtake-0.4.0-py3-none-any.whl", hash = "sha256:ad53c852c292bdba27bff1b6044e880217c378f52e859b6f6154250e37c53254"},
-    {file = "overtake-0.4.0.tar.gz", hash = "sha256:28ed16d04eb8e59e58d43e3812d915f737df9163e1245432f063e87918e5cb42"},
-]
-
-[package.dependencies]
-typing-extensions = ">=4.7.0,<5"
-
-[package.extras]
-beartype = ["beartype (>=0.12.0,<1)"]
-pydantic = ["pydantic (>=2.0,<3)"]
-
-[[package]]
 name = "packaging"
 version = "23.2"
 description = "Core utilities for Python packages"
@@ -1978,4 +1960,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "35e4c3115ff54550f55029a185f3f78565a6522e98be22b5ea25131912b535e1"
+content-hash = "63ec3cffd5d5b471566f071468e0ee7eb4371c3f0744d6b5e5c221b31663b8ce"

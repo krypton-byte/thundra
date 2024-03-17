@@ -13,8 +13,7 @@ class Graph(ABC):
         return data
 
     @abstractmethod
-    def get_all_names(self) -> Generator[str, None, None]:
-        ...
+    def get_all_names(self) -> Generator[str, None, None]: ...
 
     @classmethod
     def combine_graph(cls, *graphs: Graph) -> str:
