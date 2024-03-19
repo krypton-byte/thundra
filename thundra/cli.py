@@ -75,7 +75,7 @@ parse = arg.parse_args()
 
 def main():
     DIRNAME = os.getcwd().split("/")[-1]
-    with open(os.path.dirname(__file__) + "/templates/thundra-dev.toml", "r") as file:
+    with open(os.path.dirname(__file__) + "/templates/thundra.toml", "r") as file:
         toml_template = tomllib.loads(file.read())
     match parse.action:
         case "create":
