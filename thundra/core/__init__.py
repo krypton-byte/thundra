@@ -1,4 +1,4 @@
-from .llm import llm
+from .llm import chat_model
 from .memory import memory
 
-__all__ = ("llm", "memory")
+__all__ = ("chat_model", "memory")

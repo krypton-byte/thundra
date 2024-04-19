@@ -3,7 +3,7 @@ from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
 from .utils import get_message_type
 from .agents import agent
-from .core.llm import llm
+from .core.llm import chat_model
 
 
 def execute_agent(memory, client: NewClient, message: Message):
@@ -14,7 +14,7 @@ def execute_agent(memory, client: NewClient, message: Message):
     return initialize_agent(
         agent="chat-conversational-react-description",
         tools=tools,
-        llm=llm,
+        llm=chat_model.llm,
         verbose=True,
         max_iterations=3,
         early_stopping_method="generate",

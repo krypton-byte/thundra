@@ -10,7 +10,7 @@ from neonize.proto.def_pb2 import (
 from thundra.utils import download_media, get_user_id
 from neonize.utils.enum import MediaType
 from thundra.storage import storage
-from thundra.core import llm, memory
+from thundra.core import chat_model, memory
 from langchain.tools import tool
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -65,7 +65,7 @@ def remove_context(client: NewClient, message: Message):
         memory.clear_history(user_id)
         if query:
             return LLMChain(
-                llm=llm,
+                llm=chat_model.llm,
                 prompt=PromptTemplate(
                     template="mari kita bahas {question}", input_variables=["question"]
                 ),

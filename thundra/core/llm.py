@@ -1,20 +1,26 @@
+from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 import os
 from ..config import config_toml
 from thundra.config import config_toml
+from threading import Event
+class LLM:
+    chat_models: BaseChatModel
+    def __init__(self) -> None:
+        self.llm_available = Event()
 
-azure = config_toml["secrets"].get("openai", {}).get("azure")
-if isinstance(azure, dict) and azure.get("api_key"):
-    openai_auth = config_toml["openai"]["azure"]
-    os.environ["AZURE_OPENAI_API_KEY"] = openai_auth["api_key"]
-    os.environ["AZURE_OPENAI_ENDPOINT"] = openai_auth["endpoint"]
-    os.environ["OPENAI_API_VERSION"] = openai_auth["api_version"]
-    llm = AzureChatOpenAI(
-        deployment_name=openai_auth["deployment_name"],
-        model_name=openai_auth["model_name"],
-    )
-else:
-    os.environ["OPENAI_API_KEY"] = (
-        config_toml["secrets"]["openai"]["openai"]["api_key"] or "invalid apikey"
-    )
-    llm = ChatOpenAI(temperature=0)
+    @property
+    def llm(self) -> BaseChatModel:
+        if not self.llm_available.is_set():
+            self.llm_available.wait()
+        return self.chat_models
+    @property
+    def available(self) -> bool:
+        return hasattr(self, 'chat_models')
+
+    @llm.setter
+    def set_llm(self, llm: BaseChatModel):
+        self.chat_models = llm
+
+
+chat_model = LLM()

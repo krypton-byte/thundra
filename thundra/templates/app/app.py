@@ -1,4 +1,5 @@
 from pathlib import Path
+from langchain_openai import ChatOpenAI
 from neonize.client import DeviceProps, NewClient
 from neonize.events import MessageEv, ConnectedEv
 import yaml
@@ -11,6 +12,7 @@ from thundra.core.memory import memory
 from thundra.utils import ChainMessage, get_tag, get_user_id, workdir, get_message_type
 from thundra.middleware import middleware
 import signal
+from thundra.core import chat_model
 from neonize.events import event
 
 # evaluate all module
@@ -29,8 +31,10 @@ app = NewClient(
     ),
 )
 
-signal.signal(signal.SIGINT, lambda *x: event.set())
+signal.signal(signal.SIGINT, lambda *x: event.set())\
 
+# set your llm in here
+# chat_model.llm = ChatOpenAI(model="", api_key="")
 
 @app.event(ConnectedEv)
 def connected(client: NewClient, connect: ConnectedEv):

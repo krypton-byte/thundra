@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import List
+import getpass
 import zipfile
 from neonize.client import re
 import logging
@@ -180,6 +181,7 @@ def main():
 
                 print("🚀 starting %r" % config_toml["thundra"]["name"])
                 config_toml["thundra"]["db"] = workdir_db.__str__()
+                os.environ.update(config_toml.get('secrets', {}))
                 sys.path.insert(0, workdir.workspace_dir.__str__())
                 dirs, client = config_toml["thundra"]["app"].split(":")
                 app = __import__(dirs)
