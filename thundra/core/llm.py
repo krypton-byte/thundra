@@ -14,13 +14,18 @@ class LLM:
         if not self.llm_available.is_set():
             self.llm_available.wait()
         return self.chat_models
+    @llm.setter
+    def llm(self, llm: BaseChatModel):
+        self.llm_available.set()
+        self.chat_models = llm
     @property
     def available(self) -> bool:
-        return hasattr(self, 'chat_models')
+        return self.llm_available.is_set()
 
-    @llm.setter
-    def set_llm(self, llm: BaseChatModel):
-        self.chat_models = llm
+    
+    def remove_llm(self):
+        del self.chat_models
+        self.llm_available = Event()
 
 
 chat_model = LLM()

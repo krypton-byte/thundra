@@ -88,6 +88,8 @@ class CommandFunc:
     description: str
     func: Callable[[NewClient, Message]]
     category: Sequence[str]
+    allow_broadcast: bool
+    on_error: Optional[str | Callable[[NewClient, Message, Exception], None]] = None
 
 
 class GlobalCommand(dict[str, CommandFunc], Graph):
@@ -112,10 +114,20 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         self.start_point += 1
 
     def execute(self, client: NewClient, message: Message):
-        for k, v in self.items():
-            if v.filter.filter(client, message):
-                v.func(client, message)
-                return True
+        for v in self.values():
+            if v.allow_broadcast or not message.Info.MessageSource.Chat.User == "broadcast":
+                if v.filter.filter(client, message):
+                    try:
+                        v.func(client, message)
+                    except Exception as e:
+                        if isinstance(v.on_error, str):
+                            client.reply_message(message.Message, message)
+                        elif v.on_error and callable(v.on_error):
+                            v.on_error(client, message, e)
+                        else:
+                            raise e
+                    return True
+
 
     def register(
         self,
@@ -123,6 +135,8 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         name: str = "",
         description: str = "",
         category: Sequence[str] = ["all"],
+        allow_broadcast: bool = False,
+        on_error: Optional[str | Callable[[NewClient, Message, Exception], None]] = None
     ):
         def command(f: Callable[[NewClient, Message], Any]):
             log.debug(f"{name} command loaded")
@@ -133,6 +147,8 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
                     description=description,
                     func=f,
                     category=category,
+                    allow_broadcast=allow_broadcast,
+                    on_error=on_error
                 )
             )
             return f
