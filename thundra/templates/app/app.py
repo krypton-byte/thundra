@@ -72,7 +72,7 @@ def on_message(client: NewClient, message: MessageEv):
     r = middleware.execute(client, message)
     if r in [False, None]:
         cmd = command.execute(client, message)
-        if not cmd:
+        if not cmd and chat_model.available:
             save_to_storage(message)
             chat = message.Info.MessageSource.Chat
             sender = message.Info.MessageSource.Sender
