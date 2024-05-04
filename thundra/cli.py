@@ -13,7 +13,6 @@ import sys
 import os
 from neonize.utils import log
 import tomli_w
-import watchfiles
 from pathlib import Path
 
 arg = argparse.ArgumentParser()
@@ -142,13 +141,19 @@ def main():
             from .utils import workdir
 
             if parse.dev:
+                try:
+                    import watchfiles
+                except ModuleNotFoundError:
+                    print("watchfiles dependencies are required")
+                    print("$ pip install thundra-ai[dev]")
+                    sys.exit(1)
                 cmd = sys.orig_argv.copy()
                 cmd.remove("--dev")
                 if "--verbose" not in cmd:
                     cmd.append("--verbose")
                 watchfiles.run_process(
                     ".",
-                    watch_filter=lambda mode, file: file.endswith(".py"),
+                    watch_filter=lambda _, file: file.endswith(".py"),
                     target=shlex.join(cmd),
                 )
             else:
