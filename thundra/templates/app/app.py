@@ -31,11 +31,12 @@ app = NewClient(
     ),
 )
 
-signal.signal(signal.SIGINT, lambda *x: event.set())\
+signal.signal(signal.SIGINT, lambda *x: event.set())
 
 # set your llm here
 # example:
 # chat_model.llm = ChatOpenAI(model="", api_key="")
+
 
 @app.event(ConnectedEv)
 def connected(client: NewClient, connect: ConnectedEv):

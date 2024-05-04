@@ -115,7 +115,10 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
 
     def execute(self, client: NewClient, message: Message):
         for v in self.values():
-            if v.allow_broadcast or not message.Info.MessageSource.Chat.User == "broadcast":
+            if (
+                v.allow_broadcast
+                or not message.Info.MessageSource.Chat.User == "broadcast"
+            ):
                 if v.filter.filter(client, message):
                     try:
                         v.func(client, message)
@@ -128,7 +131,6 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
                             raise e
                     return True
 
-
     def register(
         self,
         filter: Filterable,
@@ -136,7 +138,9 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         description: str = "",
         category: Sequence[str] = ["all"],
         allow_broadcast: bool = False,
-        on_error: Optional[str | Callable[[NewClient, Message, Exception], None]] = None
+        on_error: Optional[
+            str | Callable[[NewClient, Message, Exception], None]
+        ] = None,
     ):
         def command(f: Callable[[NewClient, Message], Any]):
             log.debug(f"{name} command loaded")
@@ -148,7 +152,7 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
                     func=f,
                     category=category,
                     allow_broadcast=allow_broadcast,
-                    on_error=on_error
+                    on_error=on_error,
                 )
             )
             return f

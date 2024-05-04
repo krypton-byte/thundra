@@ -182,7 +182,7 @@ def main():
                 print("🚀 starting %r" % config_toml["thundra"]["name"])
                 config_toml["thundra"]["db"] = workdir_db.__str__()
                 sys.path.insert(0, workdir.workspace_dir.__str__())
-                os.environ.update(config_toml.get('secrets', {}))
+                os.environ.update(config_toml.get("secrets", {}))
                 dirs, client = config_toml["thundra"]["app"].split(":")
                 app = __import__(dirs)
                 if parse.verbose:
