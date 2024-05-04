@@ -13,7 +13,7 @@ from ..utils import workdir
 
 APP_DATA = Path(appdirs.user_data_dir("thundra"))
 if not APP_DATA.exists():
-    APP_DATA.mkdir()
+    APP_DATA.mkdir(parents=True, exist_ok=True)
 
 
 class ProfileNotExist(Exception):

@@ -14,7 +14,7 @@ import os
 from neonize.utils import log
 import tomli_w
 import watchfiles
-
+from pathlib import Path
 
 arg = argparse.ArgumentParser()
 action = arg.add_subparsers(title="action", dest="action", required=True)
@@ -75,7 +75,7 @@ parse = arg.parse_args()
 
 
 def main():
-    DIRNAME = os.getcwd().split("/")[-1]
+    DIRNAME = Path(os.getcwd()).name
     with open(os.path.dirname(__file__) + "/templates/thundra.toml", "r") as file:
         toml_template = tomllib.loads(file.read())
     match parse.action:

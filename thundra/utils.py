@@ -39,12 +39,9 @@ class Workdir:
 
     @classmethod
     def find(cls, path: Path):
-        cwd = path.__str__().split("/")
+        cwd = path.parts
+        dir_path = path
         for i in range(len(cwd) - 1):
-            if i == 0:
-                dir_path = Path(os.getcwd())
-            else:
-                dir_path = Path("/".join(cwd[:-i]))
             if (dir_path / "thundra-dev.toml").exists():
                 return Workdir(
                     db=dir_path,
@@ -57,6 +54,7 @@ class Workdir:
                     workspace_dir=dir_path,
                     config_path=dir_path / "thundra.toml",
                 )
+            dir_path = dir_path.parent
         raise TypeError("Workdir Not Found")
 
     @property
