@@ -4,8 +4,8 @@
 [![Label](https://img.shields.io/badge/whatsmeow-wrapper-20B2AA?style=for-the-badge&logo=go)]()
 
 [![Release](https://github.com/krypton-byte/thundra/actions/workflows/release.yml/badge.svg)](https://github.com/krypton-byte/thundra/actions/workflows/release.yml)
-[![Pypi](https://img.shields.io/pypi/v/neonize.svg?logo=pypi)]()
-![PyPI - Downloads](https://img.shields.io/pypi/dm/thundra?logo=pypi)
+[![Pypi](https://img.shields.io/pypi/v/thundra-ai.svg?logo=pypi)]()
+![PyPI - Downloads](https://img.shields.io/pypi/dm/thundra-ai?logo=pypi)
 
 <p align="center"><img src="https://raw.githubusercontent.com/krypton-byte/thundra/master/assets/logo.jpg" width="150px"/></p>
 
