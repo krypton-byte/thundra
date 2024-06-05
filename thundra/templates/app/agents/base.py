@@ -1,7 +1,7 @@
 from thundra.agents import agent
 from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
-from neonize.proto.def_pb2 import (
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ExtendedTextMessage,
     ImageMessage,
     VideoMessage,

@@ -3,11 +3,12 @@ import os
 from pathlib import Path
 from typing import TYPE_CHECKING, List, Optional, Dict
 import tomllib
+from cachetools.func import ttl_cache
 import tomli_w
 from cachetools import cached, TTLCache
 
 
-cache = TTLCache(maxsize=100, ttl=60)
+cache = TTLCache(maxsize=1024, ttl=60)
 
 @dataclass
 class Config:
@@ -19,6 +20,7 @@ class Workdir:
     db: Path
     config_path: Path
     workspace_dir: Optional[Path] = None
+    config: Optional[Config] = None
 
     def write_config_toml(self, config: dict):
         """
@@ -41,7 +43,6 @@ class Workdir:
         with open(self.config_path, "r") as file:
             return tomllib.loads(file.read())
 
-    @cached(cache)
     def get_config(self) -> Config:
         """
         Reads the configuration from a TOML file and returns it as a Config object.
@@ -50,12 +51,14 @@ class Workdir:
         :return: A Config object containing the configuration data.
         :rtype: Config
         """
-        with open(self.config_path, "r") as file:
-            cf_format = tomllib.loads(file.read())
-            return Config(
-                prefix=cf_format['thundra']['prefix'],
-                owner=cf_format['thundra']['owner']
-            )
+        if self.config is None:
+            with open(self.config_path, "r") as file:
+                cf_format = tomllib.loads(file.read())
+                self.config = Config(
+                    prefix=cf_format['thundra']['prefix'],
+                    owner=cf_format['thundra']['owner']
+                )
+        return self.config
 
     def config_format(self, config: Optional[Dict] = None, path="") -> dict:
         """

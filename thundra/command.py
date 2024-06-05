@@ -17,7 +17,7 @@ from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
 from .utils import ChainMessage, log
 from .types import MessageType as IMessageType
-from .workdir import workdir
+from .workdir import workdir, config_toml
 
 
 class Filter(ABC):

@@ -5,7 +5,7 @@ from neonize.utils.ffmpeg import FFmpeg
 from thundra.utils import convert_size
 from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
-from neonize.proto.def_pb2 import ExtendedTextMessage
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import ExtendedTextMessage
 from pytube import Search, YouTube, Stream
 import os
 import tempfile
