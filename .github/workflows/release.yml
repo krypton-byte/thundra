@@ -23,6 +23,7 @@ jobs:
         curl -sSL https://install.python-poetry.org | python - -y
     - name: build docs
       run: |
+        poetry install
         poetry install --with docs
         python3 docs/build.py
     - name: Deploy docs
