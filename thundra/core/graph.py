@@ -6,11 +6,6 @@ from typing import Generator
 class Graph(ABC):
     """
     Abstract base class representing a graph with nodes and edges.
-
-    Methods:
-        graph(): Generates the graph representation of the object in a specific format.
-        get_all_names(): Abstract method to get all node names in the graph.
-        combine_graph(*graphs): Class method to combine multiple graph representations into a single graph.
     """
     
     def graph(self) -> str:

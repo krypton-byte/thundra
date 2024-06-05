@@ -11,6 +11,7 @@ from typing import (
     Optional,
     TypeVar,
     Type,
+    Union,
 )
 from .core.graph import Graph
 from neonize.client import NewClient
@@ -80,24 +81,59 @@ class OP(Enum):
 
 @dataclass
 class CommandFunc:
+    """
+    A class representing a command function with its associated metadata.
+
+    Attributes:
+        name (str): The name of the command.
+        filter (Filter | FilterOP): The filter to determine when this command should be executed.
+        description (str): A description of the command.
+        func (Callable[[NewClient, Message]]): The function to execute for this command.
+        category (Sequence[str]): Categories this command belongs to.
+        allow_broadcast (bool): Whether this command can be used in broadcast messages.
+        on_error (Optional[Union[str, Callable[[NewClient, Message, Exception], None]]]): Error handler for the command.
+    """
     name: str
     filter: Filter | FilterOP
     description: str
     func: Callable[[NewClient, Message]]
     category: Sequence[str]
     allow_broadcast: bool
-    on_error: Optional[str | Callable[[NewClient, Message, Exception], None]] = None
+    on_error: Optional[Union[str, Callable[[NewClient, Message, Exception], None]]] = None
 
 
 class GlobalCommand(dict[str, CommandFunc], Graph):
+    """
+    A class representing a global command registry that integrates with a graph.
+    Commands are stored in a dictionary with their names as keys, and can be executed
+    based on incoming messages.
+
+    Attributes:
+        start_point (int): The starting point for generating command names.
+
+    """
     start_point: int = 1
 
     def get_all_names(self) -> Generator[str, None, None]:
+        """
+        Generate the names of all commands in the registry.
+
+        :yield: The name of each command.
+        :rtype: Generator[str, None, None]
+        """
         for command in self.values():
             yield command.name
 
     @classmethod
-    def generate_name(cls, start_point: int):
+    def generate_name(cls, start_point: int) -> str:
+        """
+        Generate a unique name based on the start point.
+
+        :param start_point: The starting point for generating the name.
+        :type start_point: int
+        :return: The generated unique name.
+        :rtype: str
+        """
         point = start_point
         uid = ""
         while point > 0:
@@ -107,31 +143,33 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         return uid[::-1]
 
     def add(self, command: CommandFunc):
-        """_summary_
+        """
+        Add a command to the registry.
 
-        :param command: _description_
+        :param command: The command function to be added.
         :type command: CommandFunc
-        """        
+        """
         self.update({self.generate_name(self.start_point): command})
         self.start_point += 1
 
-    def execute(self, client: NewClient, message: Message):
-        """_summary_
+    def execute(self, client: NewClient, message: Message) -> bool:
+        """
+        Execute the appropriate command based on the given message.
 
-        :param client: _description_
+        :param client: The client instance to use for executing the command.
         :type client: NewClient
-        :param message: _description_
+        :param message: The message to process and execute the command.
         :type message: Message
-        :raises e: _description_
-        :return: _description_
-        :rtype: _type_
-        """        
+        :raises e: If an error occurs during command execution and no error handler is provided.
+        :return: True if a command is executed successfully, otherwise False.
+        :rtype: bool
+        """
         for v in self.values():
             if (
                 v.allow_broadcast
                 or not message.Info.MessageSource.Chat.User == "broadcast"
             ):
-                if v.filter.filter( client, message):
+                if v.filter.filter(client, message):
                     try:
                         v.func(client, message)
                     except Exception as e:
@@ -142,6 +180,7 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
                         else:
                             raise e
                     return True
+        return False
 
     def register(
         self,
@@ -150,26 +189,27 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         description: str = "",
         category: Sequence[str] = ["all"],
         allow_broadcast: bool = False,
-        on_error: Optional[
-            str | Callable[[NewClient, Message, Exception], None]
-        ] = None,
-    ):
-        """_summary_
+        on_error: Optional[Union[str, Callable[[NewClient, Message, Exception], None]]] = None,
+    ) -> Callable[[Callable[[NewClient, Message], Any]], Callable[[NewClient, Message], Any]]:
+        """
+        Register a new command with the provided parameters.
 
-        :param filter: _description_
+        :param filter: The filter to apply to messages for this command.
         :type filter: Filterable
-        :param name: _description_, defaults to ""
+        :param name: The name of the command, defaults to the function name if not provided.
         :type name: str, optional
-        :param description: _description_, defaults to ""
+        :param description: A description of the command, defaults to an empty string.
         :type description: str, optional
-        :param category: _description_, defaults to ["all"]
+        :param category: The categories this command belongs to, defaults to ["all"].
         :type category: Sequence[str], optional
-        :param allow_broadcast: _description_, defaults to False
+        :param allow_broadcast: Whether this command can be used in broadcast messages, defaults to False.
         :type allow_broadcast: bool, optional
-        :param on_error: _description_, defaults to None
-        :type on_error: Optional[ str  |  Callable[[NewClient, Message, Exception], None] ], optional
-        """        
-        def command(f: Callable[[NewClient, Message], Any]):
+        :param on_error: An error handler for this command, defaults to None.
+        :type on_error: Optional[Union[str, Callable[[NewClient, Message, Exception], None]]], optional
+        :return: A decorator that registers the command.
+        :rtype: Callable[[Callable[[NewClient, Message], Any]], Callable[[NewClient, Message], Any]]
+        """
+        def command(f: Callable[[NewClient, Message], Any]) -> Callable[[NewClient, Message], Any]:
             log.debug(f"{name} command loaded")
             self.add(
                 CommandFunc(
@@ -185,6 +225,7 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
             return f
 
         return command
+
 
 
 command = GlobalCommand()

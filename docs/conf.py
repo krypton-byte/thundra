@@ -7,10 +7,11 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 import os
-project = 'thundra'
+import importlib.metadata
+project = 'thundra-ai'
 copyright = '2024, krypton-byte'
 author = 'krypton-byte'
-release = '0.1.0'
+release = importlib.metadata.version('thundra-ai')
 import sys
 from pathlib import Path
 sys.path.insert(0, Path(os.getcwd()).parent.parent.__str__())
@@ -39,5 +40,5 @@ autodoc_default_flags = ["members"]
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'furo'
 # html_static_path = ['_static']

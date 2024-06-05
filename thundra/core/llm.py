@@ -8,16 +8,6 @@ class LLM:
     Attributes:
         chat_models (BaseChatModel): The chat model to be used.
         llm_available (Event): An event to signal the availability of the LLM.
-
-    Methods:
-        llm():
-            Get the currently set language model. Waits if the model is not yet set.
-        llm(llm: BaseChatModel):
-            Set the language model and signal its availability.
-        available():
-            Check if the language model is available.
-        remove_llm():
-            Remove the currently set language model and reset its availability.
     """
     chat_models: BaseChatModel
 

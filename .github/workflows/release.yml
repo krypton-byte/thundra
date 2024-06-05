@@ -7,6 +7,8 @@ on:
         description: set release version
         required: true
 
+permissions:
+  contents: write
 
 jobs:
   pypi:
@@ -19,6 +21,15 @@ jobs:
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python - -y
+    - name: build docs
+      run: |
+        poetry install --with docs
+        python3 docs/build.py
+    - name: Deploy docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/_build/html
     - name: Publish
       run: |
         poetry version ${{ github.event.inputs.version }}

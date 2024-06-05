@@ -91,10 +91,6 @@ class File:
 class FileRegistry(dict[str, File]):
     """
     A registry to manage files, allowing updates while maintaining a maximum number of stored files.
-
-    Methods:
-        update(id: str, data: File, max_data: int):
-            Updates the registry with a new file, ensuring the maximum number of files does not exceed `max_data`.
     """
 
     def update(self, id: str, data: File, max_data: int):  # type: ignore
@@ -122,16 +118,6 @@ class StorageRegistry(dict[str, FileRegistry]):
 
     Attributes:
         max_files (int): The maximum number of files allowed per user registry.
-
-    Methods:
-        save(user_id: str, file_id: str, file: File):
-            Save a file in the user's registry.
-        get_file(user_id: str, file_id: str) -> File:
-            Retrieve a specific file from the user's registry.
-        get_files(user_id: str) -> FileRegistry:
-            Retrieve all files from the user's registry.
-        get_files_by_type(user_id: str, types: Iterable[type]) -> Generator[File, None, None]:
-            Retrieve files of specific types from the user's registry.
     """
     max_files: int = 10
 
