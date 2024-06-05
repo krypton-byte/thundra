@@ -267,8 +267,60 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="thundra-core-graph-module">
-<h2>thundra.core.graph module<a class="headerlink" href="#thundra-core-graph-module" title="Link to this heading">¶</a></h2>
+<section id="module-thundra.core.graph">
+<span id="thundra-core-graph-module"></span><h2>thundra.core.graph module<a class="headerlink" href="#module-thundra.core.graph" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.core.graph.Graph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.core.graph.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.graph.Graph" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class representing a graph with nodes and edges.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.graph.Graph.combine_graph">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">combine_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">graphs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph.combine_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.graph.Graph.combine_graph" title="Link to this definition">¶</a></dt>
+<dd><p>Combines multiple graph representations into a single graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graphs</strong> (<a class="reference internal" href="#thundra.core.graph.Graph" title="thundra.core.graph.Graph"><em>Graph</em></a>) – Multiple graph objects to combine.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A string representation of the combined graph.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.graph.Graph.get_all_names">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph.get_all_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.graph.Graph.get_all_names" title="Link to this definition">¶</a></dt>
+<dd><p>Abstract method to get all node names in the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yield<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A generator yielding node names.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator[str, None, None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.graph.Graph.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph.graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.graph.Graph.graph" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a formatted string representing the graph, including its nodes and edges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string representation of the graph.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-thundra.core.llm">
 <span id="thundra-core-llm-module"></span><h2>thundra.core.llm module<a class="headerlink" href="#module-thundra.core.llm" title="Link to this heading">¶</a></h2>
@@ -341,11 +393,198 @@
 </dd></dl>
 
 </section>
-<section id="thundra-core-memory-module">
-<h2>thundra.core.memory module<a class="headerlink" href="#thundra-core-memory-module" title="Link to this heading">¶</a></h2>
+<section id="module-thundra.core.memory">
+<span id="thundra-core-memory-module"></span><h2>thundra.core.memory module<a class="headerlink" href="#module-thundra.core.memory" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.core.memory.AIMemory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.core.memory.</span></span><span class="sig-name descname"><span class="pre">AIMemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#AIMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.AIMemory" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages the memory for multiple users, each with their own conversation buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=13</em>) – The default size of the conversation buffer.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.memory.AIMemory.clear_history">
+<span class="sig-name descname"><span class="pre">clear_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#AIMemory.clear_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.AIMemory.clear_history" title="Link to this definition">¶</a></dt>
+<dd><p>Clears the chat history for a given user while retaining their initial system message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – The identifier for the user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.memory.AIMemory.delete_memory">
+<span class="sig-name descname"><span class="pre">delete_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#AIMemory.delete_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.AIMemory.delete_memory" title="Link to this definition">¶</a></dt>
+<dd><p>Deletes the memory for a given user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – The identifier for the user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.memory.AIMemory.get_memory">
+<span class="sig-name descname"><span class="pre">get_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#AIMemory.get_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.AIMemory.get_memory" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the memory for a given user. If the user does not have memory initialized,
+it creates a new instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – The identifier for the user.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The user’s conversation buffer memory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ConversationBufferWindowMemory</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.core.memory.UserMemory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.core.memory.</span></span><span class="sig-name descname"><span class="pre">UserMemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system_message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#UserMemory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.UserMemory" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents the memory for a user, including the system message and a conversation buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>system_message</strong> (<em>SystemMessage</em>) – The initial system message.</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – The size of the conversation buffer.</p></li>
+<li><p><strong>memory</strong> (<em>ConversationBufferWindowMemory</em>) – The conversation buffer memory.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.memory.UserMemory.clear_history">
+<span class="sig-name descname"><span class="pre">clear_history</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#UserMemory.clear_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.UserMemory.clear_history" title="Link to this definition">¶</a></dt>
+<dd><p>Clears the chat history while retaining the initial system message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.memory.UserMemory.create_ai_instance">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_ai_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#UserMemory.create_ai_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.UserMemory.create_ai_instance" title="Link to this definition">¶</a></dt>
+<dd><p>Creates an instance of UserMemory with the specified buffer size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>int</em>) – The size of the conversation buffer.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new instance of UserMemory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#thundra.core.memory.UserMemory" title="thundra.core.memory.UserMemory">UserMemory</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.memory.UserMemory.get_memory">
+<span class="sig-name descname"><span class="pre">get_memory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#UserMemory.get_memory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.UserMemory.get_memory" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the current conversation buffer memory, ensuring its size does not exceed 2*k messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The conversation buffer memory.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ConversationBufferWindowMemory</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.core.memory.UserMemory.k">
+<span class="sig-name descname"><span class="pre">k</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#thundra.core.memory.UserMemory.k" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.core.memory.UserMemory.memory">
+<span class="sig-name descname"><span class="pre">memory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">ConversationBufferWindowMemory</span></code></em><a class="headerlink" href="#thundra.core.memory.UserMemory.memory" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.core.memory.UserMemory.system_message">
+<span class="sig-name descname"><span class="pre">system_message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemMessage</span></code></em><a class="headerlink" href="#thundra.core.memory.UserMemory.system_message" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="thundra.core.memory.build_system_message">
+<span class="sig-prename descclassname"><span class="pre">thundra.core.memory.</span></span><span class="sig-name descname"><span class="pre">build_system_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/memory.html#build_system_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.memory.build_system_message" title="Link to this definition">¶</a></dt>
+<dd><p>Builds the system message by replacing placeholders in the base system message
+with corresponding values from the configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The formatted system message.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<section id="module-thundra.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-thundra.core" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.core.Graph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.core.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.Graph" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract base class representing a graph with nodes and edges.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.Graph.combine_graph">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">combine_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">graphs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph.combine_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.Graph.combine_graph" title="Link to this definition">¶</a></dt>
+<dd><p>Combines multiple graph representations into a single graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graphs</strong> (<a class="reference internal" href="#thundra.core.Graph" title="thundra.core.Graph"><em>Graph</em></a>) – Multiple graph objects to combine.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A string representation of the combined graph.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.Graph.get_all_names">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph.get_all_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.Graph.get_all_names" title="Link to this definition">¶</a></dt>
+<dd><p>Abstract method to get all node names in the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Yield<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A generator yielding node names.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator[str, None, None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.core.Graph.graph">
+<span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/core/graph.html#Graph.graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.core.Graph.graph" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a formatted string representing the graph, including its nodes and edges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string representation of the graph.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
@@ -406,7 +645,15 @@
             <ul>
 <li><a class="reference internal" href="#">thundra.core package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#thundra-core-graph-module">thundra.core.graph module</a></li>
+<li><a class="reference internal" href="#module-thundra.core.graph">thundra.core.graph module</a><ul>
+<li><a class="reference internal" href="#thundra.core.graph.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.core.graph.Graph.combine_graph"><code class="docutils literal notranslate"><span class="pre">Graph.combine_graph()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.graph.Graph.get_all_names"><code class="docutils literal notranslate"><span class="pre">Graph.get_all_names()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.graph.Graph.graph"><code class="docutils literal notranslate"><span class="pre">Graph.graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-thundra.core.llm">thundra.core.llm module</a><ul>
 <li><a class="reference internal" href="#thundra.core.llm.LLM"><code class="docutils literal notranslate"><span class="pre">LLM</span></code></a><ul>
 <li><a class="reference internal" href="#thundra.core.llm.LLM.chat_models"><code class="docutils literal notranslate"><span class="pre">LLM.chat_models</span></code></a></li>
@@ -419,8 +666,34 @@
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#thundra-core-memory-module">thundra.core.memory module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-thundra.core.memory">thundra.core.memory module</a><ul>
+<li><a class="reference internal" href="#thundra.core.memory.AIMemory"><code class="docutils literal notranslate"><span class="pre">AIMemory</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.core.memory.AIMemory.clear_history"><code class="docutils literal notranslate"><span class="pre">AIMemory.clear_history()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.memory.AIMemory.delete_memory"><code class="docutils literal notranslate"><span class="pre">AIMemory.delete_memory()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.memory.AIMemory.get_memory"><code class="docutils literal notranslate"><span class="pre">AIMemory.get_memory()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.core.memory.UserMemory"><code class="docutils literal notranslate"><span class="pre">UserMemory</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.core.memory.UserMemory.clear_history"><code class="docutils literal notranslate"><span class="pre">UserMemory.clear_history()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.memory.UserMemory.create_ai_instance"><code class="docutils literal notranslate"><span class="pre">UserMemory.create_ai_instance()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.memory.UserMemory.get_memory"><code class="docutils literal notranslate"><span class="pre">UserMemory.get_memory()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.memory.UserMemory.k"><code class="docutils literal notranslate"><span class="pre">UserMemory.k</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.memory.UserMemory.memory"><code class="docutils literal notranslate"><span class="pre">UserMemory.memory</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.memory.UserMemory.system_message"><code class="docutils literal notranslate"><span class="pre">UserMemory.system_message</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.core.memory.build_system_message"><code class="docutils literal notranslate"><span class="pre">build_system_message()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-thundra.core">Module contents</a><ul>
+<li><a class="reference internal" href="#thundra.core.Graph"><code class="docutils literal notranslate"><span class="pre">Graph</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.core.Graph.combine_graph"><code class="docutils literal notranslate"><span class="pre">Graph.combine_graph()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.Graph.get_all_names"><code class="docutils literal notranslate"><span class="pre">Graph.get_all_names()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.core.Graph.graph"><code class="docutils literal notranslate"><span class="pre">Graph.graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
