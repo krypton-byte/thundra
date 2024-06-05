@@ -26,10 +26,10 @@ jobs:
         poetry install --with docs
         python3 docs/build.py
     - name: Deploy docs
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: docs/_build/html
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: docs/_build/html
     - name: Publish
       run: |
         poetry version ${{ github.event.inputs.version }}
