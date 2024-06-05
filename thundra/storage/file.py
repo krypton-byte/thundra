@@ -79,8 +79,8 @@ class File:
         """        
         return client.download_media_with_path(
             direct_path=self.directPath,
-            enc_file_hash=self.fileEncSha256,
-            file_hash=self.fileSha256,
+            enc_file_hash=self.fileEncSHA256,
+            file_hash=self.fileSHA256,
             file_length=self.fileLength,
             media_key=self.mediaKey,
             media_type=mediatype,
