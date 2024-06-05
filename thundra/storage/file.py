@@ -29,12 +29,12 @@ class File:
         pageCount (Optional[int]): The number of pages in the file (if applicable). Default is None.
         isAnimated (Optional[bool]): Indicates if the file is an animated media. Default is None.
     """
-    url: str
+    URL: str
     mimetype: str
-    fileSha256: bytes
+    fileSHA256: bytes
     fileLength: int
     mediaKey: bytes
-    fileEncSha256: bytes
+    fileEncSHA256: bytes
     directPath: str
     mediaKeyTimestamp: int
     type: type
