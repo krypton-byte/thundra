@@ -1,0 +1,1215 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="thundra.profiler package" href="thundra.profiler.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+        <title>thundra.storage package - thundra-ai 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">thundra-ai 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">thundra-ai 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">thundra</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of thundra</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="thundra.html">thundra package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of thundra package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="thundra.core.html">thundra.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thundra.profiler.html">thundra.profiler package</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">thundra.storage package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/source/thundra.storage.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="thundra-storage-package">
+<h1>thundra.storage package<a class="headerlink" href="#thundra-storage-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-thundra.storage.file">
+<span id="thundra-storage-file-module"></span><h2>thundra.storage.file module<a class="headerlink" href="#module-thundra.storage.file" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.storage.file.File">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.storage.file.</span></span><span class="sig-name descname"><span class="pre">File</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mimetype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileSHA256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileLength</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediaKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileEncSHA256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediaKeyTimestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewOnce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ptt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isAnimated</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#File"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.File" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a file with various attributes related to its metadata and content.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.url">
+<span class="sig-name descname"><span class="pre">url</span></span><a class="headerlink" href="#thundra.storage.file.File.url" title="Link to this definition">¶</a></dt>
+<dd><p>The URL of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.mimetype">
+<span class="sig-name descname"><span class="pre">mimetype</span></span><a class="headerlink" href="#thundra.storage.file.File.mimetype" title="Link to this definition">¶</a></dt>
+<dd><p>The MIME type of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.fileSha256">
+<span class="sig-name descname"><span class="pre">fileSha256</span></span><a class="headerlink" href="#thundra.storage.file.File.fileSha256" title="Link to this definition">¶</a></dt>
+<dd><p>The SHA-256 hash of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.fileLength">
+<span class="sig-name descname"><span class="pre">fileLength</span></span><a class="headerlink" href="#thundra.storage.file.File.fileLength" title="Link to this definition">¶</a></dt>
+<dd><p>The length of the file in bytes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.mediaKey">
+<span class="sig-name descname"><span class="pre">mediaKey</span></span><a class="headerlink" href="#thundra.storage.file.File.mediaKey" title="Link to this definition">¶</a></dt>
+<dd><p>The media key for encryption.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.fileEncSha256">
+<span class="sig-name descname"><span class="pre">fileEncSha256</span></span><a class="headerlink" href="#thundra.storage.file.File.fileEncSha256" title="Link to this definition">¶</a></dt>
+<dd><p>The encrypted SHA-256 hash of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.directPath">
+<span class="sig-name descname"><span class="pre">directPath</span></span><a class="headerlink" href="#thundra.storage.file.File.directPath" title="Link to this definition">¶</a></dt>
+<dd><p>The direct path to the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.mediaKeyTimestamp">
+<span class="sig-name descname"><span class="pre">mediaKeyTimestamp</span></span><a class="headerlink" href="#thundra.storage.file.File.mediaKeyTimestamp" title="Link to this definition">¶</a></dt>
+<dd><p>The timestamp for the media key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#thundra.storage.file.File.type" title="Link to this definition">¶</a></dt>
+<dd><p>The type of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.viewOnce">
+<span class="sig-name descname"><span class="pre">viewOnce</span></span><a class="headerlink" href="#thundra.storage.file.File.viewOnce" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the file is view-once media. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#thundra.storage.file.File.caption" title="Link to this definition">¶</a></dt>
+<dd><p>The caption of the file. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.height">
+<span class="sig-name descname"><span class="pre">height</span></span><a class="headerlink" href="#thundra.storage.file.File.height" title="Link to this definition">¶</a></dt>
+<dd><p>The height of the media (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.width">
+<span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#thundra.storage.file.File.width" title="Link to this definition">¶</a></dt>
+<dd><p>The width of the media (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.seconds">
+<span class="sig-name descname"><span class="pre">seconds</span></span><a class="headerlink" href="#thundra.storage.file.File.seconds" title="Link to this definition">¶</a></dt>
+<dd><p>The duration of the media in seconds (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.ptt">
+<span class="sig-name descname"><span class="pre">ptt</span></span><a class="headerlink" href="#thundra.storage.file.File.ptt" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the file is a push-to-talk audio. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.pageCount">
+<span class="sig-name descname"><span class="pre">pageCount</span></span><a class="headerlink" href="#thundra.storage.file.File.pageCount" title="Link to this definition">¶</a></dt>
+<dd><p>The number of pages in the file (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.isAnimated">
+<span class="sig-name descname"><span class="pre">isAnimated</span></span><a class="headerlink" href="#thundra.storage.file.File.isAnimated" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the file is an animated media. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.URL">
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#thundra.storage.file.File.URL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">caption</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">directPath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.file.File.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediatype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#File.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.File.download" title="Link to this definition">¶</a></dt>
+<dd><p>Download the file using the provided client and media type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> (<em>NewClient</em>) – The client to use for downloading the file.</p></li>
+<li><p><strong>mediatype</strong> (<em>MediaType</em>) – The type of media being downloaded.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The downloaded file as bytes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.fileEncSHA256">
+<span class="sig-name descname"><span class="pre">fileEncSHA256</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></em><a class="headerlink" href="#thundra.storage.file.File.fileEncSHA256" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">fileLength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.File.fileSHA256">
+<span class="sig-name descname"><span class="pre">fileSHA256</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></em><a class="headerlink" href="#thundra.storage.file.File.fileSHA256" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.file.File.from_message">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#File.from_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.File.from_message" title="Link to this definition">¶</a></dt>
+<dd><p>Create a File instance from a MediaMessageType message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>MediaMessageType</em>) – The message containing media information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of the File class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#thundra.storage.file.File" title="thundra.storage.file.File">File</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">isAnimated</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">mediaKey</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></em><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">mediaKeyTimestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">pageCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">ptt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id9" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">seconds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id10" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#id11" title="thundra.storage.file.File.type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></em><a class="headerlink" href="#id11" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">viewOnce</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id12" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id13" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.storage.file.FileRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.storage.file.</span></span><span class="sig-name descname"><span class="pre">FileRegistry</span></span><a class="reference internal" href="../_modules/thundra/storage/file.html#FileRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.FileRegistry" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#thundra.storage.file.File" title="thundra.storage.file.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a>]</p>
+<p>A registry to manage files, allowing updates while maintaining a maximum number of stored files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.file.FileRegistry.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#FileRegistry.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.FileRegistry.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the registry with a new file, ensuring the number of files does not exceed <cite>max_data</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – The unique identifier for the file.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#thundra.storage.file.File" title="thundra.storage.file.File"><em>File</em></a>) – The file to be added or updated in the registry.</p></li>
+<li><p><strong>max_data</strong> (<em>int</em>) – The maximum number of files allowed in the registry.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.storage.file.StorageRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.storage.file.</span></span><span class="sig-name descname"><span class="pre">StorageRegistry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#StorageRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.StorageRegistry" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#thundra.storage.file.FileRegistry" title="thundra.storage.file.FileRegistry"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileRegistry</span></code></a>]</p>
+<p>A storage registry to manage user-specific file registries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.file.StorageRegistry.max_files">
+<span class="sig-name descname"><span class="pre">max_files</span></span><a class="headerlink" href="#thundra.storage.file.StorageRegistry.max_files" title="Link to this definition">¶</a></dt>
+<dd><p>The maximum number of files allowed per user registry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.file.StorageRegistry.get_file">
+<span class="sig-name descname"><span class="pre">get_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#StorageRegistry.get_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.StorageRegistry.get_file" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a specific file from the user’s registry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>str</em>) – The unique identifier for the user.</p></li>
+<li><p><strong>file_id</strong> (<em>str</em>) – The unique identifier for the file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The requested file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#thundra.storage.file.File" title="thundra.storage.file.File">File</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.file.StorageRegistry.get_files">
+<span class="sig-name descname"><span class="pre">get_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#StorageRegistry.get_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.StorageRegistry.get_files" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve all files from the user’s registry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<em>str</em>) – The unique identifier for the user.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The registry of files for the user.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#thundra.storage.file.FileRegistry" title="thundra.storage.file.FileRegistry">FileRegistry</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.file.StorageRegistry.get_files_by_type">
+<span class="sig-name descname"><span class="pre">get_files_by_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#StorageRegistry.get_files_by_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.StorageRegistry.get_files_by_type" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve files of specific types from the user’s registry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>str</em>) – The unique identifier for the user.</p></li>
+<li><p><strong>types</strong> (<em>Iterable</em><em>[</em><em>type</em><em>]</em>) – The types of files to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Yield<span class="colon">:</span></dt>
+<dd class="field-even"><p>The files of the specified types.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Generator[<a class="reference internal" href="#thundra.storage.file.File" title="thundra.storage.file.File">File</a>, None, None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">max_files</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#id14" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.file.StorageRegistry.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#StorageRegistry.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.file.StorageRegistry.save" title="Link to this definition">¶</a></dt>
+<dd><p>Save a file in the user’s registry, ensuring the number of files does not exceed <cite>max_files</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>str</em>) – The unique identifier for the user.</p></li>
+<li><p><strong>file_id</strong> (<em>str</em>) – The unique identifier for the file.</p></li>
+<li><p><strong>file</strong> (<a class="reference internal" href="#thundra.storage.file.File" title="thundra.storage.file.File"><em>File</em></a>) – The file to be saved in the registry.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-thundra.storage">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-thundra.storage" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.storage.File">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.storage.</span></span><span class="sig-name descname"><span class="pre">File</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mimetype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileSHA256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileLength</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediaKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileEncSHA256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediaKeyTimestamp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewOnce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caption</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ptt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pageCount</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isAnimated</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#File"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.File" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a file with various attributes related to its metadata and content.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.url">
+<span class="sig-name descname"><span class="pre">url</span></span><a class="headerlink" href="#thundra.storage.File.url" title="Link to this definition">¶</a></dt>
+<dd><p>The URL of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.mimetype">
+<span class="sig-name descname"><span class="pre">mimetype</span></span><a class="headerlink" href="#thundra.storage.File.mimetype" title="Link to this definition">¶</a></dt>
+<dd><p>The MIME type of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.fileSha256">
+<span class="sig-name descname"><span class="pre">fileSha256</span></span><a class="headerlink" href="#thundra.storage.File.fileSha256" title="Link to this definition">¶</a></dt>
+<dd><p>The SHA-256 hash of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.fileLength">
+<span class="sig-name descname"><span class="pre">fileLength</span></span><a class="headerlink" href="#thundra.storage.File.fileLength" title="Link to this definition">¶</a></dt>
+<dd><p>The length of the file in bytes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.mediaKey">
+<span class="sig-name descname"><span class="pre">mediaKey</span></span><a class="headerlink" href="#thundra.storage.File.mediaKey" title="Link to this definition">¶</a></dt>
+<dd><p>The media key for encryption.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.fileEncSha256">
+<span class="sig-name descname"><span class="pre">fileEncSha256</span></span><a class="headerlink" href="#thundra.storage.File.fileEncSha256" title="Link to this definition">¶</a></dt>
+<dd><p>The encrypted SHA-256 hash of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.directPath">
+<span class="sig-name descname"><span class="pre">directPath</span></span><a class="headerlink" href="#thundra.storage.File.directPath" title="Link to this definition">¶</a></dt>
+<dd><p>The direct path to the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.mediaKeyTimestamp">
+<span class="sig-name descname"><span class="pre">mediaKeyTimestamp</span></span><a class="headerlink" href="#thundra.storage.File.mediaKeyTimestamp" title="Link to this definition">¶</a></dt>
+<dd><p>The timestamp for the media key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#thundra.storage.File.type" title="Link to this definition">¶</a></dt>
+<dd><p>The type of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.viewOnce">
+<span class="sig-name descname"><span class="pre">viewOnce</span></span><a class="headerlink" href="#thundra.storage.File.viewOnce" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the file is view-once media. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.caption">
+<span class="sig-name descname"><span class="pre">caption</span></span><a class="headerlink" href="#thundra.storage.File.caption" title="Link to this definition">¶</a></dt>
+<dd><p>The caption of the file. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.height">
+<span class="sig-name descname"><span class="pre">height</span></span><a class="headerlink" href="#thundra.storage.File.height" title="Link to this definition">¶</a></dt>
+<dd><p>The height of the media (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.width">
+<span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#thundra.storage.File.width" title="Link to this definition">¶</a></dt>
+<dd><p>The width of the media (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.seconds">
+<span class="sig-name descname"><span class="pre">seconds</span></span><a class="headerlink" href="#thundra.storage.File.seconds" title="Link to this definition">¶</a></dt>
+<dd><p>The duration of the media in seconds (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.ptt">
+<span class="sig-name descname"><span class="pre">ptt</span></span><a class="headerlink" href="#thundra.storage.File.ptt" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the file is a push-to-talk audio. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.pageCount">
+<span class="sig-name descname"><span class="pre">pageCount</span></span><a class="headerlink" href="#thundra.storage.File.pageCount" title="Link to this definition">¶</a></dt>
+<dd><p>The number of pages in the file (if applicable). Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.isAnimated">
+<span class="sig-name descname"><span class="pre">isAnimated</span></span><a class="headerlink" href="#thundra.storage.File.isAnimated" title="Link to this definition">¶</a></dt>
+<dd><p>Indicates if the file is an animated media. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[bool]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.URL">
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#thundra.storage.File.URL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">caption</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id15" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">directPath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id16" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.File.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediatype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#File.download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.File.download" title="Link to this definition">¶</a></dt>
+<dd><p>Download the file using the provided client and media type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> (<em>NewClient</em>) – The client to use for downloading the file.</p></li>
+<li><p><strong>mediatype</strong> (<em>MediaType</em>) – The type of media being downloaded.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The downloaded file as bytes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.fileEncSHA256">
+<span class="sig-name descname"><span class="pre">fileEncSHA256</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></em><a class="headerlink" href="#thundra.storage.File.fileEncSHA256" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id17">
+<span class="sig-name descname"><span class="pre">fileLength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id17" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.storage.File.fileSHA256">
+<span class="sig-name descname"><span class="pre">fileSHA256</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></em><a class="headerlink" href="#thundra.storage.File.fileSHA256" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.File.from_message">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#File.from_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.File.from_message" title="Link to this definition">¶</a></dt>
+<dd><p>Create a File instance from a MediaMessageType message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>MediaMessageType</em>) – The message containing media information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of the File class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#thundra.storage.File" title="thundra.storage.File">File</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id18">
+<span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id18" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id19">
+<span class="sig-name descname"><span class="pre">isAnimated</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id19" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id20">
+<span class="sig-name descname"><span class="pre">mediaKey</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code></em><a class="headerlink" href="#id20" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id21">
+<span class="sig-name descname"><span class="pre">mediaKeyTimestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#id21" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id22">
+<span class="sig-name descname"><span class="pre">mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#id22" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id23">
+<span class="sig-name descname"><span class="pre">pageCount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id23" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id24">
+<span class="sig-name descname"><span class="pre">ptt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id24" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id25">
+<span class="sig-name descname"><span class="pre">seconds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id25" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id26">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#id26" title="thundra.storage.File.type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a></em><a class="headerlink" href="#id26" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id27">
+<span class="sig-name descname"><span class="pre">viewOnce</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id27" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id28">
+<span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id28" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.storage.FileRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.storage.</span></span><span class="sig-name descname"><span class="pre">FileRegistry</span></span><a class="reference internal" href="../_modules/thundra/storage/file.html#FileRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.FileRegistry" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#thundra.storage.file.File" title="thundra.storage.file.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a>]</p>
+<p>A registry to manage files, allowing updates while maintaining a maximum number of stored files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.storage.FileRegistry.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/storage/file.html#FileRegistry.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.storage.FileRegistry.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the registry with a new file, ensuring the number of files does not exceed <cite>max_data</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – The unique identifier for the file.</p></li>
+<li><p><strong>data</strong> (<a class="reference internal" href="#thundra.storage.File" title="thundra.storage.File"><em>File</em></a>) – The file to be added or updated in the registry.</p></li>
+<li><p><strong>max_data</strong> (<em>int</em>) – The maximum number of files allowed in the registry.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="thundra.profiler.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">thundra.profiler package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, krypton-byte
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">thundra.storage package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-thundra.storage.file">thundra.storage.file module</a><ul>
+<li><a class="reference internal" href="#thundra.storage.file.File"><code class="docutils literal notranslate"><span class="pre">File</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.storage.file.File.url"><code class="docutils literal notranslate"><span class="pre">File.url</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.mimetype"><code class="docutils literal notranslate"><span class="pre">File.mimetype</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.fileSha256"><code class="docutils literal notranslate"><span class="pre">File.fileSha256</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.fileLength"><code class="docutils literal notranslate"><span class="pre">File.fileLength</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.mediaKey"><code class="docutils literal notranslate"><span class="pre">File.mediaKey</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.fileEncSha256"><code class="docutils literal notranslate"><span class="pre">File.fileEncSha256</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.directPath"><code class="docutils literal notranslate"><span class="pre">File.directPath</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.mediaKeyTimestamp"><code class="docutils literal notranslate"><span class="pre">File.mediaKeyTimestamp</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.type"><code class="docutils literal notranslate"><span class="pre">File.type</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.viewOnce"><code class="docutils literal notranslate"><span class="pre">File.viewOnce</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.caption"><code class="docutils literal notranslate"><span class="pre">File.caption</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.height"><code class="docutils literal notranslate"><span class="pre">File.height</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.width"><code class="docutils literal notranslate"><span class="pre">File.width</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.seconds"><code class="docutils literal notranslate"><span class="pre">File.seconds</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.ptt"><code class="docutils literal notranslate"><span class="pre">File.ptt</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.pageCount"><code class="docutils literal notranslate"><span class="pre">File.pageCount</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.isAnimated"><code class="docutils literal notranslate"><span class="pre">File.isAnimated</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.URL"><code class="docutils literal notranslate"><span class="pre">File.URL</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">File.caption</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">File.directPath</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.download"><code class="docutils literal notranslate"><span class="pre">File.download()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.fileEncSHA256"><code class="docutils literal notranslate"><span class="pre">File.fileEncSHA256</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">File.fileLength</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.fileSHA256"><code class="docutils literal notranslate"><span class="pre">File.fileSHA256</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.File.from_message"><code class="docutils literal notranslate"><span class="pre">File.from_message()</span></code></a></li>
+<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">File.height</span></code></a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">File.isAnimated</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">File.mediaKey</span></code></a></li>
+<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">File.mediaKeyTimestamp</span></code></a></li>
+<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">File.mimetype</span></code></a></li>
+<li><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">File.pageCount</span></code></a></li>
+<li><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">File.ptt</span></code></a></li>
+<li><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">File.seconds</span></code></a></li>
+<li><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">File.type</span></code></a></li>
+<li><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">File.viewOnce</span></code></a></li>
+<li><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">File.width</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.storage.file.FileRegistry"><code class="docutils literal notranslate"><span class="pre">FileRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.storage.file.FileRegistry.update"><code class="docutils literal notranslate"><span class="pre">FileRegistry.update()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.storage.file.StorageRegistry"><code class="docutils literal notranslate"><span class="pre">StorageRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.storage.file.StorageRegistry.max_files"><code class="docutils literal notranslate"><span class="pre">StorageRegistry.max_files</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.StorageRegistry.get_file"><code class="docutils literal notranslate"><span class="pre">StorageRegistry.get_file()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.StorageRegistry.get_files"><code class="docutils literal notranslate"><span class="pre">StorageRegistry.get_files()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.StorageRegistry.get_files_by_type"><code class="docutils literal notranslate"><span class="pre">StorageRegistry.get_files_by_type()</span></code></a></li>
+<li><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">StorageRegistry.max_files</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.file.StorageRegistry.save"><code class="docutils literal notranslate"><span class="pre">StorageRegistry.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-thundra.storage">Module contents</a><ul>
+<li><a class="reference internal" href="#thundra.storage.File"><code class="docutils literal notranslate"><span class="pre">File</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.storage.File.url"><code class="docutils literal notranslate"><span class="pre">File.url</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.mimetype"><code class="docutils literal notranslate"><span class="pre">File.mimetype</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.fileSha256"><code class="docutils literal notranslate"><span class="pre">File.fileSha256</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.fileLength"><code class="docutils literal notranslate"><span class="pre">File.fileLength</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.mediaKey"><code class="docutils literal notranslate"><span class="pre">File.mediaKey</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.fileEncSha256"><code class="docutils literal notranslate"><span class="pre">File.fileEncSha256</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.directPath"><code class="docutils literal notranslate"><span class="pre">File.directPath</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.mediaKeyTimestamp"><code class="docutils literal notranslate"><span class="pre">File.mediaKeyTimestamp</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.type"><code class="docutils literal notranslate"><span class="pre">File.type</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.viewOnce"><code class="docutils literal notranslate"><span class="pre">File.viewOnce</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.caption"><code class="docutils literal notranslate"><span class="pre">File.caption</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.height"><code class="docutils literal notranslate"><span class="pre">File.height</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.width"><code class="docutils literal notranslate"><span class="pre">File.width</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.seconds"><code class="docutils literal notranslate"><span class="pre">File.seconds</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.ptt"><code class="docutils literal notranslate"><span class="pre">File.ptt</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.pageCount"><code class="docutils literal notranslate"><span class="pre">File.pageCount</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.isAnimated"><code class="docutils literal notranslate"><span class="pre">File.isAnimated</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.URL"><code class="docutils literal notranslate"><span class="pre">File.URL</span></code></a></li>
+<li><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">File.caption</span></code></a></li>
+<li><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">File.directPath</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.download"><code class="docutils literal notranslate"><span class="pre">File.download()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.fileEncSHA256"><code class="docutils literal notranslate"><span class="pre">File.fileEncSHA256</span></code></a></li>
+<li><a class="reference internal" href="#id17"><code class="docutils literal notranslate"><span class="pre">File.fileLength</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.fileSHA256"><code class="docutils literal notranslate"><span class="pre">File.fileSHA256</span></code></a></li>
+<li><a class="reference internal" href="#thundra.storage.File.from_message"><code class="docutils literal notranslate"><span class="pre">File.from_message()</span></code></a></li>
+<li><a class="reference internal" href="#id18"><code class="docutils literal notranslate"><span class="pre">File.height</span></code></a></li>
+<li><a class="reference internal" href="#id19"><code class="docutils literal notranslate"><span class="pre">File.isAnimated</span></code></a></li>
+<li><a class="reference internal" href="#id20"><code class="docutils literal notranslate"><span class="pre">File.mediaKey</span></code></a></li>
+<li><a class="reference internal" href="#id21"><code class="docutils literal notranslate"><span class="pre">File.mediaKeyTimestamp</span></code></a></li>
+<li><a class="reference internal" href="#id22"><code class="docutils literal notranslate"><span class="pre">File.mimetype</span></code></a></li>
+<li><a class="reference internal" href="#id23"><code class="docutils literal notranslate"><span class="pre">File.pageCount</span></code></a></li>
+<li><a class="reference internal" href="#id24"><code class="docutils literal notranslate"><span class="pre">File.ptt</span></code></a></li>
+<li><a class="reference internal" href="#id25"><code class="docutils literal notranslate"><span class="pre">File.seconds</span></code></a></li>
+<li><a class="reference internal" href="#id26"><code class="docutils literal notranslate"><span class="pre">File.type</span></code></a></li>
+<li><a class="reference internal" href="#id27"><code class="docutils literal notranslate"><span class="pre">File.viewOnce</span></code></a></li>
+<li><a class="reference internal" href="#id28"><code class="docutils literal notranslate"><span class="pre">File.width</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.storage.FileRegistry"><code class="docutils literal notranslate"><span class="pre">FileRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.storage.FileRegistry.update"><code class="docutils literal notranslate"><span class="pre">FileRegistry.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
+    </body>
+</html>
