@@ -9,7 +9,7 @@ from thundra.storage import storage, File
 from thundra.profiler import Profile, Profiler
 from thundra.types import MediaMessageType, MessageWithContextInfoType
 from thundra.core.memory import memory
-from thundra.utils import ChainMessage, get_tag, get_user_id, workdir, get_message_type
+from thundra.utils import ChainMessage, get_tag, get_user_id, get_message_type
 from thundra.middleware import middleware
 import signal
 from thundra.core import chat_model
@@ -17,13 +17,12 @@ from neonize.events import event
 
 # evaluate all module
 from thundra.evaluater import evaluate_module
-from thundra.config import config_toml
 
 evaluate_module(Path(__file__).parent / "commands")
 evaluate_module(Path(__file__).parent / "middleware")
 evaluate_module(Path(__file__).parent / "agents")
 from thundra.command import command
-
+from thundra.workdir import workdir, config_toml
 app = NewClient(
     config_toml["thundra"]["db"],
     DeviceProps(

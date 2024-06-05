@@ -12,7 +12,7 @@ from .utils import log
 @dataclass
 class Agent:
     message_types: Sequence[Type[MessageType]]
-    agent: Callable[[NewClient, Message], Any]
+    agent: Callable[[NewClient, Message], Any]    
 
 
 class AgentRegister(list[Agent], Graph):
@@ -28,8 +28,13 @@ class AgentRegister(list[Agent], Graph):
                 yield tool
         yield from []
 
-    def tool(self, *message_types: Type[MessageType]):
-        def tool_agent(f: Callable[[NewClient, Message], Callable[[str], str]]):
+    def tool(self, *message_types: Type[MessageType]) -> Callable[[Callable[[NewClient, Message], Callable[[str], str]]], None]:
+        """_summary_
+
+        :return: _description_
+        :rtype: Callable[[Callable[[NewClient, Message], Callable[[str], str]]], None]
+        """        
+        def tool_agent(f: Callable[[NewClient, Message], Callable[[str], str]]) -> None:
             log.debug(f"{f.__name__} agent loaded")
             self.append(Agent(message_types=message_types, agent=f))
 

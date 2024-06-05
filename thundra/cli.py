@@ -1,6 +1,5 @@
 from pathlib import Path
 from typing import List
-import getpass
 import zipfile
 from neonize.client import re
 import logging
@@ -15,65 +14,63 @@ from neonize.utils import log
 import tomli_w
 from pathlib import Path
 
-arg = argparse.ArgumentParser()
-action = arg.add_subparsers(title="action", dest="action", required=True)
-action.add_parser(
-    "hide",
-    help="generate thundra.toml from thundra-dev.toml file to hide secrets value",
-)
-install = action.add_parser("install")
-install.add_argument(
-    "--no-generate",
-    action="store_true",
-    default=False,
-    help="don't generate thundra-dev.toml",
-)
-create = action.add_parser(name="create")
-create.add_argument("--name", type=str, nargs=1)
-
-run = action.add_parser(name="run")
-run.add_argument(
-    "--phone-number", type=str, help="using pairphone as authentication, default qr"
-)
-run.add_argument(
-    "--dev", action="store_true", default=False, help="activate dev mode (auto reload)"
-)
-run.add_argument(
-    "--verbose", action="store_true", default=False, help="set log level to verbose"
-)
-run.add_argument("--workspace", type=str, help="Profile ID of workspace")
-run.add_argument("--db", type=str, help="Profile ID of db")
-run.add_argument("--push-notification", action="store_true", default=False)
-test = action.add_parser(name="test")
-
-plugins = action.add_parser("plugin")
-types = plugins.add_subparsers(title="type", dest="plugin_action", required=True)
-plugin_install = types.add_parser("install")
-plugin_uninstall = types.add_parser("uninstall")
-plugin_install.add_argument("git_url", nargs=1, help="github repository, user/repo")
-plugin_uninstall.add_argument("git_url", nargs=1, help="github repository, user/repo")
-
-plugin_install.add_argument(
-    "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
-)
-plugin_install.add_argument("-s", type=str, help="sha/commits", dest="sha")
-plugin_uninstall.add_argument(
-    "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
-)
-types.add_parser("list")
-types.add_parser("info")
-profile = action.add_parser("profile")
-profile_action = profile.add_subparsers(
-    title="action", dest="profile_action", required=True
-)
-delete_profile = profile_action.add_parser("delete")
-delete_profile.add_argument("ids", nargs="*")
-profile_action.add_parser("list")
-profile_action.add_parser("info").add_argument("id", nargs=1)
-parse = arg.parse_args()
-
 
 def main():
+    arg = argparse.ArgumentParser()
+    action = arg.add_subparsers(title="action", dest="action", required=True)
+    action.add_parser(
+        "hide",
+        help="generate thundra.toml from thundra-dev.toml file to hide secrets value",
+    )
+    install = action.add_parser("install")
+    install.add_argument(
+        "--no-generate",
+        action="store_true",
+        default=False,
+        help="don't generate thundra-dev.toml",
+    )
+    create = action.add_parser(name="create")
+    create.add_argument("--name", type=str, nargs=1)
+
+    run = action.add_parser(name="run")
+    run.add_argument(
+        "--phone-number", type=str, help="using pairphone as authentication, default qr"
+    )
+    run.add_argument(
+        "--dev", action="store_true", default=False, help="activate dev mode (auto reload)"
+    )
+    run.add_argument(
+        "--verbose", action="store_true", default=False, help="set log level to verbose"
+    )
+    run.add_argument("--workspace", type=str, help="Profile ID of workspace")
+    run.add_argument("--db", type=str, help="Profile ID of db")
+    run.add_argument("--push-notification", action="store_true", default=False)
+    test = action.add_parser(name="test")
+    plugins = action.add_parser("plugin")
+    types = plugins.add_subparsers(title="type", dest="plugin_action", required=True)
+    plugin_install = types.add_parser("install")
+    plugin_uninstall = types.add_parser("uninstall")
+    plugin_install.add_argument("git_url", nargs=1, help="github repository, user/repo")
+    plugin_uninstall.add_argument("git_url", nargs=1, help="github repository, user/repo")
+
+    plugin_install.add_argument(
+        "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
+    )
+    plugin_install.add_argument("-s", type=str, help="sha/commits", dest="sha")
+    plugin_uninstall.add_argument(
+        "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
+    )
+    types.add_parser("list")
+    types.add_parser("info")
+    profile = action.add_parser("profile")
+    profile_action = profile.add_subparsers(
+        title="action", dest="profile_action", required=True
+    )
+    delete_profile = profile_action.add_parser("delete")
+    delete_profile.add_argument("ids", nargs="*")
+    profile_action.add_parser("list")
+    profile_action.add_parser("info").add_argument("id", nargs=1)
+    parse = arg.parse_args()
     DIRNAME = Path(os.getcwd()).name
     with open(os.path.dirname(__file__) + "/templates/thundra.toml", "r") as file:
         toml_template = tomllib.loads(file.read())
@@ -104,19 +101,16 @@ def main():
             open("thundra-dev.toml", "w").write(dumps(toml_template))
         case "test":
             from .profiler import Profiler, VirtualEnv
-            from .utils import workdir
+            from .workdir import workdir
 
             with open(workdir.config_path) as file:
                 workdir_db = workdir.db / tomllib.loads(file.read())["thundra"]["db"]
-            from .config import config_toml
-
+            config_toml = workdir.read_config
             os.environ.update(config_toml["thundra"].get("env", {}))
             VirtualEnv.get_env().activate(workdir.workspace.__str__())
-            from .utils import workdir
             from .agents import agent
             from .command import command
             from .middleware import middleware
-
             config_toml["thundra"]["db"] = workdir_db.__str__()
             sys.path.insert(0, workdir.workspace_dir.__str__())
             dirs, client = config_toml["thundra"]["app"].split(":")
@@ -126,9 +120,9 @@ def main():
 
             tree_test()
         case "install":
-            from .config import config_toml, workdir
+            from .workdir import workdir
             from .plugins import PluginSource
-
+            config_toml = workdir.read_config
             if not parse.no_generate:
                 open(workdir.config_path.parent / "thundra-dev.toml", "w").write(
                     tomli_w.dumps(config_toml)
@@ -138,7 +132,7 @@ def main():
                     package["username"], package["repository"]
                 ).download_from_sha(package["sha"], package["branch"]).install()
         case "run":
-            from .utils import workdir
+            from .workdir import workdir
 
             if parse.dev:
                 try:
@@ -175,11 +169,10 @@ def main():
                     profile = profiler.get_profile(parse.db)
                     workdir.db = Path(profile.db_path()).parent
                     workdir_db = profile.db_path()
-                from .config import config_toml
-
+                from .workdir import workdir
+                config_toml = workdir.read_config
                 os.environ.update(config_toml["thundra"].get("env", {}))
                 VirtualEnv.get_env().activate(workdir.workspace.__str__())
-                from .utils import workdir
                 from .agents import agent
                 from .command import command
                 from .middleware import middleware
@@ -257,9 +250,9 @@ def main():
                         """.strip()
                     )
         case "hide":
-            from .config import workdir, config_toml
             from .utils import hidder
-
+            from .workdir import workdir
+            config_toml = workdir.read_config
             hidder(config_toml["secrets"])
             file = open(workdir.workspace / "thundra.toml", "w")
             file.writelines("# Generated By thundra\n# don't edit this file\n")

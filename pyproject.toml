@@ -16,7 +16,7 @@ keywords = ["neonize", "whatsapp", "framework", "websocket", "bot"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-neonize = "^0.0.10"
+neonize = "^0.1.5"
 pytube = "^15.0.0"
 langchain = "^0.1.11"
 tomli-w = "^1.0.0"
@@ -25,8 +25,14 @@ graphviz = "^0.20.1"
 appdirs = "^1.4.4"
 
 [tool.poetry.group.dev.dependencies]
-watchfiles = "^0.21.0"
+watchfiles = "^0.22.0"
 
+
+
+[tool.poetry.group.docs.dependencies]
+sphinx-autodoc-typehints = "^2.1.1"
+sphinx = "^7.3.7"
+sphinx-rtd-theme = "^2.0.0"
 
 [[tool.poetry.source]]
 name = "thundra-ai"

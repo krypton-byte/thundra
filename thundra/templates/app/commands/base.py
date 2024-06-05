@@ -8,7 +8,7 @@ from thundra.utils import ChainMessage, get_user_id
 from thundra.storage import storage
 import tempfile
 import graphviz, os
-from neonize.proto.def_pb2 import (
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ExtendedTextMessage,
 )
 

@@ -1,9 +1,11 @@
-from typing import Iterable, Optional, Type
+from sys import prefix
+import tomllib
+from typing import Any, Dict, Iterable, List, Optional, Type
 from enum import Enum
 from neonize import NewClient
-from neonize.proto.def_pb2 import ImageMessage, Message as MessageProto
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import ImageMessage, Message as MessageProto
 from neonize.proto.Neonize_pb2 import Message
-from neonize.proto.def_pb2 import (
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ExtendedTextMessage,
     VideoMessage,
 )
@@ -11,6 +13,7 @@ from .types import MessageType, MediaMessageType
 from dataclasses import dataclass
 from pathlib import Path
 from logging import getLogger
+import tomli_w
 import math
 import os
 
@@ -21,6 +24,13 @@ base_workdir = Path(__file__).parent
 
 
 def hidder(parent: dict):
+    """_summary_
+
+    :param parent: _description_
+    :type parent: dict
+    :return: _description_
+    :rtype: _type_
+    """    
     for k, v in parent.items():
         if isinstance(v, dict):
             hidder(v)
@@ -31,55 +41,28 @@ def hidder(parent: dict):
     return parent
 
 
-@dataclass
-class Workdir:
-    db: Path
-    config_path: Path
-    workspace_dir: Optional[Path] = None
-
-    @classmethod
-    def find(cls, path: Path):
-        cwd = path.parts
-        dir_path = path
-        for i in range(len(cwd) - 1):
-            if (dir_path / "thundra-dev.toml").exists():
-                return Workdir(
-                    db=dir_path,
-                    workspace_dir=dir_path,
-                    config_path=dir_path / "thundra-dev.toml",
-                )
-            if (dir_path / "thundra.toml").exists():
-                return Workdir(
-                    db=dir_path,
-                    workspace_dir=dir_path,
-                    config_path=dir_path / "thundra.toml",
-                )
-            dir_path = dir_path.parent
-        raise TypeError("Workdir Not Found")
-
-    @property
-    def workspace(self) -> Path:
-        return self.workspace_dir or self.db_workspace
-
-    @property
-    def db_workspace(self):
-        return self.db
-
-
-workdir = Workdir.find(Path(os.getcwd()))
-
-
-# if not vars().get('workdir'):
-#     print("📛 Workdir Undefined")
-#     sys.exit(1)
-
 
 @dataclass
 class ChainMessage:
+    """
+    Represents a chain message.
+
+    :param message: The original message.
+    :type message: MessageProto
+    :param neonize_message: Optional neonize message.
+    :type neonize_message: Optional[Message], optional
+    """
+
     message: MessageProto
     neonize_message: Optional[Message] = None
 
-    def to_json(self):
+    def to_json(self) -> Dict[str, Dict[str, Any]]:
+        """
+        Converts the chain message to a JSON representation.
+
+        :return: JSON representation of the chain message.
+        :rtype: Dict[str, Dict[str, Any]]
+        """
         type = get_message_type(self.message)
         text = self.text
         data = {
@@ -112,7 +95,13 @@ class ChainMessage:
         return data
 
     @property
-    def type(self):
+    def type(self) -> str:
+        """
+        Returns the type of the message.
+
+        :return: The type of the message.
+        :rtype: str
+        """
         for field_name, _ in self.message.ListFields():
             if field_name.name.endswith("Message"):
                 return field_name.name
@@ -121,11 +110,25 @@ class ChainMessage:
         return "text"
 
     @property
-    def text(self):
+    def text(self) -> str:
+        """
+        Extracts the text from the message.
+
+        :return: The extracted text.
+        :rtype: str
+        """
         return self.extract_text(self.message)
 
     @classmethod
-    def extract_text(cls, message: MessageProto):
+    def extract_text(cls, message: MessageProto) -> str:
+        """
+        Extracts text from the message.
+
+        :param message: The message.
+        :type message: MessageProto
+        :return: The extracted text.
+        :rtype: str
+        """
         if message.imageMessage.ListFields():
             imageMessage: ImageMessage = message.imageMessage
             return imageMessage.caption
@@ -140,7 +143,15 @@ class ChainMessage:
         return ""
 
 
-def get_tag(message: MessageProto):
+def get_tag(message: MessageProto) -> List[str]:
+    """
+    Gets the tag from the message.
+
+    :param message: The message.
+    :type message: MessageProto
+    :return: The tag from the message.
+    :rtype: List[str]
+    """
     for _, value in message.ListFields():
         try:
             return value.contextInfo.mentionedJid
@@ -150,6 +161,15 @@ def get_tag(message: MessageProto):
 
 
 def get_message_type(message: MessageProto) -> MessageType:
+    """
+    Gets the message type.
+
+    :param message: The message.
+    :type message: MessageProto
+    :raises IndexError: If the message type cannot be determined.
+    :return: The message type.
+    :rtype: MessageType
+    """
     for field_name, v in message.ListFields():
         if field_name.name.endswith("Message"):
             return v
@@ -158,9 +178,18 @@ def get_message_type(message: MessageProto) -> MessageType:
     raise IndexError()
 
 
-def get_user_id(message: Message):
+def get_user_id(message: Message) -> str:
+    """
+    Gets the user ID from the message.
+
+    :param message: The message.
+    :type message: Message
+    :return: The user ID from the message.
+    :rtype: str
+    """
     source = message.Info.MessageSource
     return f"{source.Chat.User}{source.Sender.User}"
+
 
 
 class MediaTypeToMMS(Enum):
@@ -194,6 +223,18 @@ def download_media(
     message: MessageProto,
     types: Iterable[Type[MessageType]] | Type[MessageType],
 ) -> bytes | None:
+    """
+    Downloads media from a message if it matches the specified types.
+
+    :param client: The client used for downloading.
+    :type client: NewClient
+    :param message: The message containing the media.
+    :type message: MessageProto
+    :param types: The types of media to download.
+    :type types: Iterable[Type[MessageType]] | Type[MessageType]
+    :return: The downloaded media, or None if no media of the specified types is found.
+    :rtype: bytes | None
+    """
     media_message = get_message_type(message)
     if isinstance(types, type):
         types_tuple = (types,)
@@ -207,7 +248,15 @@ def download_media(
             return client.download_any(media_message.contextInfo.quotedMessage)
 
 
-def convert_size(size_bytes):
+def convert_size(size_bytes: int) -> str:
+    """
+    Converts a size in bytes to a human-readable string representation.
+
+    :param size_bytes: The size in bytes to convert.
+    :type size_bytes: int
+    :return: The human-readable representation of the size.
+    :rtype: str
+    """    
     if size_bytes == 0:
         return "0B"
     size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
@@ -215,3 +264,4 @@ def convert_size(size_bytes):
     p = math.pow(1024, i)
     s = round(size_bytes / p, 2)
     return "%s %s" % (s, size_name[i])
+

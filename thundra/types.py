@@ -1,5 +1,5 @@
 from typing import Union
-from neonize.proto.def_pb2 import (
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ImageMessage,
     VideoMessage,
     DocumentMessage,
@@ -7,7 +7,7 @@ from neonize.proto.def_pb2 import (
     AudioMessage,
     StickerMessage,
 )
-from neonize.proto.def_pb2 import (
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     AudioMessage,
     ButtonsMessage,
     ContactsArrayMessage,

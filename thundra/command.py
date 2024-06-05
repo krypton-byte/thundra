@@ -12,19 +12,16 @@ from typing import (
     TypeVar,
     Type,
 )
-
 from .core.graph import Graph
-from .config import config
 from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
 from .utils import ChainMessage, log
 from .types import MessageType as IMessageType
-from .config import config_toml
+from .workdir import workdir
 
 
 class Filter(ABC):
     invert = False
-
     def __or__(self, __value: Filterable) -> FilterOP:
         return FilterOP(left=self, op=OP.OR, right=__value, invert=self.invert)
 
@@ -110,16 +107,31 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         return uid[::-1]
 
     def add(self, command: CommandFunc):
+        """_summary_
+
+        :param command: _description_
+        :type command: CommandFunc
+        """        
         self.update({self.generate_name(self.start_point): command})
         self.start_point += 1
 
     def execute(self, client: NewClient, message: Message):
+        """_summary_
+
+        :param client: _description_
+        :type client: NewClient
+        :param message: _description_
+        :type message: Message
+        :raises e: _description_
+        :return: _description_
+        :rtype: _type_
+        """        
         for v in self.values():
             if (
                 v.allow_broadcast
                 or not message.Info.MessageSource.Chat.User == "broadcast"
             ):
-                if v.filter.filter(client, message):
+                if v.filter.filter( client, message):
                     try:
                         v.func(client, message)
                     except Exception as e:
@@ -142,6 +154,21 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
             str | Callable[[NewClient, Message, Exception], None]
         ] = None,
     ):
+        """_summary_
+
+        :param filter: _description_
+        :type filter: Filterable
+        :param name: _description_, defaults to ""
+        :type name: str, optional
+        :param description: _description_, defaults to ""
+        :type description: str, optional
+        :param category: _description_, defaults to ["all"]
+        :type category: Sequence[str], optional
+        :param allow_broadcast: _description_, defaults to False
+        :type allow_broadcast: bool, optional
+        :param on_error: _description_, defaults to None
+        :type on_error: Optional[ str  |  Callable[[NewClient, Message, Exception], None] ], optional
+        """        
         def command(f: Callable[[NewClient, Message], Any]):
             log.debug(f"{name} command loaded")
             self.add(
@@ -165,7 +192,10 @@ command = GlobalCommand()
 
 class Command(Filter):
     def __init__(
-        self, command: str, prefix: Optional[str] = None, space_detection: bool = False
+        self,
+        command: str,
+        prefix: Optional[str] = None,
+        space_detection: bool = False
     ) -> None:
         """
         Initializes a Command instance.
@@ -178,7 +208,7 @@ class Command(Filter):
         :type space_detection: bool, optional
         """
         self.command = command + (" " if space_detection else "")
-        self.prefix = config.prefix if prefix is None else prefix
+        self.alt_prefix = prefix
         super().__init__()
 
     def filter(self, client: NewClient, message: Message) -> bool:
@@ -193,7 +223,7 @@ class Command(Filter):
         :rtype: bool
         """
         text = ChainMessage.extract_text(message.Message)
-        matched = re.match(self.prefix, text)
+        matched = re.match(workdir.get_config().prefix if self.alt_prefix is None else self.alt_prefix, text)
         if matched:
             _, end = matched.span(0)
             return text[end:].startswith(self.command)
@@ -201,7 +231,7 @@ class Command(Filter):
 
     def __repr__(self):
         return (
-            f"{(config.prefix if self.prefix is None else self.prefix) + self.command}"
+            f"<prefix>{self.command}"
         )
 
 
@@ -242,7 +272,7 @@ class MessageType(Filter):
 
 
 class Owner(Filter):
-    def filter(self, client: NewClient, message: Message) -> bool:
+    def filter(self,client: NewClient, message: Message) -> bool:
         """Filter messages based on whether the sender is the owner.
 
         :param client: The client object.
@@ -252,4 +282,4 @@ class Owner(Filter):
         :return: True if the sender is the owner, False otherwise.
         :rtype: bool
         """
-        return message.Info.MessageSource.Sender.User in config_toml["thundra"]["owner"]
+        return message.Info.MessageSource.Sender.User in workdir.get_config().owner
