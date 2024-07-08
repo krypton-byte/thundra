@@ -13,8 +13,15 @@ def ptree(start: Any, tree: Dict[Any, Any], indent_width: int = 4):
     :type tree: Dict[Any, Any]
     :param indent_width: The width of each indentation level, defaults to 4.
     :type indent_width: int, optional
-    """    
-    def _ptree(start: Any, parent: Any, tree: Dict[Any, Any], grandpa: Any = None, indent: str = ""):
+    """
+
+    def _ptree(
+        start: Any,
+        parent: Any,
+        tree: Dict[Any, Any],
+        grandpa: Any = None,
+        indent: str = "",
+    ):
         """
         Recursively prints the tree structure.
 
@@ -28,7 +35,7 @@ def ptree(start: Any, tree: Dict[Any, Any], indent_width: int = 4):
         :type grandpa: Any, optional
         :param indent: The indentation string, defaults to "".
         :type indent: str, optional
-        """        
+        """
         if parent != start:
             if grandpa is None:  # Ask grandpa kids!
                 print(tree[parent]["name"], end="")
@@ -49,14 +56,13 @@ def ptree(start: Any, tree: Dict[Any, Any], indent_width: int = 4):
     _ptree(start, parent, tree)
 
 
-
 def tree_test():
     """
     Test function to generate and print a tree structure.
 
     This function creates a tree structure representing different types of items and then prints the tree.
 
-    """    
+    """
     from .middleware import middleware
     from .command import command
     from .agents import agent
@@ -87,4 +93,3 @@ def tree_test():
     print(
         f"🤖 {agent.__len__()} Agents, 🚦 {middleware.__len__()} Middlewares, and 📢 {command.__len__()} Commands"
     )
-

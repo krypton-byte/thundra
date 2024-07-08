@@ -10,7 +10,7 @@ def evaluate_module(root_path: Path, workspace: Optional[Path] = None):
 
     :param root_path: The root directory from which to start searching for Python modules.
     :type root_path: Path
-    :param workspace: The optional workspace directory. If provided, module paths will be relative to 
+    :param workspace: The optional workspace directory. If provided, module paths will be relative to
                       this directory. Defaults to None.
     :type workspace: Optional[Path], optional
     """

@@ -37,7 +37,10 @@ def main():
         "--phone-number", type=str, help="using pairphone as authentication, default qr"
     )
     run.add_argument(
-        "--dev", action="store_true", default=False, help="activate dev mode (auto reload)"
+        "--dev",
+        action="store_true",
+        default=False,
+        help="activate dev mode (auto reload)",
     )
     run.add_argument(
         "--verbose", action="store_true", default=False, help="set log level to verbose"
@@ -51,7 +54,9 @@ def main():
     plugin_install = types.add_parser("install")
     plugin_uninstall = types.add_parser("uninstall")
     plugin_install.add_argument("git_url", nargs=1, help="github repository, user/repo")
-    plugin_uninstall.add_argument("git_url", nargs=1, help="github repository, user/repo")
+    plugin_uninstall.add_argument(
+        "git_url", nargs=1, help="github repository, user/repo"
+    )
 
     plugin_install.add_argument(
         "-b", type=str, help='branch name e.g "master", "main"', dest="branch"
@@ -111,6 +116,7 @@ def main():
             from .agents import agent
             from .command import command
             from .middleware import middleware
+
             config_toml["thundra"]["db"] = workdir_db.__str__()
             sys.path.insert(0, workdir.workspace_dir.__str__())
             dirs, client = config_toml["thundra"]["app"].split(":")
@@ -122,6 +128,7 @@ def main():
         case "install":
             from .workdir import workdir
             from .plugins import PluginSource
+
             config_toml = workdir.read_config
             if not parse.no_generate:
                 open(workdir.config_path.parent / "thundra-dev.toml", "w").write(
@@ -170,6 +177,7 @@ def main():
                     workdir.db = Path(profile.db_path()).parent
                     workdir_db = profile.db_path()
                 from .workdir import workdir
+
                 config_toml = workdir.read_config
                 os.environ.update(config_toml["thundra"].get("env", {}))
                 VirtualEnv.get_env().activate(workdir.workspace.__str__())
@@ -252,6 +260,7 @@ def main():
         case "hide":
             from .utils import hidder
             from .workdir import workdir
+
             config_toml = workdir.read_config
             hidder(config_toml["secrets"])
             file = open(workdir.workspace / "thundra.toml", "w")

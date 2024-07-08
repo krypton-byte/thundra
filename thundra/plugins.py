@@ -19,6 +19,7 @@ extract_path = VirtualEnv.get_env().activate(workdir.workspace.__str__()).env
 
 class Response404(Exception):
     """Raised when a 404 response is encountered."""
+
     pass
 
 
@@ -39,7 +40,7 @@ class PluginZip:
         :type branch: str
         :param sha: The SHA hash of the plugin.
         :type sha: str
-        """    
+        """
         self.username = username
         self.repos = repos
         self.branch = branch
@@ -53,7 +54,7 @@ class PluginZip:
 
         :return: Information about the plugin.
         :rtype: dict
-        """        
+        """
         root = self.file.namelist()[0]
         return tomllib.loads(
             self.file.open(root + "thundra-plugin.toml").read().decode()
@@ -62,20 +63,21 @@ class PluginZip:
     def install_dependencies(self):
         """
         Installs the plugin's dependencies using pip.
-        """        
+        """
         import pip
+
         pip.main(["install", *self.info["plugin"]["dependencies"]])
 
     def install_extract(self):
         """
         Extracts the contents of the plugin ZIP file.
-        """        
+        """
         self.file.extractall(extract_path / self.username)
 
     def install(self):
         """
         Installs the plugin by installing dependencies and extracting its contents.
-        """        
+        """
         duplicate = list(Plugin.find_by_author_and_name(self.username, self.repos))
         self.install_dependencies()
         self.install_extract()
@@ -120,7 +122,7 @@ class Plugin:
 
         :return: A string representation of the plugin.
         :rtype: str
-        """        
+        """
         return (
             f"name: {self.name}\nauthor: {self.author}\nsha: {self.sha}\nversion: {self.version}\ndependencies: \n\t-"
             + "\n\t-".join(self.dependencies)
@@ -129,7 +131,7 @@ class Plugin:
     def uninstall(self):
         """
         Uninstalls the plugin by removing its directory and updating the configuration file.
-        """        
+        """
         shutil.rmtree(self.path)
         name = self.path.parent.name + "-" + self.repo_name
         config_toml["plugins"].pop(name)
@@ -148,7 +150,7 @@ class Plugin:
         :type sha: str
         :return: A Plugin object.
         :rtype: Self
-        """        
+        """
         with open(
             extract_path / author / f"{name}-{sha}" / "thundra-plugin.toml"
         ) as file:
@@ -175,7 +177,7 @@ class Plugin:
 
         :return: The name of the repository.
         :rtype: str
-        """        
+        """
         return re.search(r"(.*)\-(\w+)", self.path.name).group(1)  # type: ignore
 
     @classmethod
@@ -189,7 +191,7 @@ class Plugin:
         :type name: str
         :return: An iterable of Plugin objects.
         :rtype: Iterable[Self]
-        """        
+        """
         g = f"{extract_path}/{author}/{name}-*"
         for full_path in glob.glob(g):
             branch = re.search(r"(.*)\-(\w+)", full_path.split("/")[-1])
@@ -207,7 +209,7 @@ class Plugin:
         :rtype: Iterable[Self]
         :yield: Each found Plugin object.
         :rtype: Iterator[Iterable[Self]]
-        """        
+        """
         g = Path(f"{extract_path}/{author}/")
         for full_path in g.iterdir():
             if full_path.is_dir():
@@ -223,7 +225,7 @@ class Plugin:
 
         :yield: Each found Plugin object.
         :rtype: _type_
-        """        
+        """
         g = Path(f"{extract_path}/")
         for full_path in g.iterdir():
             if full_path.is_dir():
@@ -240,7 +242,7 @@ class PluginSource(requests.Session):
         :type username: str
         :param repository: The name of the repository.
         :type repository: str
-        """        
+        """
         super().__init__()
         self.git_username = username
         self.repository = repository
@@ -252,7 +254,7 @@ class PluginSource(requests.Session):
         :raises Response404: If the repository does not exist or has no releases.
         :return: Information about the latest version.
         :rtype: dict
-        """        
+        """
         req = self.get(
             f"https://api.github.com/repos/{self.git_username}/{self.repository}/releases"
         )
@@ -269,7 +271,7 @@ class PluginSource(requests.Session):
         :raises Response404: If the branch does not exist.
         :return: A PluginZip object representing the downloaded plugin.
         :rtype: PluginZip
-        """        
+        """
         req = requests.get(
             f"https://github.com/{self.git_username}/{self.repository}/archive/refs/heads/{branch}.zip"
         )
@@ -289,7 +291,7 @@ class PluginSource(requests.Session):
 
         :return: A list of branches.
         :rtype: List
-        """        
+        """
         return requests.get(
             f"https://api.github.com/repos/{self.git_username}/{self.repository}/branches"
         ).json()
@@ -302,7 +304,7 @@ class PluginSource(requests.Session):
         :type branch: str
         :return: The SHA hash of the last commit.
         :rtype: str
-        """        
+        """
         data = self.get(
             f"https://api.github.com/repos/{self.git_username}/{self.repository}/commits/{branch}"
         ).json()
@@ -325,7 +327,7 @@ class PluginSource(requests.Session):
         :type branch: str
         :return: A PluginZip object representing the downloaded plugin.
         :rtype: PluginZip
-        """        
+        """
         return PluginZip(
             BytesIO(
                 self.get(
@@ -337,4 +339,3 @@ class PluginSource(requests.Session):
             branch,
             sha,
         )
-

@@ -23,6 +23,7 @@ evaluate_module(Path(__file__).parent / "middleware")
 evaluate_module(Path(__file__).parent / "agents")
 from thundra.command import command
 from thundra.workdir import workdir, config_toml
+
 app = NewClient(
     config_toml["thundra"]["db"],
     DeviceProps(

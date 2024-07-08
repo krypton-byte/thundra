@@ -3,7 +3,10 @@ import tomllib
 from typing import Any, Dict, Iterable, List, Optional, Type
 from enum import Enum
 from neonize import NewClient
-from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import ImageMessage, Message as MessageProto
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
+    ImageMessage,
+    Message as MessageProto,
+)
 from neonize.proto.Neonize_pb2 import Message
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     ExtendedTextMessage,
@@ -30,7 +33,7 @@ def hidder(parent: dict):
     :type parent: dict
     :return: _description_
     :rtype: _type_
-    """    
+    """
     for k, v in parent.items():
         if isinstance(v, dict):
             hidder(v)
@@ -39,7 +42,6 @@ def hidder(parent: dict):
         else:
             parent[k] = ""
     return parent
-
 
 
 @dataclass
@@ -191,7 +193,6 @@ def get_user_id(message: Message) -> str:
     return f"{source.Chat.User}{source.Sender.User}"
 
 
-
 class MediaTypeToMMS(Enum):
     MediaImage = "image"
     MediaAudio = "audio"
@@ -256,7 +257,7 @@ def convert_size(size_bytes: int) -> str:
     :type size_bytes: int
     :return: The human-readable representation of the size.
     :rtype: str
-    """    
+    """
     if size_bytes == 0:
         return "0B"
     size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
@@ -264,4 +265,3 @@ def convert_size(size_bytes: int) -> str:
     p = math.pow(1024, i)
     s = round(size_bytes / p, 2)
     return "%s %s" % (s, size_name[i])
-

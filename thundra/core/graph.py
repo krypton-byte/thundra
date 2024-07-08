@@ -7,7 +7,7 @@ class Graph(ABC):
     """
     Abstract base class representing a graph with nodes and edges.
     """
-    
+
     def graph(self) -> str:
         """
         Generates a formatted string representing the graph, including its nodes and edges.

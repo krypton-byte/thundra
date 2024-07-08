@@ -18,6 +18,7 @@ class Agent:
         message_types (Sequence[Type[MessageType]]): The message types that the agent can handle.
         agent (Callable[[NewClient, Message], Any]): The function to be executed by the agent.
     """
+
     message_types: Sequence[Type[MessageType]]
     agent: Callable[[NewClient, Message], Any]
 
@@ -34,13 +35,14 @@ class AgentRegister(list[Agent], Graph):
         tool(*message_types: Type[MessageType]):
             Decorator to register an agent with specific message types.
     """
+
     def get_all_names(self) -> Generator[str, None, None]:
         """
         Generate the names of all agents in the register.
 
         :yield: The name of each agent.
         :rtype: Generator[str, None, None]
-        """        
+        """
         for agent in self:
             yield agent.agent.__qualname__
 
@@ -54,12 +56,14 @@ class AgentRegister(list[Agent], Graph):
         :type message_type: Type[MessageType]
         :yield: Agents that can handle the given message type.
         :rtype: Generator[Agent, None, None]
-        """    
+        """
         for tool in self:
             if message_type in tool.message_types or not tool.message_types:
                 yield tool
 
-    def tool(self, *message_types: Type[MessageType]) -> Callable[[Callable[[NewClient, Message], Callable[[str], str]]], None]:
+    def tool(
+        self, *message_types: Type[MessageType]
+    ) -> Callable[[Callable[[NewClient, Message], Callable[[str], str]]], None]:
         """
         Decorator to register an agent with specific message types.
 
@@ -67,7 +71,8 @@ class AgentRegister(list[Agent], Graph):
         :type message_types: Type[MessageType]
         :return: A decorator to register the agent function.
         :rtype: Callable[[Callable[[NewClient, Message], Callable[[str], str]]], None]
-        """        
+        """
+
         def tool_agent(f: Callable[[NewClient, Message], Callable[[str], str]]) -> None:
             log.debug(f"{f.__name__} agent loaded")
             self.append(Agent(message_types=message_types, agent=f))

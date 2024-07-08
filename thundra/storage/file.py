@@ -29,6 +29,7 @@ class File:
         pageCount (Optional[int]): The number of pages in the file (if applicable). Default is None.
         isAnimated (Optional[bool]): Indicates if the file is an animated media. Default is None.
     """
+
     URL: str
     mimetype: str
     fileSHA256: bytes
@@ -48,7 +49,7 @@ class File:
     isAnimated: Optional[bool] = None
 
     @classmethod
-    def from_message(cls, message: MediaMessageType) -> 'File':
+    def from_message(cls, message: MediaMessageType) -> "File":
         """
         Create a File instance from a MediaMessageType message.
 
@@ -56,7 +57,7 @@ class File:
         :type message: MediaMessageType
         :return: An instance of the File class.
         :rtype: File
-        """        
+        """
         return cls(
             **{
                 attr: (getattr(message, attr) if hasattr(message, attr) else None)
@@ -76,7 +77,7 @@ class File:
         :type mediatype: MediaType
         :return: The downloaded file as bytes.
         :rtype: bytes
-        """        
+        """
         return client.download_media_with_path(
             direct_path=self.directPath,
             enc_file_hash=self.fileEncSHA256,
@@ -103,7 +104,7 @@ class FileRegistry(dict[str, File]):
         :type data: File
         :param max_data: The maximum number of files allowed in the registry.
         :type max_data: int
-        """        
+        """
         n = self.__len__() - max_data
         if n > 0:
             for _, k in zip(range(n), self.keys()):
@@ -119,6 +120,7 @@ class StorageRegistry(dict[str, FileRegistry]):
     Attributes:
         max_files (int): The maximum number of files allowed per user registry.
     """
+
     max_files: int = 10
 
     def save(self, user_id: str, file_id: str, file: File):
@@ -131,7 +133,7 @@ class StorageRegistry(dict[str, FileRegistry]):
         :type file_id: str
         :param file: The file to be saved in the registry.
         :type file: File
-        """        
+        """
         get = self.get(user_id)
         if not get:
             self.update({user_id: FileRegistry()})
@@ -147,7 +149,7 @@ class StorageRegistry(dict[str, FileRegistry]):
         :type file_id: str
         :return: The requested file.
         :rtype: File
-        """        
+        """
         return self[user_id][file_id]
 
     def get_files(self, user_id: str) -> FileRegistry:
@@ -158,7 +160,7 @@ class StorageRegistry(dict[str, FileRegistry]):
         :type user_id: str
         :return: The registry of files for the user.
         :rtype: FileRegistry
-        """        
+        """
         return self[user_id]
 
     def get_files_by_type(
@@ -173,7 +175,7 @@ class StorageRegistry(dict[str, FileRegistry]):
         :type types: Iterable[type]
         :yield: The files of the specified types.
         :rtype: Generator[File, None, None]
-        """    
+        """
         files = self[user_id]
         for id_file in reversed(self[user_id]):
             file = files[id_file]

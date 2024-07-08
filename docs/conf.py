@@ -8,15 +8,18 @@
 
 import os
 import importlib.metadata
-project = 'thundra-ai'
-copyright = '2024, krypton-byte'
-author = 'krypton-byte'
-release = importlib.metadata.version('thundra-ai')
+
+project = "thundra-ai"
+copyright = "2024, krypton-byte"
+author = "krypton-byte"
+release = importlib.metadata.version("thundra-ai")
 import sys
 from pathlib import Path
+
 sys.path.insert(0, Path(os.getcwd()).parent.parent.__str__())
 import os
-os.environ['IGNORE_WORKDIR'] = '1'
+
+os.environ["IGNORE_WORKDIR"] = "1"
 import thundra
 
 # -- General configuration ---------------------------------------------------
@@ -31,8 +34,8 @@ extensions = [
     "sphinx_autodoc_typehints",
 ]
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 autosummary_generate = True
 autodoc_default_flags = ["members"]
 
@@ -40,5 +43,5 @@ autodoc_default_flags = ["members"]
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'furo'
-html_static_path = ['static']
+html_theme = "furo"
+html_static_path = ["static"]

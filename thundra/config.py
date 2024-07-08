@@ -10,13 +10,15 @@ from cachetools import cached, TTLCache
 
 cache = TTLCache(maxsize=1024, ttl=60)
 
+
 @dataclass
 class Config:
     prefix: str
     owner: List[str]
 
+
 @dataclass
-class Workdir:    
+class Workdir:
     db: Path
     config_path: Path
     workspace_dir: Optional[Path] = None
@@ -55,14 +57,14 @@ class Workdir:
             with open(self.config_path, "r") as file:
                 cf_format = tomllib.loads(file.read())
                 self.config = Config(
-                    prefix=cf_format['thundra']['prefix'],
-                    owner=cf_format['thundra']['owner']
+                    prefix=cf_format["thundra"]["prefix"],
+                    owner=cf_format["thundra"]["owner"],
                 )
         return self.config
 
     def config_format(self, config: Optional[Dict] = None, path="") -> dict:
         """
-        Recursively formats a configuration dictionary into a flat dictionary with keys representing the 
+        Recursively formats a configuration dictionary into a flat dictionary with keys representing the
         hierarchical structure of the original dictionary.
 
         :param config: The configuration dictionary to format. If None, the method uses `self.read_config`.
@@ -72,13 +74,15 @@ class Workdir:
         :type path: str, optional
         :return: A flat dictionary with keys representing the hierarchical structure of the original dictionary.
         :rtype: dict
-        """        
+        """
         result = {}
         if config is None:
             config = self.read_config
         for k, v in config.items():
             if isinstance(v, dict):
-                result.update(self.config_format(v, path=path + k + "." if path else k + "."))
+                result.update(
+                    self.config_format(v, path=path + k + "." if path else k + ".")
+                )
             elif isinstance(v, list):
                 result.update({f"{path}{k}[{i}]": val for i, val in enumerate(v)})
             else:
@@ -86,14 +90,14 @@ class Workdir:
         return result
 
     @classmethod
-    def find(cls, path: Path) -> 'Workdir':
+    def find(cls, path: Path) -> "Workdir":
         """
-        Finds the working directory by searching for specific configuration files 
+        Finds the working directory by searching for specific configuration files
         ('thundra-dev.toml' or 'thundra.toml') in the provided path and its parent directories.
 
-        This method traverses up the directory tree starting from the provided path, looking 
-        for either 'thundra-dev.toml' or 'thundra.toml' configuration files. If one of these 
-        files is found, a Workdir instance is created with the path of the directory containing 
+        This method traverses up the directory tree starting from the provided path, looking
+        for either 'thundra-dev.toml' or 'thundra.toml' configuration files. If one of these
+        files is found, a Workdir instance is created with the path of the directory containing
         the configuration file.
 
         :param path: The starting path from which to search for the configuration file.
@@ -119,7 +123,6 @@ class Workdir:
                 )
             dir_path = dir_path.parent
         raise TypeError("Workdir Not Found")
-
 
     @property
     def workspace(self) -> Path:

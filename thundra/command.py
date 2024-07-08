@@ -23,6 +23,7 @@ from .workdir import workdir, config_toml
 
 class Filter(ABC):
     invert = False
+
     def __or__(self, __value: Filterable) -> FilterOP:
         return FilterOP(left=self, op=OP.OR, right=__value, invert=self.invert)
 
@@ -93,13 +94,16 @@ class CommandFunc:
         allow_broadcast (bool): Whether this command can be used in broadcast messages.
         on_error (Optional[Union[str, Callable[[NewClient, Message, Exception], None]]]): Error handler for the command.
     """
+
     name: str
     filter: Filter | FilterOP
     description: str
     func: Callable[[NewClient, Message]]
     category: Sequence[str]
     allow_broadcast: bool
-    on_error: Optional[Union[str, Callable[[NewClient, Message, Exception], None]]] = None
+    on_error: Optional[Union[str, Callable[[NewClient, Message, Exception], None]]] = (
+        None
+    )
 
 
 class GlobalCommand(dict[str, CommandFunc], Graph):
@@ -112,6 +116,7 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         start_point (int): The starting point for generating command names.
 
     """
+
     start_point: int = 1
 
     def get_all_names(self) -> Generator[str, None, None]:
@@ -189,8 +194,12 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         description: str = "",
         category: Sequence[str] = ["all"],
         allow_broadcast: bool = False,
-        on_error: Optional[Union[str, Callable[[NewClient, Message, Exception], None]]] = None,
-    ) -> Callable[[Callable[[NewClient, Message], Any]], Callable[[NewClient, Message], Any]]:
+        on_error: Optional[
+            Union[str, Callable[[NewClient, Message, Exception], None]]
+        ] = None,
+    ) -> Callable[
+        [Callable[[NewClient, Message], Any]], Callable[[NewClient, Message], Any]
+    ]:
         """
         Register a new command with the provided parameters.
 
@@ -209,7 +218,10 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         :return: A decorator that registers the command.
         :rtype: Callable[[Callable[[NewClient, Message], Any]], Callable[[NewClient, Message], Any]]
         """
-        def command(f: Callable[[NewClient, Message], Any]) -> Callable[[NewClient, Message], Any]:
+
+        def command(
+            f: Callable[[NewClient, Message], Any],
+        ) -> Callable[[NewClient, Message], Any]:
             log.debug(f"{name} command loaded")
             self.add(
                 CommandFunc(
@@ -227,16 +239,12 @@ class GlobalCommand(dict[str, CommandFunc], Graph):
         return command
 
 
-
 command = GlobalCommand()
 
 
 class Command(Filter):
     def __init__(
-        self,
-        command: str,
-        prefix: Optional[str] = None,
-        space_detection: bool = False
+        self, command: str, prefix: Optional[str] = None, space_detection: bool = False
     ) -> None:
         """
         Initializes a Command instance.
@@ -264,16 +272,17 @@ class Command(Filter):
         :rtype: bool
         """
         text = ChainMessage.extract_text(message.Message)
-        matched = re.match(workdir.get_config().prefix if self.alt_prefix is None else self.alt_prefix, text)
+        matched = re.match(
+            workdir.get_config().prefix if self.alt_prefix is None else self.alt_prefix,
+            text,
+        )
         if matched:
             _, end = matched.span(0)
             return text[end:].startswith(self.command)
         return False
 
     def __repr__(self):
-        return (
-            f"<prefix>{self.command}"
-        )
+        return f"<prefix>{self.command}"
 
 
 class MessageType(Filter):
@@ -313,7 +322,7 @@ class MessageType(Filter):
 
 
 class Owner(Filter):
-    def filter(self,client: NewClient, message: Message) -> bool:
+    def filter(self, client: NewClient, message: Message) -> bool:
         """Filter messages based on whether the sender is the owner.
 
         :param client: The client object.

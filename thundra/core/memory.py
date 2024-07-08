@@ -10,7 +10,7 @@ import re
 
 def build_system_message() -> str:
     """
-    Builds the system message by replacing placeholders in the base system message 
+    Builds the system message by replacing placeholders in the base system message
     with corresponding values from the configuration.
 
     :return: The formatted system message.
@@ -51,7 +51,7 @@ class UserMemory:
     memory: ConversationBufferWindowMemory
 
     @classmethod
-    def create_ai_instance(cls, k: int) -> 'UserMemory':
+    def create_ai_instance(cls, k: int) -> "UserMemory":
         """
         Creates an instance of UserMemory with the specified buffer size.
 
@@ -108,7 +108,7 @@ class AIMemory:
 
     def get_memory(self, id: str) -> ConversationBufferWindowMemory:
         """
-        Retrieves the memory for a given user. If the user does not have memory initialized, 
+        Retrieves the memory for a given user. If the user does not have memory initialized,
         it creates a new instance.
 
         :param id: The identifier for the user.
@@ -143,5 +143,6 @@ class AIMemory:
         """
         if self.memory.get(id):
             self.memory[id].clear_history()
+
 
 memory = AIMemory()

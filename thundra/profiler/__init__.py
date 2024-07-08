@@ -69,7 +69,7 @@ class VirtualEnv(Dict[str, str]):
             file.write(json.dumps(self))
 
     @classmethod
-    def get_env(cls) -> 'VirtualEnv':
+    def get_env(cls) -> "VirtualEnv":
         """
         Get the virtual environment configuration.
 
@@ -82,10 +82,7 @@ class VirtualEnv(Dict[str, str]):
         return cls(json.loads(open(VENV_CONFIG, "r").read()))
 
     def activate(
-        self,
-        workspace: str,
-        autocreate: bool = True,
-        load_plugin: bool = True
+        self, workspace: str, autocreate: bool = True, load_plugin: bool = True
     ) -> Env:
         """
         Activate a virtual environment.
@@ -115,10 +112,12 @@ class VirtualEnv(Dict[str, str]):
 
         if env_str is None:
             from ..workdir import workdir
+
             if autocreate:
                 env = Env(
                     workspace=workdir.workspace,
-                    env=PLUGINS_PATH / f"{workdir.workspace.name}-{secrets.token_urlsafe(5)}",
+                    env=PLUGINS_PATH
+                    / f"{workdir.workspace.name}-{secrets.token_urlsafe(5)}",
                 )
                 self[workspace] = env.env.__str__()
                 self.save()
@@ -232,12 +231,11 @@ class Profile:
         )
 
 
-
-
 from typing import List
 from pathlib import Path
 import appdirs
 import json
+
 
 class Profiler(List[Profile]):
     """
@@ -363,4 +361,3 @@ class Profiler(List[Profile]):
             if profile.get_id() == alias:
                 return profile
         raise ProfileNotExist()
-
