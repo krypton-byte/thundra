@@ -9,12 +9,10 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
 )
 
 from thundra.button.v1 import CopyButton, ListButton, QuickReply
-from typing import TypeAlias
 
 from thundra.button.v2 import ListButtonV2, QuickReplyV2
 
 Button = QuickReply | ListButton | CopyButton | QuickReplyV2 | ListButtonV2
-
 
 
 @overload
@@ -45,11 +43,12 @@ def create_button_message(
     buttons: Iterable[Button],
     direct_send: bool = True,
 ) -> Message | InteractiveMessage:
-    interactive_message.nativeFlowMessage.MergeFrom(
-        InteractiveMessage.NativeFlowMessage(
-            buttons=[button.create() for button in buttons]
+    if buttons:
+        interactive_message.nativeFlowMessage.MergeFrom(
+            InteractiveMessage.NativeFlowMessage(
+                buttons=[button.create() for button in buttons]
+            )
         )
-    )
     if direct_send:
         return Message(
             viewOnceMessage=FutureProofMessage(
