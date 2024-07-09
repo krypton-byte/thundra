@@ -24,14 +24,9 @@ from .v2 import SectionV2, quick_reply, list_button
 
 class ButtonEventData(BaseModel, Generic[_ParamsButtonEvent]):
     id: str = Field()
-    on_click: Callable[[_ParamsButtonEvent], None] | Callable[[], None] = Field()
+    on_click: Callable[[_ParamsButtonEvent], None] = Field()
     expiration: datetime = Field()
     params_type: Optional[Type[_ParamsButtonEvent]] = Field(default=None)
-
-
-class ButtonContainer:
-    def __init__(self) -> None:
-        self.buttons = []
 
 
 class ButtonRegistry(Dict[str, ButtonEventData]):
@@ -57,11 +52,13 @@ class ButtonRegistry(Dict[str, ButtonEventData]):
             if response and response.name == "menu_options":
                 js = json.loads(response.paramsJSON)
                 if js["id"].startswith("rowv1"):
-                    matched = re.findall(r"rowv1_(.*)_([\d\.]+)$", js["id"])
+                    matched: List[Tuple] = re.findall(
+                        r"rowv1_(.*)_([\d\.]+)$", js["id"]
+                    )
                     if not matched:
                         return
                     selected: Tuple[str, str] = matched[0]
-                    id, timestamp = selected
+                    id, _ = selected
                     data = self[id]
                     for button in message.interactiveResponseMessage.contextInfo.quotedMessage.interactiveMessage.nativeFlowMessage.buttons:
                         if button.name == "single_select":
@@ -91,18 +88,21 @@ class ButtonRegistry(Dict[str, ButtonEventData]):
                         if button.name == "single_select":
                             sections = json.loads(button.buttonParamsJSON)["sections"]
                             for i, section in enumerate(sections):
-                                sections_data.append(
-                                    section_class.model_validate(section)
-                                )
-                                if (
-                                    i == 0
-                                    and sections_data[0].rows
-                                    and not sections_data[0]
-                                    .rows[0]
-                                    .id.startswith(f"rowv2_{event_id}_")
-                                ):
-                                    del sections_data[-1]
-                                    break
+                                try:
+                                    sections_data.append(
+                                        section_class.model_validate(section)
+                                    )
+                                    if (
+                                        i == 0
+                                        and sections_data[0].rows
+                                        and not sections_data[0]
+                                        .rows[0]
+                                        .id.startswith(f"rowv2_{event_id}_")
+                                    ):
+                                        del sections_data[-1]
+                                        break
+                                except Exception:
+                                    continue
                             for section in sections_data:
                                 for row in section.rows:
                                     if row.id == js["id"]:

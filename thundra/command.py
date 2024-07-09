@@ -244,7 +244,7 @@ command = GlobalCommand()
 
 class Command(Filter):
     def __init__(
-        self, command: str, prefix: Optional[str] = None, space_detection: bool = False
+        self, command: str, prefix: Optional[str] = None, space_detection: bool = True
     ) -> None:
         """
         Initializes a Command instance.

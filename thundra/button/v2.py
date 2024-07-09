@@ -27,13 +27,14 @@ class QuickReplyV2(ABC, BaseModel, Generic[_ParamsButtonEvent], EventType):
     display_text: str = Field()
     params: _ParamsButtonEvent = Field(default=EmptyParams())
 
+    @abstractmethod
     def on_click(
         self, client: NewClient, message: Message, params: _ParamsButtonEvent
     ) -> None: ...
 
     def __init_subclass__(cls) -> None:
         if cls.__module__ != __class__.__module__:
-            quick_reply.update({cls.event_id: cls})  # type: ignore
+            quick_reply.update({cls.event_id: cls})
 
     def create(self):
         return InteractiveMessage.NativeFlowMessage.NativeFlowButton(
@@ -77,13 +78,13 @@ class SectionV2(ABC, BaseModel, Generic[_ParamsButtonEvent], EventType):
 
     def __init_subclass__(cls) -> None:
         if cls.__module__ != __class__.__module__:
-            list_button.update({cls.event_id: cls})  # type: ignore
+            list_button.update({cls.event_id: cls})
 
     def create(self):
         return {
             "title": self.title,
             "highlight_label": self.highlight_label,
-            "rows": [row.create(self.event_id) for idx, row in enumerate(self.rows)],
+            "rows": [row.create(self.event_id) for row in self.rows],
         }
 
 

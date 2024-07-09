@@ -24,10 +24,8 @@ class EmptyParams(BaseModel):
 
 class QuickReply(BaseModel, Generic[_ParamsButtonEvent]):
     display_text: str = Field()
-    params: Optional[_ParamsButtonEvent] = Field(default=None)
-    on_click: Optional[Callable[[_ParamsButtonEvent], None] | Callable[[], None]] = (
-        Field(default=None)
-    )
+    params: _ParamsButtonEvent = Field(default=EmptyParams())
+    on_click: Callable[[_ParamsButtonEvent], None] | Callable[[], None]
     expiration: datetime = Field(
         default_factory=lambda: datetime.now() + timedelta(hours=1)
     )
@@ -35,7 +33,7 @@ class QuickReply(BaseModel, Generic[_ParamsButtonEvent]):
 
     def create(self) -> InteractiveMessage.NativeFlowMessage.NativeFlowButton:
         button_registry.add(
-            ButtonEventData(
+            ButtonEventData[_ParamsButtonEvent](
                 expiration=self.expiration,
                 id=self.id,
                 on_click=self.on_click,
@@ -74,7 +72,7 @@ class Row(BaseModel, Generic[_ParamsButtonEvent]):
         id: str,
         idx: int,
         expiration: datetime,
-        on_click: Callable[[_ParamsButtonEvent], None] | None,
+        on_click: Callable[[_ParamsButtonEvent], None],
     ) -> Dict:
         if on_click:
             if idx == 0:
@@ -82,7 +80,7 @@ class Row(BaseModel, Generic[_ParamsButtonEvent]):
                     ButtonEventData[type(self.params)](  # type: ignore
                         expiration=expiration,
                         id=id,
-                        on_click=on_click,  # type: ignore
+                        on_click=on_click,
                         params_type=type(self.params),
                     )
                 )
