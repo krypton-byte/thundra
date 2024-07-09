@@ -37,27 +37,27 @@ def create_button_message(
     direct_send: Literal[False],
 ) -> InteractiveMessage: ...
 
+
 def create_carousel_message(
-    interactive_message: InteractiveMessage,
-    cards: Iterable[InteractiveMessage]
+    interactive_message: InteractiveMessage, cards: Iterable[InteractiveMessage]
 ) -> Message:
     carousel = InteractiveMessage(
-        carouselMessage=InteractiveMessage.CarouselMessage(
-            cards=cards
-        )
+        carouselMessage=InteractiveMessage.CarouselMessage(cards=cards)
     )
     interactive_message.MergeFrom(carousel)
     return Message(
-            viewOnceMessage=FutureProofMessage(
-                message=Message(
-                    messageContextInfo=MessageContextInfo(
-                        deviceListMetadata=DeviceListMetadata(),
-                        deviceListMetadataVersion=2,
-                    ),
-                    interactiveMessage=interactive_message,
-                )
+        viewOnceMessage=FutureProofMessage(
+            message=Message(
+                messageContextInfo=MessageContextInfo(
+                    deviceListMetadata=DeviceListMetadata(),
+                    deviceListMetadataVersion=2,
+                ),
+                interactiveMessage=interactive_message,
             )
         )
+    )
+
+
 def create_button_message(
     interactive_message: InteractiveMessage,
     buttons: Iterable[Button],
