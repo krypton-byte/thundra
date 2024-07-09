@@ -16,7 +16,7 @@ keywords = ["neonize", "whatsapp", "framework", "websocket", "bot"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-neonize = "^0.1.5"
+neonize = "^0.1.6"
 pytube = "^15.0.0"
 langchain = "^0.1.11"
 tomli-w = "^1.0.0"
