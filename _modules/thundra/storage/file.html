@@ -289,6 +289,7 @@
 <span class="sd">        pageCount (Optional[int]): The number of pages in the file (if applicable). Default is None.</span>
 <span class="sd">        isAnimated (Optional[bool]): Indicates if the file is an animated media. Default is None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">URL</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">mimetype</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">fileSHA256</span><span class="p">:</span> <span class="nb">bytes</span>
@@ -310,7 +311,7 @@
 <div class="viewcode-block" id="File.from_message">
 <a class="viewcode-back" href="../../../source/thundra.storage.html#thundra.storage.file.File.from_message">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">MediaMessageType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;File&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">from_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">MediaMessageType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;File&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a File instance from a MediaMessageType message.</span>
 
@@ -318,7 +319,7 @@
 <span class="sd">        :type message: MediaMessageType</span>
 <span class="sd">        :return: An instance of the File class.</span>
 <span class="sd">        :rtype: File</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
             <span class="o">**</span><span class="p">{</span>
                 <span class="n">attr</span><span class="p">:</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
@@ -341,7 +342,7 @@
 <span class="sd">        :type mediatype: MediaType</span>
 <span class="sd">        :return: The downloaded file as bytes.</span>
 <span class="sd">        :rtype: bytes</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="n">download_media_with_path</span><span class="p">(</span>
             <span class="n">direct_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directPath</span><span class="p">,</span>
             <span class="n">enc_file_hash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fileEncSHA256</span><span class="p">,</span>
@@ -374,7 +375,7 @@
 <span class="sd">        :type data: File</span>
 <span class="sd">        :param max_data: The maximum number of files allowed in the registry.</span>
 <span class="sd">        :type max_data: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span> <span class="o">-</span> <span class="n">max_data</span>
         <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
@@ -394,6 +395,7 @@
 <span class="sd">    Attributes:</span>
 <span class="sd">        max_files (int): The maximum number of files allowed per user registry.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">max_files</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
 
 <div class="viewcode-block" id="StorageRegistry.save">
@@ -408,7 +410,7 @@
 <span class="sd">        :type file_id: str</span>
 <span class="sd">        :param file: The file to be saved in the registry.</span>
 <span class="sd">        :type file: File</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">get</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">get</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">user_id</span><span class="p">:</span> <span class="n">FileRegistry</span><span class="p">()})</span>
@@ -427,7 +429,7 @@
 <span class="sd">        :type file_id: str</span>
 <span class="sd">        :return: The requested file.</span>
 <span class="sd">        :rtype: File</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">user_id</span><span class="p">][</span><span class="n">file_id</span><span class="p">]</span></div>
 
 
@@ -441,7 +443,7 @@
 <span class="sd">        :type user_id: str</span>
 <span class="sd">        :return: The registry of files for the user.</span>
 <span class="sd">        :rtype: FileRegistry</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span></div>
 
 
@@ -459,7 +461,7 @@
 <span class="sd">        :type types: Iterable[type]</span>
 <span class="sd">        :yield: The files of the specified types.</span>
 <span class="sd">        :rtype: Generator[File, None, None]</span>
-<span class="sd">        &quot;&quot;&quot;</span>    
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">files</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">user_id</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">id_file</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">user_id</span><span class="p">]):</span>
             <span class="n">file</span> <span class="o">=</span> <span class="n">files</span><span class="p">[</span><span class="n">id_file</span><span class="p">]</span>

@@ -270,7 +270,7 @@
 <a class="viewcode-back" href="../../../source/thundra.core.html#thundra.core.memory.build_system_message">[docs]</a>
 <span class="k">def</span> <span class="nf">build_system_message</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Builds the system message by replacing placeholders in the base system message </span>
+<span class="sd">    Builds the system message by replacing placeholders in the base system message</span>
 <span class="sd">    with corresponding values from the configuration.</span>
 
 <span class="sd">    :return: The formatted system message.</span>
@@ -316,7 +316,7 @@
 <div class="viewcode-block" id="UserMemory.create_ai_instance">
 <a class="viewcode-back" href="../../../source/thundra.core.html#thundra.core.memory.UserMemory.create_ai_instance">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">create_ai_instance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;UserMemory&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">create_ai_instance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UserMemory&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates an instance of UserMemory with the specified buffer size.</span>
 
@@ -385,7 +385,7 @@
 <a class="viewcode-back" href="../../../source/thundra.core.html#thundra.core.memory.AIMemory.get_memory">[docs]</a>
     <span class="k">def</span> <span class="nf">get_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConversationBufferWindowMemory</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves the memory for a given user. If the user does not have memory initialized, </span>
+<span class="sd">        Retrieves the memory for a given user. If the user does not have memory initialized,</span>
 <span class="sd">        it creates a new instance.</span>
 
 <span class="sd">        :param id: The identifier for the user.</span>
@@ -427,6 +427,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">clear_history</span><span class="p">()</span></div>
 </div>
+
 
 
 <span class="n">memory</span> <span class="o">=</span> <span class="n">AIMemory</span><span class="p">()</span>

@@ -273,8 +273,15 @@
 <span class="sd">    :type tree: Dict[Any, Any]</span>
 <span class="sd">    :param indent_width: The width of each indentation level, defaults to 4.</span>
 <span class="sd">    :type indent_width: int, optional</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
-    <span class="k">def</span> <span class="nf">_ptree</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">tree</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">grandpa</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_ptree</span><span class="p">(</span>
+        <span class="n">start</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">parent</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">tree</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">grandpa</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">indent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recursively prints the tree structure.</span>
 
@@ -288,7 +295,7 @@
 <span class="sd">        :type grandpa: Any, optional</span>
 <span class="sd">        :param indent: The indentation string, defaults to &quot;&quot;.</span>
 <span class="sd">        :type indent: str, optional</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">parent</span> <span class="o">!=</span> <span class="n">start</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">grandpa</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Ask grandpa kids!</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="n">parent</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -310,7 +317,6 @@
 
 
 
-
 <div class="viewcode-block" id="tree_test">
 <a class="viewcode-back" href="../../source/thundra.html#thundra.test.tree_test">[docs]</a>
 <span class="k">def</span> <span class="nf">tree_test</span><span class="p">():</span>
@@ -319,7 +325,7 @@
 
 <span class="sd">    This function creates a tree structure representing different types of items and then prints the tree.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.middleware</span> <span class="kn">import</span> <span class="n">middleware</span>
     <span class="kn">from</span> <span class="nn">.command</span> <span class="kn">import</span> <span class="n">command</span>
     <span class="kn">from</span> <span class="nn">.agents</span> <span class="kn">import</span> <span class="n">agent</span>
@@ -350,7 +356,6 @@
     <span class="nb">print</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;🤖 </span><span class="si">{</span><span class="n">agent</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span><span class="si">}</span><span class="s2"> Agents, 🚦 </span><span class="si">{</span><span class="n">middleware</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span><span class="si">}</span><span class="s2"> Middlewares, and 📢 </span><span class="si">{</span><span class="n">command</span><span class="o">.</span><span class="fm">__len__</span><span class="p">()</span><span class="si">}</span><span class="s2"> Commands&quot;</span>
     <span class="p">)</span></div>
-
 
 </pre></div>
         </article>

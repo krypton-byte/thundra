@@ -268,6 +268,7 @@
 
 <span class="n">cache</span> <span class="o">=</span> <span class="n">TTLCache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="Config">
 <a class="viewcode-back" href="../../source/thundra.html#thundra.config.Config">[docs]</a>
 <span class="nd">@dataclass</span>
@@ -276,10 +277,11 @@
     <span class="n">owner</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></div>
 
 
+
 <div class="viewcode-block" id="Workdir">
 <a class="viewcode-back" href="../../source/thundra.html#thundra.config.Workdir">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Workdir</span><span class="p">:</span>    
+<span class="k">class</span> <span class="nc">Workdir</span><span class="p">:</span>
     <span class="n">db</span><span class="p">:</span> <span class="n">Path</span>
     <span class="n">config_path</span><span class="p">:</span> <span class="n">Path</span>
     <span class="n">workspace_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -323,8 +325,8 @@
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
                 <span class="n">cf_format</span> <span class="o">=</span> <span class="n">tomllib</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
-                    <span class="n">prefix</span><span class="o">=</span><span class="n">cf_format</span><span class="p">[</span><span class="s1">&#39;thundra&#39;</span><span class="p">][</span><span class="s1">&#39;prefix&#39;</span><span class="p">],</span>
-                    <span class="n">owner</span><span class="o">=</span><span class="n">cf_format</span><span class="p">[</span><span class="s1">&#39;thundra&#39;</span><span class="p">][</span><span class="s1">&#39;owner&#39;</span><span class="p">]</span>
+                    <span class="n">prefix</span><span class="o">=</span><span class="n">cf_format</span><span class="p">[</span><span class="s2">&quot;thundra&quot;</span><span class="p">][</span><span class="s2">&quot;prefix&quot;</span><span class="p">],</span>
+                    <span class="n">owner</span><span class="o">=</span><span class="n">cf_format</span><span class="p">[</span><span class="s2">&quot;thundra&quot;</span><span class="p">][</span><span class="s2">&quot;owner&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span></div>
 
@@ -333,7 +335,7 @@
 <a class="viewcode-back" href="../../source/thundra.html#thundra.config.Workdir.config_format">[docs]</a>
     <span class="k">def</span> <span class="nf">config_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Recursively formats a configuration dictionary into a flat dictionary with keys representing the </span>
+<span class="sd">        Recursively formats a configuration dictionary into a flat dictionary with keys representing the</span>
 <span class="sd">        hierarchical structure of the original dictionary.</span>
 
 <span class="sd">        :param config: The configuration dictionary to format. If None, the method uses `self.read_config`.</span>
@@ -343,13 +345,15 @@
 <span class="sd">        :type path: str, optional</span>
 <span class="sd">        :return: A flat dictionary with keys representing the hierarchical structure of the original dictionary.</span>
 <span class="sd">        :rtype: dict</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_config</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_format</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="k">if</span> <span class="n">path</span> <span class="k">else</span> <span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">))</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">config_format</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="k">if</span> <span class="n">path</span> <span class="k">else</span> <span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}{</span><span class="n">k</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="p">)})</span>
             <span class="k">else</span><span class="p">:</span>
@@ -360,14 +364,14 @@
 <div class="viewcode-block" id="Workdir.find">
 <a class="viewcode-back" href="../../source/thundra.html#thundra.config.Workdir.find">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Workdir&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Workdir&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Finds the working directory by searching for specific configuration files </span>
+<span class="sd">        Finds the working directory by searching for specific configuration files</span>
 <span class="sd">        (&#39;thundra-dev.toml&#39; or &#39;thundra.toml&#39;) in the provided path and its parent directories.</span>
 
-<span class="sd">        This method traverses up the directory tree starting from the provided path, looking </span>
-<span class="sd">        for either &#39;thundra-dev.toml&#39; or &#39;thundra.toml&#39; configuration files. If one of these </span>
-<span class="sd">        files is found, a Workdir instance is created with the path of the directory containing </span>
+<span class="sd">        This method traverses up the directory tree starting from the provided path, looking</span>
+<span class="sd">        for either &#39;thundra-dev.toml&#39; or &#39;thundra.toml&#39; configuration files. If one of these</span>
+<span class="sd">        files is found, a Workdir instance is created with the path of the directory containing</span>
 <span class="sd">        the configuration file.</span>
 
 <span class="sd">        :param path: The starting path from which to search for the configuration file.</span>
@@ -393,7 +397,6 @@
                 <span class="p">)</span>
             <span class="n">dir_path</span> <span class="o">=</span> <span class="n">dir_path</span><span class="o">.</span><span class="n">parent</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Workdir Not Found&quot;</span><span class="p">)</span></div>
-
 
 
     <span class="nd">@property</span>

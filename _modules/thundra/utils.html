@@ -261,7 +261,10 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Type</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">neonize</span> <span class="kn">import</span> <span class="n">NewClient</span>
-<span class="kn">from</span> <span class="nn">neonize.proto.waE2E.WAWebProtobufsE2E_pb2</span> <span class="kn">import</span> <span class="n">ImageMessage</span><span class="p">,</span> <span class="n">Message</span> <span class="k">as</span> <span class="n">MessageProto</span>
+<span class="kn">from</span> <span class="nn">neonize.proto.waE2E.WAWebProtobufsE2E_pb2</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ImageMessage</span><span class="p">,</span>
+    <span class="n">Message</span> <span class="k">as</span> <span class="n">MessageProto</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">neonize.proto.Neonize_pb2</span> <span class="kn">import</span> <span class="n">Message</span>
 <span class="kn">from</span> <span class="nn">neonize.proto.waE2E.WAWebProtobufsE2E_pb2</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ExtendedTextMessage</span><span class="p">,</span>
@@ -290,7 +293,7 @@
 <span class="sd">    :type parent: dict</span>
 <span class="sd">    :return: _description_</span>
 <span class="sd">    :rtype: _type_</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">hidder</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
@@ -299,7 +302,6 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">parent</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">return</span> <span class="n">parent</span></div>
-
 
 
 
@@ -470,7 +472,6 @@
 
 
 
-
 <div class="viewcode-block" id="MediaTypeToMMS">
 <a class="viewcode-back" href="../../source/thundra.html#thundra.utils.MediaTypeToMMS">[docs]</a>
 <span class="k">class</span> <span class="nc">MediaTypeToMMS</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -543,7 +544,7 @@
 <span class="sd">    :type size_bytes: int</span>
 <span class="sd">    :return: The human-readable representation of the size.</span>
 <span class="sd">    :rtype: str</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">size_bytes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;0B&quot;</span>
     <span class="n">size_name</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;KB&quot;</span><span class="p">,</span> <span class="s2">&quot;MB&quot;</span><span class="p">,</span> <span class="s2">&quot;GB&quot;</span><span class="p">,</span> <span class="s2">&quot;TB&quot;</span><span class="p">,</span> <span class="s2">&quot;PB&quot;</span><span class="p">,</span> <span class="s2">&quot;EB&quot;</span><span class="p">,</span> <span class="s2">&quot;ZB&quot;</span><span class="p">,</span> <span class="s2">&quot;YB&quot;</span><span class="p">)</span>
@@ -551,7 +552,6 @@
     <span class="n">p</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">size_bytes</span> <span class="o">/</span> <span class="n">p</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">size_name</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
-
 
 </pre></div>
         </article>

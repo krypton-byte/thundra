@@ -259,6 +259,7 @@
 <span></span><span class="kn">from</span> <span class="nn">langchain_core.language_models.chat_models</span> <span class="kn">import</span> <span class="n">BaseChatModel</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
 
+
 <div class="viewcode-block" id="LLM">
 <a class="viewcode-back" href="../../../source/thundra.core.html#thundra.core.llm.LLM">[docs]</a>
 <span class="k">class</span> <span class="nc">LLM</span><span class="p">:</span>
@@ -269,12 +270,13 @@
 <span class="sd">        chat_models (BaseChatModel): The chat model to be used.</span>
 <span class="sd">        llm_available (Event): An event to signal the availability of the LLM.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">chat_models</span><span class="p">:</span> <span class="n">BaseChatModel</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize the LLM class with an event to track the availability of the language model.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">llm_available</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
 
     <span class="nd">@property</span>
@@ -284,7 +286,7 @@
 
 <span class="sd">        :return: The currently set language model.</span>
 <span class="sd">        :rtype: BaseChatModel</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm_available</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">llm_available</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat_models</span>
@@ -296,7 +298,7 @@
 
 <span class="sd">        :param llm: The language model to be set.</span>
 <span class="sd">        :type llm: BaseChatModel</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">llm_available</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chat_models</span> <span class="o">=</span> <span class="n">llm</span>
 
@@ -307,7 +309,7 @@
 
 <span class="sd">        :return: True if the language model is available, False otherwise.</span>
 <span class="sd">        :rtype: bool</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm_available</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
 
 <div class="viewcode-block" id="LLM.remove_llm">
@@ -315,10 +317,11 @@
     <span class="k">def</span> <span class="nf">remove_llm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove the currently set language model and reset its availability.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat_models</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">llm_available</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span></div>
 </div>
+
 
 
 <span class="c1"># Initialize the LLM instance</span>

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
-        <title>thundra.agents - thundra-ai 0.1.0 documentation</title>
+        <title>thundra.button - thundra-ai 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -255,105 +255,114 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <h1>Source code for thundra.agents</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">neonize.client</span> <span class="kn">import</span> <span class="n">NewClient</span>
-<span class="kn">from</span> <span class="nn">neonize.proto.Neonize_pb2</span> <span class="kn">import</span> <span class="n">Message</span>
+          <h1>Source code for thundra.button</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">overload</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">neonize.proto.waE2E.WAWebProtobufsE2E_pb2</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DeviceListMetadata</span><span class="p">,</span>
+    <span class="n">FutureProofMessage</span><span class="p">,</span>
+    <span class="n">InteractiveMessage</span><span class="p">,</span>
+    <span class="n">Message</span><span class="p">,</span>
+    <span class="n">MessageContextInfo</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.core.graph</span> <span class="kn">import</span> <span class="n">Graph</span>
-<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">MessageType</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">thundra.button.v1</span> <span class="kn">import</span> <span class="n">CopyButton</span><span class="p">,</span> <span class="n">ListButton</span><span class="p">,</span> <span class="n">QuickReply</span><span class="p">,</span> <span class="n">Row</span><span class="p">,</span> <span class="n">Section</span>
+<span class="kn">from</span> <span class="nn">thundra.button.registry</span> <span class="kn">import</span> <span class="n">button_registry</span>
+<span class="kn">from</span> <span class="nn">thundra.button.v2</span> <span class="kn">import</span> <span class="n">ListButtonV2</span><span class="p">,</span> <span class="n">QuickReplyV2</span><span class="p">,</span> <span class="n">RowV2</span><span class="p">,</span> <span class="n">SectionV2</span>
 
-
-<div class="viewcode-block" id="Agent">
-<a class="viewcode-back" href="../../source/thundra.html#thundra.agents.Agent">[docs]</a>
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Agent</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A class representing an agent with specific message types and a callable agent function.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        message_types (Sequence[Type[MessageType]]): The message types that the agent can handle.</span>
-<span class="sd">        agent (Callable[[NewClient, Message], Any]): The function to be executed by the agent.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">message_types</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">MessageType</span><span class="p">]]</span>
-    <span class="n">agent</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span></div>
+<span class="n">Button</span> <span class="o">=</span> <span class="n">QuickReply</span> <span class="o">|</span> <span class="n">ListButton</span> <span class="o">|</span> <span class="n">CopyButton</span> <span class="o">|</span> <span class="n">QuickReplyV2</span> <span class="o">|</span> <span class="n">ListButtonV2</span>
 
 
-
-<div class="viewcode-block" id="AgentRegister">
-<a class="viewcode-back" href="../../source/thundra.html#thundra.agents.AgentRegister">[docs]</a>
-<span class="k">class</span> <span class="nc">AgentRegister</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="n">Agent</span><span class="p">],</span> <span class="n">Graph</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A registry for agents, allowing filtering and management of agents.</span>
-
-<span class="sd">    Methods:</span>
-<span class="sd">        get_all_names():</span>
-<span class="sd">            Generate the names of all agents in the register.</span>
-<span class="sd">        filter_tools(message_type: Type[MessageType]):</span>
-<span class="sd">            Generate agents that can handle the given message type.</span>
-<span class="sd">        tool(*message_types: Type[MessageType]):</span>
-<span class="sd">            Decorator to register an agent with specific message types.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="AgentRegister.get_all_names">
-<a class="viewcode-back" href="../../source/thundra.html#thundra.agents.AgentRegister.get_all_names">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_all_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate the names of all agents in the register.</span>
-
-<span class="sd">        :yield: The name of each agent.</span>
-<span class="sd">        :rtype: Generator[str, None, None]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">agent</span><span class="o">.</span><span class="n">agent</span><span class="o">.</span><span class="vm">__qualname__</span></div>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">create_button_message</span><span class="p">(</span>
+    <span class="n">interactive_message</span><span class="p">:</span> <span class="n">InteractiveMessage</span><span class="p">,</span>
+    <span class="n">buttons</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Button</span><span class="p">],</span>
+    <span class="n">direct_send</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span> <span class="o">...</span>
 
 
-<div class="viewcode-block" id="AgentRegister.filter_tools">
-<a class="viewcode-back" href="../../source/thundra.html#thundra.agents.AgentRegister.filter_tools">[docs]</a>
-    <span class="k">def</span> <span class="nf">filter_tools</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">message_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MessageType</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Agent</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generate agents that can handle the given message type.</span>
-
-<span class="sd">        :param message_type: The type of message to filter agents by.</span>
-<span class="sd">        :type message_type: Type[MessageType]</span>
-<span class="sd">        :yield: Agents that can handle the given message type.</span>
-<span class="sd">        :rtype: Generator[Agent, None, None]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">message_type</span> <span class="ow">in</span> <span class="n">tool</span><span class="o">.</span><span class="n">message_types</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">tool</span><span class="o">.</span><span class="n">message_types</span><span class="p">:</span>
-                <span class="k">yield</span> <span class="n">tool</span></div>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">create_button_message</span><span class="p">(</span>
+    <span class="n">interactive_message</span><span class="p">:</span> <span class="n">InteractiveMessage</span><span class="p">,</span>
+    <span class="n">buttons</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Button</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span> <span class="o">...</span>
 
 
-<div class="viewcode-block" id="AgentRegister.tool">
-<a class="viewcode-back" href="../../source/thundra.html#thundra.agents.AgentRegister.tool">[docs]</a>
-    <span class="k">def</span> <span class="nf">tool</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">message_types</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MessageType</span><span class="p">]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]],</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Decorator to register an agent with specific message types.</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">create_button_message</span><span class="p">(</span>
+    <span class="n">interactive_message</span><span class="p">:</span> <span class="n">InteractiveMessage</span><span class="p">,</span>
+    <span class="n">buttons</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Button</span><span class="p">],</span>
+    <span class="n">direct_send</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InteractiveMessage</span><span class="p">:</span> <span class="o">...</span>
 
-<span class="sd">        :param message_types: The message types the agent can handle.</span>
-<span class="sd">        :type message_types: Type[MessageType]</span>
-<span class="sd">        :return: A decorator to register the agent function.</span>
-<span class="sd">        :rtype: Callable[[Callable[[NewClient, Message], Callable[[str], str]]], None]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">tool_agent</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> agent loaded&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Agent</span><span class="p">(</span><span class="n">message_types</span><span class="o">=</span><span class="n">message_types</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">f</span><span class="p">))</span>
-
-        <span class="k">return</span> <span class="n">tool_agent</span></div>
-</div>
+<div class="viewcode-block" id="create_carousel_message">
+<a class="viewcode-back" href="../../source/thundra.button.html#thundra.button.create_carousel_message">[docs]</a>
+<span class="k">def</span> <span class="nf">create_carousel_message</span><span class="p">(</span>
+    <span class="n">interactive_message</span><span class="p">:</span> <span class="n">InteractiveMessage</span><span class="p">,</span> <span class="n">cards</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">InteractiveMessage</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
+    <span class="n">carousel</span> <span class="o">=</span> <span class="n">InteractiveMessage</span><span class="p">(</span>
+        <span class="n">carouselMessage</span><span class="o">=</span><span class="n">InteractiveMessage</span><span class="o">.</span><span class="n">CarouselMessage</span><span class="p">(</span><span class="n">cards</span><span class="o">=</span><span class="n">cards</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">interactive_message</span><span class="o">.</span><span class="n">MergeFrom</span><span class="p">(</span><span class="n">carousel</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Message</span><span class="p">(</span>
+        <span class="n">viewOnceMessage</span><span class="o">=</span><span class="n">FutureProofMessage</span><span class="p">(</span>
+            <span class="n">message</span><span class="o">=</span><span class="n">Message</span><span class="p">(</span>
+                <span class="n">messageContextInfo</span><span class="o">=</span><span class="n">MessageContextInfo</span><span class="p">(</span>
+                    <span class="n">deviceListMetadata</span><span class="o">=</span><span class="n">DeviceListMetadata</span><span class="p">(),</span>
+                    <span class="n">deviceListMetadataVersion</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">interactiveMessage</span><span class="o">=</span><span class="n">interactive_message</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
 
-<span class="n">agent</span> <span class="o">=</span> <span class="n">AgentRegister</span><span class="p">()</span>
+<div class="viewcode-block" id="create_button_message">
+<a class="viewcode-back" href="../../source/thundra.button.html#thundra.button.create_button_message">[docs]</a>
+<span class="k">def</span> <span class="nf">create_button_message</span><span class="p">(</span>
+    <span class="n">interactive_message</span><span class="p">:</span> <span class="n">InteractiveMessage</span><span class="p">,</span>
+    <span class="n">buttons</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Button</span><span class="p">],</span>
+    <span class="n">direct_send</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span> <span class="o">|</span> <span class="n">InteractiveMessage</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">buttons</span><span class="p">:</span>
+        <span class="n">interactive_message</span><span class="o">.</span><span class="n">nativeFlowMessage</span><span class="o">.</span><span class="n">MergeFrom</span><span class="p">(</span>
+            <span class="n">InteractiveMessage</span><span class="o">.</span><span class="n">NativeFlowMessage</span><span class="p">(</span>
+                <span class="n">buttons</span><span class="o">=</span><span class="p">[</span><span class="n">button</span><span class="o">.</span><span class="n">create</span><span class="p">()</span> <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="p">],</span>
+                <span class="n">messageVersion</span><span class="o">=</span><span class="mi">2</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">direct_send</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Message</span><span class="p">(</span>
+            <span class="n">viewOnceMessage</span><span class="o">=</span><span class="n">FutureProofMessage</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="n">Message</span><span class="p">(</span>
+                    <span class="n">messageContextInfo</span><span class="o">=</span><span class="n">MessageContextInfo</span><span class="p">(</span>
+                        <span class="n">deviceListMetadata</span><span class="o">=</span><span class="n">DeviceListMetadata</span><span class="p">(),</span>
+                        <span class="n">deviceListMetadataVersion</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">interactiveMessage</span><span class="o">=</span><span class="n">interactive_message</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">interactive_message</span></div>
+
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;button_registry&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ListButton&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;QuickReply&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CopyButton&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Row&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Section&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ListButtonV2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;RowV2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;QuickReplyV2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SectionV2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;create_button_message&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;create_carousel_message&#39;</span>
+<span class="p">)</span>
 </pre></div>
         </article>
       </div>

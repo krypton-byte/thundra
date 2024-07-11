@@ -1,0 +1,1737 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+        <title>thundra.button package - thundra-ai 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">thundra-ai 0.1.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">thundra-ai 0.1.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">thundra</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of thundra</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="thundra.html">thundra package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of thundra package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="thundra.core.html">thundra.core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thundra.profiler.html">thundra.profiler package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thundra.storage.html">thundra.storage package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/source/thundra.button.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="thundra-button-package">
+<h1>thundra.button package<a class="headerlink" href="#thundra-button-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-thundra.button.registry">
+<span id="thundra-button-registry-module"></span><h2>thundra.button.registry module<a class="headerlink" href="#module-thundra.button.registry" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.registry.</span></span><span class="sig-name descname"><span class="pre">ButtonEventData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/registry.html#ButtonEventData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.registry.ButtonEventData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData.expiration">
+<span class="sig-name descname"><span class="pre">expiration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></em><a class="headerlink" href="#thundra.button.registry.ButtonEventData.expiration" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#thundra.button.registry.ButtonEventData.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.registry.ButtonEventData.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.registry.ButtonEventData.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'expiration':</span> <span class="pre">FieldInfo(annotation=datetime,</span> <span class="pre">required=True),</span> <span class="pre">'id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'on_click':</span> <span class="pre">FieldInfo(annotation=Callable[list,</span> <span class="pre">NoneType],</span> <span class="pre">required=True),</span> <span class="pre">'params_type':</span> <span class="pre">FieldInfo(annotation=Union[Type[~_ParamsButtonEvent],</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">default=None)}</span></em><a class="headerlink" href="#thundra.button.registry.ButtonEventData.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData.on_click">
+<span class="sig-name descname"><span class="pre">on_click</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code><span class="pre">[[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code><span class="pre">,</span> <span class="pre">bound=</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code><span class="pre">)],</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code><span class="pre">]</span></em><a class="headerlink" href="#thundra.button.registry.ButtonEventData.on_click" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonEventData.params_type">
+<span class="sig-name descname"><span class="pre">params_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code><span class="pre">,</span> <span class="pre">bound=</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code><span class="pre">)]]</span></em><a class="headerlink" href="#thundra.button.registry.ButtonEventData.params_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonRegistry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.registry.</span></span><span class="sig-name descname"><span class="pre">ButtonRegistry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">worker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/registry.html#ButtonRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.registry.ButtonRegistry" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#thundra.button.registry.ButtonEventData" title="thundra.button.registry.ButtonEventData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ButtonEventData</span></code></a>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonRegistry.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">button</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/registry.html#ButtonRegistry.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.registry.ButtonRegistry.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonRegistry.click">
+<span class="sig-name descname"><span class="pre">click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/registry.html#ButtonRegistry.click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.registry.ButtonRegistry.click" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.registry.ButtonRegistry.expire_run">
+<span class="sig-name descname"><span class="pre">expire_run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/registry.html#ButtonRegistry.expire_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.registry.ButtonRegistry.expire_run" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-thundra.button.types">
+<span id="thundra-button-types-module"></span><h2>thundra.button.types module<a class="headerlink" href="#module-thundra.button.types" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-thundra.button.v1">
+<span id="thundra-button-v1-module"></span><h2>thundra.button.v1 module<a class="headerlink" href="#module-thundra.button.v1" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v1.CopyButton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v1.</span></span><span class="sig-name descname"><span class="pre">CopyButton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#CopyButton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.CopyButton" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.CopyButton.copy_code">
+<span class="sig-name descname"><span class="pre">copy_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.CopyButton.copy_code" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v1.CopyButton.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#CopyButton.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.CopyButton.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.CopyButton.display_text">
+<span class="sig-name descname"><span class="pre">display_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.CopyButton.display_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.CopyButton.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.CopyButton.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.CopyButton.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.CopyButton.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.CopyButton.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'copy_code':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'display_text':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.v1.CopyButton.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v1.EmptyParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v1.</span></span><span class="sig-name descname"><span class="pre">EmptyParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#EmptyParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.EmptyParams" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.EmptyParams.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.EmptyParams.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.EmptyParams.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.EmptyParams.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.EmptyParams.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.EmptyParams.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v1.ListButton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v1.</span></span><span class="sig-name descname"><span class="pre">ListButton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#ListButton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.ListButton" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v1.ListButton.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#ListButton.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.ListButton.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.ListButton.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.ListButton.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.ListButton.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.ListButton.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.ListButton.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'sections':</span> <span class="pre">FieldInfo(annotation=List[Section],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.v1.ListButton.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.ListButton.sections">
+<span class="sig-name descname"><span class="pre">sections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[Section]</span></em><a class="headerlink" href="#thundra.button.v1.ListButton.sections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.ListButton.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.ListButton.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v1.</span></span><span class="sig-name descname"><span class="pre">QuickReply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#QuickReply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.QuickReply" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#QuickReply.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.QuickReply.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.create_event">
+<span class="sig-name descname"><span class="pre">create_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#QuickReply.create_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.QuickReply.create_event" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.display_text">
+<span class="sig-name descname"><span class="pre">display_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.display_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.expiration">
+<span class="sig-name descname"><span class="pre">expiration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.expiration" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'display_text':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'expiration':</span> <span class="pre">FieldInfo(annotation=datetime,</span> <span class="pre">required=False,</span> <span class="pre">default_factory=&lt;lambda&gt;),</span> <span class="pre">'id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=False,</span> <span class="pre">default_factory=&lt;lambda&gt;),</span> <span class="pre">'on_click':</span> <span class="pre">FieldInfo(annotation=Union[Callable[list,</span> <span class="pre">NoneType],</span> <span class="pre">Callable[list,</span> <span class="pre">NoneType]],</span> <span class="pre">required=True),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=~_ParamsButtonEvent,</span> <span class="pre">required=False,</span> <span class="pre">default=EmptyParams())}</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.on_click">
+<span class="sig-name descname"><span class="pre">on_click</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable[[_ParamsButtonEvent],</span> <span class="pre">None]</span> <span class="pre">|</span> <span class="pre">Callable[[],</span> <span class="pre">None]</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.on_click" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.QuickReply.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_ParamsButtonEvent</span></em><a class="headerlink" href="#thundra.button.v1.QuickReply.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v1.Row">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v1.</span></span><span class="sig-name descname"><span class="pre">Row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.Row" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_click</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Row.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.Row.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.Row.description" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.header">
+<span class="sig-name descname"><span class="pre">header</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.Row.header" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.Row.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.Row.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'header':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=Union[~_ParamsButtonEvent,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">default=None),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.v1.Row.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[_ParamsButtonEvent]</span></em><a class="headerlink" href="#thundra.button.v1.Row.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Row.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.Row.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v1.Section">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v1.</span></span><span class="sig-name descname"><span class="pre">Section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.Section" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.add_option">
+<span class="sig-name descname"><span class="pre">add_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Section.add_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.Section.add_option" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Section.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v1.Section.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.expiration">
+<span class="sig-name descname"><span class="pre">expiration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#thundra.button.v1.Section.expiration" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.highlight_label">
+<span class="sig-name descname"><span class="pre">highlight_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.Section.highlight_label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.Section.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.Section.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v1.Section.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'expiration':</span> <span class="pre">FieldInfo(annotation=datetime,</span> <span class="pre">required=False,</span> <span class="pre">default=datetime.datetime(2024,</span> <span class="pre">7,</span> <span class="pre">11,</span> <span class="pre">16,</span> <span class="pre">23,</span> <span class="pre">42,</span> <span class="pre">542337)),</span> <span class="pre">'highlight_label':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=False,</span> <span class="pre">default_factory=&lt;lambda&gt;),</span> <span class="pre">'on_selected':</span> <span class="pre">FieldInfo(annotation=Union[Callable[list,</span> <span class="pre">NoneType],</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">default=None),</span> <span class="pre">'rows':</span> <span class="pre">FieldInfo(annotation=List[Row],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.v1.Section.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.on_selected">
+<span class="sig-name descname"><span class="pre">on_selected</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Callable[[_ParamsButtonEvent],</span> <span class="pre">None]]</span></em><a class="headerlink" href="#thundra.button.v1.Section.on_selected" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.rows">
+<span class="sig-name descname"><span class="pre">rows</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[Row[_ParamsButtonEvent]]</span></em><a class="headerlink" href="#thundra.button.v1.Section.rows" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v1.Section.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v1.Section.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-thundra.button.v2">
+<span id="thundra-button-v2-module"></span><h2>thundra.button.v2 module<a class="headerlink" href="#module-thundra.button.v2" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v2.EmptyParams">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v2.</span></span><span class="sig-name descname"><span class="pre">EmptyParams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#EmptyParams"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.EmptyParams" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.EmptyParams.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.EmptyParams.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.EmptyParams.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.EmptyParams.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.EmptyParams.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.EmptyParams.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v2.EventType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v2.</span></span><span class="sig-name descname"><span class="pre">EventType</span></span><a class="reference internal" href="../_modules/thundra/button/v2.html#EventType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.EventType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v2.EventType.get_quickreply_models">
+<span class="sig-name descname"><span class="pre">get_quickreply_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#EventType.get_quickreply_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.EventType.get_quickreply_models" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v2.ListButtonV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v2.</span></span><span class="sig-name descname"><span class="pre">ListButtonV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#ListButtonV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.ListButtonV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v2.ListButtonV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#ListButtonV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.ListButtonV2.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.ListButtonV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.ListButtonV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.ListButtonV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.ListButtonV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.ListButtonV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'sections':</span> <span class="pre">FieldInfo(annotation=List[SectionV2],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.v2.ListButtonV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.ListButtonV2.sections">
+<span class="sig-name descname"><span class="pre">sections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[SectionV2]</span></em><a class="headerlink" href="#thundra.button.v2.ListButtonV2.sections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.ListButtonV2.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.ListButtonV2.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v2.</span></span><span class="sig-name descname"><span class="pre">QuickReplyV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#QuickReplyV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.QuickReplyV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>], <a class="reference internal" href="#thundra.button.v2.EventType" title="thundra.button.v2.EventType"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventType</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#QuickReplyV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.display_text">
+<span class="sig-name descname"><span class="pre">display_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.display_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.event_id">
+<span class="sig-name descname"><span class="pre">event_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.event_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'display_text':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=~_ParamsButtonEvent,</span> <span class="pre">required=False,</span> <span class="pre">default=EmptyParams())}</span></em><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.on_click">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#QuickReplyV2.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.on_click" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.QuickReplyV2.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_ParamsButtonEvent</span></em><a class="headerlink" href="#thundra.button.v2.QuickReplyV2.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v2.</span></span><span class="sig-name descname"><span class="pre">RowV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#RowV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.RowV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#RowV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.RowV2.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.description" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.header">
+<span class="sig-name descname"><span class="pre">header</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.header" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'header':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=False,</span> <span class="pre">default=''),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=~_ParamsButtonEvent,</span> <span class="pre">required=False,</span> <span class="pre">default=EmptyParams()),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_ParamsButtonEvent</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.RowV2.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.RowV2.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.v2.</span></span><span class="sig-name descname"><span class="pre">SectionV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#SectionV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.SectionV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>], <a class="reference internal" href="#thundra.button.v2.EventType" title="thundra.button.v2.EventType"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventType</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#SectionV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.SectionV2.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.event_id">
+<span class="sig-name descname"><span class="pre">event_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><a class="headerlink" href="#thundra.button.v2.SectionV2.event_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.highlight_label">
+<span class="sig-name descname"><span class="pre">highlight_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.SectionV2.highlight_label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.SectionV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.v2.SectionV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'highlight_label':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'rows':</span> <span class="pre">FieldInfo(annotation=List[RowV2],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.v2.SectionV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.on_click">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#SectionV2.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.v2.SectionV2.on_click" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.rows">
+<span class="sig-name descname"><span class="pre">rows</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[RowV2[_ParamsButtonEvent]]</span></em><a class="headerlink" href="#thundra.button.v2.SectionV2.rows" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.v2.SectionV2.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.v2.SectionV2.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-thundra.button">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-thundra.button" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.CopyButton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">CopyButton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#CopyButton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.CopyButton" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.CopyButton.copy_code">
+<span class="sig-name descname"><span class="pre">copy_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.CopyButton.copy_code" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.CopyButton.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#CopyButton.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.CopyButton.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.CopyButton.display_text">
+<span class="sig-name descname"><span class="pre">display_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.CopyButton.display_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.CopyButton.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.CopyButton.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.CopyButton.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.CopyButton.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.CopyButton.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'copy_code':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'display_text':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.CopyButton.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.ListButton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">ListButton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#ListButton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.ListButton" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.ListButton.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#ListButton.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.ListButton.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButton.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.ListButton.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButton.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.ListButton.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButton.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'sections':</span> <span class="pre">FieldInfo(annotation=List[Section],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.ListButton.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButton.sections">
+<span class="sig-name descname"><span class="pre">sections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[Section]</span></em><a class="headerlink" href="#thundra.button.ListButton.sections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButton.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.ListButton.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.ListButtonV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">ListButtonV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#ListButtonV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.ListButtonV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.ListButtonV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#ListButtonV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.ListButtonV2.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButtonV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.ListButtonV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButtonV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.ListButtonV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButtonV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'sections':</span> <span class="pre">FieldInfo(annotation=List[SectionV2],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.ListButtonV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButtonV2.sections">
+<span class="sig-name descname"><span class="pre">sections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[SectionV2]</span></em><a class="headerlink" href="#thundra.button.ListButtonV2.sections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.ListButtonV2.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.ListButtonV2.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.QuickReply">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">QuickReply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#QuickReply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.QuickReply" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#QuickReply.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.QuickReply.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NativeFlowButton</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.create_event">
+<span class="sig-name descname"><span class="pre">create_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#QuickReply.create_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.QuickReply.create_event" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.display_text">
+<span class="sig-name descname"><span class="pre">display_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.QuickReply.display_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.expiration">
+<span class="sig-name descname"><span class="pre">expiration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#thundra.button.QuickReply.expiration" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.QuickReply.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.QuickReply.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.QuickReply.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'display_text':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'expiration':</span> <span class="pre">FieldInfo(annotation=datetime,</span> <span class="pre">required=False,</span> <span class="pre">default_factory=&lt;lambda&gt;),</span> <span class="pre">'id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=False,</span> <span class="pre">default_factory=&lt;lambda&gt;),</span> <span class="pre">'on_click':</span> <span class="pre">FieldInfo(annotation=Union[Callable[list,</span> <span class="pre">NoneType],</span> <span class="pre">Callable[list,</span> <span class="pre">NoneType]],</span> <span class="pre">required=True),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=~_ParamsButtonEvent,</span> <span class="pre">required=False,</span> <span class="pre">default=EmptyParams())}</span></em><a class="headerlink" href="#thundra.button.QuickReply.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.on_click">
+<span class="sig-name descname"><span class="pre">on_click</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable[[_ParamsButtonEvent],</span> <span class="pre">None]</span> <span class="pre">|</span> <span class="pre">Callable[[],</span> <span class="pre">None]</span></em><a class="headerlink" href="#thundra.button.QuickReply.on_click" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReply.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_ParamsButtonEvent</span></em><a class="headerlink" href="#thundra.button.QuickReply.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">QuickReplyV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#QuickReplyV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.QuickReplyV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>], <a class="reference internal" href="#thundra.button.v2.EventType" title="thundra.button.v2.EventType"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventType</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#QuickReplyV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.QuickReplyV2.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.display_text">
+<span class="sig-name descname"><span class="pre">display_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.QuickReplyV2.display_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.event_id">
+<span class="sig-name descname"><span class="pre">event_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><a class="headerlink" href="#thundra.button.QuickReplyV2.event_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.QuickReplyV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.QuickReplyV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'display_text':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=~_ParamsButtonEvent,</span> <span class="pre">required=False,</span> <span class="pre">default=EmptyParams())}</span></em><a class="headerlink" href="#thundra.button.QuickReplyV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.on_click">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#QuickReplyV2.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.QuickReplyV2.on_click" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.QuickReplyV2.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_ParamsButtonEvent</span></em><a class="headerlink" href="#thundra.button.QuickReplyV2.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.Row">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">Row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.Row" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.Row.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expiration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_click</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Row.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.Row.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Row.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.Row.description" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Row.header">
+<span class="sig-name descname"><span class="pre">header</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.Row.header" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Row.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.Row.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Row.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.Row.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Row.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'header':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=Union[~_ParamsButtonEvent,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">default=None),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.Row.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Row.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[_ParamsButtonEvent]</span></em><a class="headerlink" href="#thundra.button.Row.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Row.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.Row.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.RowV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">RowV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#RowV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.RowV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.RowV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#RowV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.RowV2.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.RowV2.description" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.header">
+<span class="sig-name descname"><span class="pre">header</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.RowV2.header" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.RowV2.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.RowV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.RowV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'header':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=False,</span> <span class="pre">default=''),</span> <span class="pre">'params':</span> <span class="pre">FieldInfo(annotation=~_ParamsButtonEvent,</span> <span class="pre">required=False,</span> <span class="pre">default=EmptyParams()),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.RowV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.params">
+<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">_ParamsButtonEvent</span></em><a class="headerlink" href="#thundra.button.RowV2.params" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.RowV2.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.RowV2.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.Section">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">Section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.Section" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.Section.add_option">
+<span class="sig-name descname"><span class="pre">add_option</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Section.add_option"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.Section.add_option" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.Section.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v1.html#Section.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.Section.create" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.expiration">
+<span class="sig-name descname"><span class="pre">expiration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#thundra.button.Section.expiration" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.highlight_label">
+<span class="sig-name descname"><span class="pre">highlight_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.Section.highlight_label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.Section.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.Section.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.Section.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'expiration':</span> <span class="pre">FieldInfo(annotation=datetime,</span> <span class="pre">required=False,</span> <span class="pre">default=datetime.datetime(2024,</span> <span class="pre">7,</span> <span class="pre">11,</span> <span class="pre">16,</span> <span class="pre">23,</span> <span class="pre">42,</span> <span class="pre">542337)),</span> <span class="pre">'highlight_label':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'id':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=False,</span> <span class="pre">default_factory=&lt;lambda&gt;),</span> <span class="pre">'on_selected':</span> <span class="pre">FieldInfo(annotation=Union[Callable[list,</span> <span class="pre">NoneType],</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">default=None),</span> <span class="pre">'rows':</span> <span class="pre">FieldInfo(annotation=List[Row],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.Section.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.on_selected">
+<span class="sig-name descname"><span class="pre">on_selected</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Callable[[_ParamsButtonEvent],</span> <span class="pre">None]]</span></em><a class="headerlink" href="#thundra.button.Section.on_selected" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.rows">
+<span class="sig-name descname"><span class="pre">rows</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[Row[_ParamsButtonEvent]]</span></em><a class="headerlink" href="#thundra.button.Section.rows" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.Section.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.Section.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="thundra.button.SectionV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">SectionV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#SectionV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.SectionV2" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_ParamsButtonEvent</span></code>], <a class="reference internal" href="#thundra.button.v2.EventType" title="thundra.button.v2.EventType"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventType</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#SectionV2.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.SectionV2.create" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.event_id">
+<span class="sig-name descname"><span class="pre">event_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[str]</span></em><a class="headerlink" href="#thundra.button.SectionV2.event_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.highlight_label">
+<span class="sig-name descname"><span class="pre">highlight_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.SectionV2.highlight_label" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.model_computed_fields">
+<span class="sig-name descname"><span class="pre">model_computed_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">ComputedFieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.SectionV2.model_computed_fields" title="Link to this definition">¶</a></dt>
+<dd><p>A dictionary of computed field names and their corresponding <cite>ComputedFieldInfo</cite> objects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[ConfigDict]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#thundra.button.SectionV2.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar[dict[str,</span> <span class="pre">FieldInfo]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'highlight_label':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'rows':</span> <span class="pre">FieldInfo(annotation=List[RowV2],</span> <span class="pre">required=True),</span> <span class="pre">'title':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#thundra.button.SectionV2.model_fields" title="Link to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.on_click">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">on_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button/v2.html#SectionV2.on_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.SectionV2.on_click" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.rows">
+<span class="sig-name descname"><span class="pre">rows</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[RowV2[_ParamsButtonEvent]]</span></em><a class="headerlink" href="#thundra.button.SectionV2.rows" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="thundra.button.SectionV2.title">
+<span class="sig-name descname"><span class="pre">title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#thundra.button.SectionV2.title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="thundra.button.create_button_message">
+<span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">create_button_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interactive_message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buttons</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct_send</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button.html#create_button_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.create_button_message" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Message</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">InteractiveMessage</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="thundra.button.create_carousel_message">
+<span class="sig-prename descclassname"><span class="pre">thundra.button.</span></span><span class="sig-name descname"><span class="pre">create_carousel_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interactive_message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cards</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/thundra/button.html#create_carousel_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#thundra.button.create_carousel_message" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Message</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, krypton-byte
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">thundra.button package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-thundra.button.registry">thundra.button.registry module</a><ul>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData"><code class="docutils literal notranslate"><span class="pre">ButtonEventData</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData.expiration"><code class="docutils literal notranslate"><span class="pre">ButtonEventData.expiration</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData.id"><code class="docutils literal notranslate"><span class="pre">ButtonEventData.id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ButtonEventData.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData.model_config"><code class="docutils literal notranslate"><span class="pre">ButtonEventData.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData.model_fields"><code class="docutils literal notranslate"><span class="pre">ButtonEventData.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData.on_click"><code class="docutils literal notranslate"><span class="pre">ButtonEventData.on_click</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonEventData.params_type"><code class="docutils literal notranslate"><span class="pre">ButtonEventData.params_type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonRegistry"><code class="docutils literal notranslate"><span class="pre">ButtonRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonRegistry.add"><code class="docutils literal notranslate"><span class="pre">ButtonRegistry.add()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonRegistry.click"><code class="docutils literal notranslate"><span class="pre">ButtonRegistry.click()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.registry.ButtonRegistry.expire_run"><code class="docutils literal notranslate"><span class="pre">ButtonRegistry.expire_run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-thundra.button.types">thundra.button.types module</a></li>
+<li><a class="reference internal" href="#module-thundra.button.v1">thundra.button.v1 module</a><ul>
+<li><a class="reference internal" href="#thundra.button.v1.CopyButton"><code class="docutils literal notranslate"><span class="pre">CopyButton</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v1.CopyButton.copy_code"><code class="docutils literal notranslate"><span class="pre">CopyButton.copy_code</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.CopyButton.create"><code class="docutils literal notranslate"><span class="pre">CopyButton.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.CopyButton.display_text"><code class="docutils literal notranslate"><span class="pre">CopyButton.display_text</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.CopyButton.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">CopyButton.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.CopyButton.model_config"><code class="docutils literal notranslate"><span class="pre">CopyButton.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.CopyButton.model_fields"><code class="docutils literal notranslate"><span class="pre">CopyButton.model_fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v1.EmptyParams"><code class="docutils literal notranslate"><span class="pre">EmptyParams</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v1.EmptyParams.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">EmptyParams.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.EmptyParams.model_config"><code class="docutils literal notranslate"><span class="pre">EmptyParams.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.EmptyParams.model_fields"><code class="docutils literal notranslate"><span class="pre">EmptyParams.model_fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v1.ListButton"><code class="docutils literal notranslate"><span class="pre">ListButton</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v1.ListButton.create"><code class="docutils literal notranslate"><span class="pre">ListButton.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.ListButton.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ListButton.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.ListButton.model_config"><code class="docutils literal notranslate"><span class="pre">ListButton.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.ListButton.model_fields"><code class="docutils literal notranslate"><span class="pre">ListButton.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.ListButton.sections"><code class="docutils literal notranslate"><span class="pre">ListButton.sections</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.ListButton.title"><code class="docutils literal notranslate"><span class="pre">ListButton.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply"><code class="docutils literal notranslate"><span class="pre">QuickReply</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.create"><code class="docutils literal notranslate"><span class="pre">QuickReply.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.create_event"><code class="docutils literal notranslate"><span class="pre">QuickReply.create_event()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.display_text"><code class="docutils literal notranslate"><span class="pre">QuickReply.display_text</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.expiration"><code class="docutils literal notranslate"><span class="pre">QuickReply.expiration</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.id"><code class="docutils literal notranslate"><span class="pre">QuickReply.id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">QuickReply.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.model_config"><code class="docutils literal notranslate"><span class="pre">QuickReply.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.model_fields"><code class="docutils literal notranslate"><span class="pre">QuickReply.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.on_click"><code class="docutils literal notranslate"><span class="pre">QuickReply.on_click</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.QuickReply.params"><code class="docutils literal notranslate"><span class="pre">QuickReply.params</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v1.Row"><code class="docutils literal notranslate"><span class="pre">Row</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v1.Row.create"><code class="docutils literal notranslate"><span class="pre">Row.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Row.description"><code class="docutils literal notranslate"><span class="pre">Row.description</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Row.header"><code class="docutils literal notranslate"><span class="pre">Row.header</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Row.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Row.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Row.model_config"><code class="docutils literal notranslate"><span class="pre">Row.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Row.model_fields"><code class="docutils literal notranslate"><span class="pre">Row.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Row.params"><code class="docutils literal notranslate"><span class="pre">Row.params</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Row.title"><code class="docutils literal notranslate"><span class="pre">Row.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v1.Section"><code class="docutils literal notranslate"><span class="pre">Section</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v1.Section.add_option"><code class="docutils literal notranslate"><span class="pre">Section.add_option()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.create"><code class="docutils literal notranslate"><span class="pre">Section.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.expiration"><code class="docutils literal notranslate"><span class="pre">Section.expiration</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.highlight_label"><code class="docutils literal notranslate"><span class="pre">Section.highlight_label</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.id"><code class="docutils literal notranslate"><span class="pre">Section.id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Section.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.model_config"><code class="docutils literal notranslate"><span class="pre">Section.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.model_fields"><code class="docutils literal notranslate"><span class="pre">Section.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.on_selected"><code class="docutils literal notranslate"><span class="pre">Section.on_selected</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.rows"><code class="docutils literal notranslate"><span class="pre">Section.rows</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v1.Section.title"><code class="docutils literal notranslate"><span class="pre">Section.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-thundra.button.v2">thundra.button.v2 module</a><ul>
+<li><a class="reference internal" href="#thundra.button.v2.EmptyParams"><code class="docutils literal notranslate"><span class="pre">EmptyParams</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v2.EmptyParams.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">EmptyParams.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.EmptyParams.model_config"><code class="docutils literal notranslate"><span class="pre">EmptyParams.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.EmptyParams.model_fields"><code class="docutils literal notranslate"><span class="pre">EmptyParams.model_fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v2.EventType"><code class="docutils literal notranslate"><span class="pre">EventType</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v2.EventType.get_quickreply_models"><code class="docutils literal notranslate"><span class="pre">EventType.get_quickreply_models()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v2.ListButtonV2"><code class="docutils literal notranslate"><span class="pre">ListButtonV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v2.ListButtonV2.create"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.ListButtonV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.ListButtonV2.model_config"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.ListButtonV2.model_fields"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.ListButtonV2.sections"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.sections</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.ListButtonV2.title"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.create"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.display_text"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.display_text</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.event_id"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.event_id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.model_config"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.model_fields"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.on_click"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.on_click()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.QuickReplyV2.params"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.params</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2"><code class="docutils literal notranslate"><span class="pre">RowV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.create"><code class="docutils literal notranslate"><span class="pre">RowV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.description"><code class="docutils literal notranslate"><span class="pre">RowV2.description</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.header"><code class="docutils literal notranslate"><span class="pre">RowV2.header</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.id"><code class="docutils literal notranslate"><span class="pre">RowV2.id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">RowV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.model_config"><code class="docutils literal notranslate"><span class="pre">RowV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.model_fields"><code class="docutils literal notranslate"><span class="pre">RowV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.params"><code class="docutils literal notranslate"><span class="pre">RowV2.params</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.RowV2.title"><code class="docutils literal notranslate"><span class="pre">RowV2.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2"><code class="docutils literal notranslate"><span class="pre">SectionV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.create"><code class="docutils literal notranslate"><span class="pre">SectionV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.event_id"><code class="docutils literal notranslate"><span class="pre">SectionV2.event_id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.highlight_label"><code class="docutils literal notranslate"><span class="pre">SectionV2.highlight_label</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">SectionV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.model_config"><code class="docutils literal notranslate"><span class="pre">SectionV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.model_fields"><code class="docutils literal notranslate"><span class="pre">SectionV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.on_click"><code class="docutils literal notranslate"><span class="pre">SectionV2.on_click()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.rows"><code class="docutils literal notranslate"><span class="pre">SectionV2.rows</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.v2.SectionV2.title"><code class="docutils literal notranslate"><span class="pre">SectionV2.title</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-thundra.button">Module contents</a><ul>
+<li><a class="reference internal" href="#thundra.button.CopyButton"><code class="docutils literal notranslate"><span class="pre">CopyButton</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.CopyButton.copy_code"><code class="docutils literal notranslate"><span class="pre">CopyButton.copy_code</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.CopyButton.create"><code class="docutils literal notranslate"><span class="pre">CopyButton.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.CopyButton.display_text"><code class="docutils literal notranslate"><span class="pre">CopyButton.display_text</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.CopyButton.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">CopyButton.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.CopyButton.model_config"><code class="docutils literal notranslate"><span class="pre">CopyButton.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.CopyButton.model_fields"><code class="docutils literal notranslate"><span class="pre">CopyButton.model_fields</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.ListButton"><code class="docutils literal notranslate"><span class="pre">ListButton</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.ListButton.create"><code class="docutils literal notranslate"><span class="pre">ListButton.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButton.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ListButton.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButton.model_config"><code class="docutils literal notranslate"><span class="pre">ListButton.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButton.model_fields"><code class="docutils literal notranslate"><span class="pre">ListButton.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButton.sections"><code class="docutils literal notranslate"><span class="pre">ListButton.sections</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButton.title"><code class="docutils literal notranslate"><span class="pre">ListButton.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.ListButtonV2"><code class="docutils literal notranslate"><span class="pre">ListButtonV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.ListButtonV2.create"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButtonV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButtonV2.model_config"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButtonV2.model_fields"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButtonV2.sections"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.sections</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.ListButtonV2.title"><code class="docutils literal notranslate"><span class="pre">ListButtonV2.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.QuickReply"><code class="docutils literal notranslate"><span class="pre">QuickReply</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.QuickReply.create"><code class="docutils literal notranslate"><span class="pre">QuickReply.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.create_event"><code class="docutils literal notranslate"><span class="pre">QuickReply.create_event()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.display_text"><code class="docutils literal notranslate"><span class="pre">QuickReply.display_text</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.expiration"><code class="docutils literal notranslate"><span class="pre">QuickReply.expiration</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.id"><code class="docutils literal notranslate"><span class="pre">QuickReply.id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">QuickReply.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.model_config"><code class="docutils literal notranslate"><span class="pre">QuickReply.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.model_fields"><code class="docutils literal notranslate"><span class="pre">QuickReply.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.on_click"><code class="docutils literal notranslate"><span class="pre">QuickReply.on_click</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReply.params"><code class="docutils literal notranslate"><span class="pre">QuickReply.params</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.create"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.display_text"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.display_text</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.event_id"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.event_id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.model_config"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.model_fields"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.on_click"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.on_click()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.QuickReplyV2.params"><code class="docutils literal notranslate"><span class="pre">QuickReplyV2.params</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.Row"><code class="docutils literal notranslate"><span class="pre">Row</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.Row.create"><code class="docutils literal notranslate"><span class="pre">Row.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Row.description"><code class="docutils literal notranslate"><span class="pre">Row.description</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Row.header"><code class="docutils literal notranslate"><span class="pre">Row.header</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Row.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Row.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Row.model_config"><code class="docutils literal notranslate"><span class="pre">Row.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Row.model_fields"><code class="docutils literal notranslate"><span class="pre">Row.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Row.params"><code class="docutils literal notranslate"><span class="pre">Row.params</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Row.title"><code class="docutils literal notranslate"><span class="pre">Row.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.RowV2"><code class="docutils literal notranslate"><span class="pre">RowV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.RowV2.create"><code class="docutils literal notranslate"><span class="pre">RowV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.description"><code class="docutils literal notranslate"><span class="pre">RowV2.description</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.header"><code class="docutils literal notranslate"><span class="pre">RowV2.header</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.id"><code class="docutils literal notranslate"><span class="pre">RowV2.id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">RowV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.model_config"><code class="docutils literal notranslate"><span class="pre">RowV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.model_fields"><code class="docutils literal notranslate"><span class="pre">RowV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.params"><code class="docutils literal notranslate"><span class="pre">RowV2.params</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.RowV2.title"><code class="docutils literal notranslate"><span class="pre">RowV2.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.Section"><code class="docutils literal notranslate"><span class="pre">Section</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.Section.add_option"><code class="docutils literal notranslate"><span class="pre">Section.add_option()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.create"><code class="docutils literal notranslate"><span class="pre">Section.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.expiration"><code class="docutils literal notranslate"><span class="pre">Section.expiration</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.highlight_label"><code class="docutils literal notranslate"><span class="pre">Section.highlight_label</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.id"><code class="docutils literal notranslate"><span class="pre">Section.id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Section.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.model_config"><code class="docutils literal notranslate"><span class="pre">Section.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.model_fields"><code class="docutils literal notranslate"><span class="pre">Section.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.on_selected"><code class="docutils literal notranslate"><span class="pre">Section.on_selected</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.rows"><code class="docutils literal notranslate"><span class="pre">Section.rows</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.Section.title"><code class="docutils literal notranslate"><span class="pre">Section.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.SectionV2"><code class="docutils literal notranslate"><span class="pre">SectionV2</span></code></a><ul>
+<li><a class="reference internal" href="#thundra.button.SectionV2.create"><code class="docutils literal notranslate"><span class="pre">SectionV2.create()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.event_id"><code class="docutils literal notranslate"><span class="pre">SectionV2.event_id</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.highlight_label"><code class="docutils literal notranslate"><span class="pre">SectionV2.highlight_label</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">SectionV2.model_computed_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.model_config"><code class="docutils literal notranslate"><span class="pre">SectionV2.model_config</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.model_fields"><code class="docutils literal notranslate"><span class="pre">SectionV2.model_fields</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.on_click"><code class="docutils literal notranslate"><span class="pre">SectionV2.on_click()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.rows"><code class="docutils literal notranslate"><span class="pre">SectionV2.rows</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.SectionV2.title"><code class="docutils literal notranslate"><span class="pre">SectionV2.title</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thundra.button.create_button_message"><code class="docutils literal notranslate"><span class="pre">create_button_message()</span></code></a></li>
+<li><a class="reference internal" href="#thundra.button.create_carousel_message"><code class="docutils literal notranslate"><span class="pre">create_carousel_message()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
+    </body>
+</html>

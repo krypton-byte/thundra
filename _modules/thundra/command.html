@@ -283,6 +283,7 @@
 <a class="viewcode-back" href="../../source/thundra.html#thundra.command.Filter">[docs]</a>
 <span class="k">class</span> <span class="nc">Filter</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="n">invert</span> <span class="o">=</span> <span class="kc">False</span>
+
     <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__value</span><span class="p">:</span> <span class="n">Filterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FilterOP</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">FilterOP</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">OP</span><span class="o">.</span><span class="n">OR</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">__value</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">invert</span><span class="p">)</span>
 
@@ -368,13 +369,16 @@
 <span class="sd">        allow_broadcast (bool): Whether this command can be used in broadcast messages.</span>
 <span class="sd">        on_error (Optional[Union[str, Callable[[NewClient, Message, Exception], None]]]): Error handler for the command.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="nb">filter</span><span class="p">:</span> <span class="n">Filter</span> <span class="o">|</span> <span class="n">FilterOP</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">]]</span>
     <span class="n">category</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="n">allow_broadcast</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">on_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span></div>
+    <span class="n">on_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="kc">None</span>
+    <span class="p">)</span></div>
 
 
 
@@ -390,6 +394,7 @@
 <span class="sd">        start_point (int): The starting point for generating command names.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">start_point</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 
 <div class="viewcode-block" id="GlobalCommand.get_all_names">
@@ -481,8 +486,12 @@
         <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="n">category</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">],</span>
         <span class="n">allow_broadcast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">on_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="n">on_error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+            <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span>
+        <span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Register a new command with the provided parameters.</span>
 
@@ -501,7 +510,10 @@
 <span class="sd">        :return: A decorator that registers the command.</span>
 <span class="sd">        :rtype: Callable[[Callable[[NewClient, Message], Any]], Callable[[NewClient, Message], Any]]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">]:</span>
+
+        <span class="k">def</span> <span class="nf">command</span><span class="p">(</span>
+            <span class="n">f</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">NewClient</span><span class="p">,</span> <span class="n">Message</span><span class="p">],</span> <span class="n">Any</span><span class="p">]:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> command loaded&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
                 <span class="n">CommandFunc</span><span class="p">(</span>
@@ -521,7 +533,6 @@
 
 
 
-
 <span class="n">command</span> <span class="o">=</span> <span class="n">GlobalCommand</span><span class="p">()</span>
 
 
@@ -529,10 +540,7 @@
 <a class="viewcode-back" href="../../source/thundra.html#thundra.command.Command">[docs]</a>
 <span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">Filter</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">space_detection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes a Command instance.</span>
@@ -544,7 +552,7 @@
 <span class="sd">        :param space_detection: A flag indicating whether to append a space to the command, defaults to False.</span>
 <span class="sd">        :type space_detection: bool, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span> <span class="o">+</span> <span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="k">if</span> <span class="n">space_detection</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alt_prefix</span> <span class="o">=</span> <span class="n">prefix</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -562,17 +570,18 @@
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">ChainMessage</span><span class="o">.</span><span class="n">extract_text</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">Message</span><span class="p">)</span>
-        <span class="n">matched</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">workdir</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span><span class="o">.</span><span class="n">prefix</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alt_prefix</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">alt_prefix</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">matched</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span>
+            <span class="n">workdir</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span><span class="o">.</span><span class="n">prefix</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alt_prefix</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">alt_prefix</span><span class="p">,</span>
+            <span class="n">text</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">matched</span><span class="p">:</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">matched</span><span class="o">.</span><span class="n">span</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="n">end</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">command</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;&lt;prefix&gt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">command</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;prefix&gt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">command</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 
 
@@ -623,7 +632,7 @@
 <span class="k">class</span> <span class="nc">Owner</span><span class="p">(</span><span class="n">Filter</span><span class="p">):</span>
 <div class="viewcode-block" id="Owner.filter">
 <a class="viewcode-back" href="../../source/thundra.html#thundra.command.Owner.filter">[docs]</a>
-    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">client</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">NewClient</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Filter messages based on whether the sender is the owner.</span>
 
 <span class="sd">        :param client: The client object.</span>

@@ -279,6 +279,7 @@
 <a class="viewcode-back" href="../../source/thundra.html#thundra.plugins.Response404">[docs]</a>
 <span class="k">class</span> <span class="nc">Response404</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when a 404 response is encountered.&quot;&quot;&quot;</span>
+
     <span class="k">pass</span></div>
 
 
@@ -302,7 +303,7 @@
 <span class="sd">        :type branch: str</span>
 <span class="sd">        :param sha: The SHA hash of the plugin.</span>
 <span class="sd">        :type sha: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>    
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repos</span> <span class="o">=</span> <span class="n">repos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">branch</span> <span class="o">=</span> <span class="n">branch</span>
@@ -318,7 +319,7 @@
 
 <span class="sd">        :return: Information about the plugin.</span>
 <span class="sd">        :rtype: dict</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">tomllib</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">root</span> <span class="o">+</span> <span class="s2">&quot;thundra-plugin.toml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
@@ -330,8 +331,9 @@
     <span class="k">def</span> <span class="nf">install_dependencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Installs the plugin&#39;s dependencies using pip.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">pip</span>
+
         <span class="n">pip</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;plugin&quot;</span><span class="p">][</span><span class="s2">&quot;dependencies&quot;</span><span class="p">]])</span></div>
 
 
@@ -340,7 +342,7 @@
     <span class="k">def</span> <span class="nf">install_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts the contents of the plugin ZIP file.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">extract_path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">)</span></div>
 
 
@@ -349,7 +351,7 @@
     <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Installs the plugin by installing dependencies and extracting its contents.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">duplicate</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Plugin</span><span class="o">.</span><span class="n">find_by_author_and_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">repos</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">install_dependencies</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">install_extract</span><span class="p">()</span>
@@ -403,7 +405,7 @@
 
 <span class="sd">        :return: A string representation of the plugin.</span>
 <span class="sd">        :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;name: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s2">author: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="si">}</span><span class="se">\n</span><span class="s2">sha: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sha</span><span class="si">}</span><span class="se">\n</span><span class="s2">version: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="se">\n</span><span class="s2">dependencies: </span><span class="se">\n\t</span><span class="s2">-&quot;</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dependencies</span><span class="p">)</span>
@@ -415,7 +417,7 @@
     <span class="k">def</span> <span class="nf">uninstall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Uninstalls the plugin by removing its directory and updating the configuration file.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">repo_name</span>
         <span class="n">config_toml</span><span class="p">[</span><span class="s2">&quot;plugins&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -437,7 +439,7 @@
 <span class="sd">        :type sha: str</span>
 <span class="sd">        :return: A Plugin object.</span>
 <span class="sd">        :rtype: Self</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
             <span class="n">extract_path</span> <span class="o">/</span> <span class="n">author</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">sha</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">/</span> <span class="s2">&quot;thundra-plugin.toml&quot;</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -465,7 +467,7 @@
 
 <span class="sd">        :return: The name of the repository.</span>
 <span class="sd">        :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(.*)\-(\w+)&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 
 <div class="viewcode-block" id="Plugin.find_by_author_and_name">
@@ -481,7 +483,7 @@
 <span class="sd">        :type name: str</span>
 <span class="sd">        :return: An iterable of Plugin objects.</span>
 <span class="sd">        :rtype: Iterable[Self]</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">extract_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">-*&quot;</span>
         <span class="k">for</span> <span class="n">full_path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">g</span><span class="p">):</span>
             <span class="n">branch</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(.*)\-(\w+)&quot;</span><span class="p">,</span> <span class="n">full_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -502,7 +504,7 @@
 <span class="sd">        :rtype: Iterable[Self]</span>
 <span class="sd">        :yield: Each found Plugin object.</span>
 <span class="sd">        :rtype: Iterator[Iterable[Self]]</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">extract_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">author</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">full_path</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">full_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
@@ -521,7 +523,7 @@
 
 <span class="sd">        :yield: Each found Plugin object.</span>
 <span class="sd">        :rtype: _type_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">g</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">extract_path</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">full_path</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">full_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
@@ -542,7 +544,7 @@
 <span class="sd">        :type username: str</span>
 <span class="sd">        :param repository: The name of the repository.</span>
 <span class="sd">        :type repository: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">git_username</span> <span class="o">=</span> <span class="n">username</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="n">repository</span>
@@ -556,7 +558,7 @@
 <span class="sd">        :raises Response404: If the repository does not exist or has no releases.</span>
 <span class="sd">        :return: Information about the latest version.</span>
 <span class="sd">        :rtype: dict</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">req</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;https://api.github.com/repos/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">git_username</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="si">}</span><span class="s2">/releases&quot;</span>
         <span class="p">)</span>
@@ -576,7 +578,7 @@
 <span class="sd">        :raises Response404: If the branch does not exist.</span>
 <span class="sd">        :return: A PluginZip object representing the downloaded plugin.</span>
 <span class="sd">        :rtype: PluginZip</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;https://github.com/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">git_username</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="si">}</span><span class="s2">/archive/refs/heads/</span><span class="si">{</span><span class="n">branch</span><span class="si">}</span><span class="s2">.zip&quot;</span>
         <span class="p">)</span>
@@ -599,7 +601,7 @@
 
 <span class="sd">        :return: A list of branches.</span>
 <span class="sd">        :rtype: List</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;https://api.github.com/repos/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">git_username</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="si">}</span><span class="s2">/branches&quot;</span>
         <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
@@ -615,7 +617,7 @@
 <span class="sd">        :type branch: str</span>
 <span class="sd">        :return: The SHA hash of the last commit.</span>
 <span class="sd">        :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;https://api.github.com/repos/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">git_username</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">repository</span><span class="si">}</span><span class="s2">/commits/</span><span class="si">{</span><span class="n">branch</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -641,7 +643,7 @@
 <span class="sd">        :type branch: str</span>
 <span class="sd">        :return: A PluginZip object representing the downloaded plugin.</span>
 <span class="sd">        :rtype: PluginZip</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">PluginZip</span><span class="p">(</span>
             <span class="n">BytesIO</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
@@ -654,7 +656,6 @@
             <span class="n">sha</span><span class="p">,</span>
         <span class="p">)</span></div>
 </div>
-
 
 </pre></div>
         </article>
