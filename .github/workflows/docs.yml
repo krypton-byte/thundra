@@ -28,8 +28,3 @@ jobs:
       with:
         branch: gh-pages
         folder: docs/_build/html
-    - name: Publish
-      run: |
-        poetry version ${{ github.event.inputs.version }}
-        poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-        poetry build && poetry publish
