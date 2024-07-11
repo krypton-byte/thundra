@@ -98,7 +98,7 @@ class Section(BaseModel, Generic[_ParamsButtonEvent]):
     title: str = Field()
     rows: List[Row[_ParamsButtonEvent]] = Field()
     on_selected: Optional[Callable[[_ParamsButtonEvent], None]] = Field(default=None)
-    expiration: datetime = Field(default=datetime.now() + timedelta(hours=1))
+    expiration: datetime = Field(default_factory=lambda :datetime.now() + timedelta(hours=1))
     highlight_label: str = Field()
 
     def create(self) -> Dict:
