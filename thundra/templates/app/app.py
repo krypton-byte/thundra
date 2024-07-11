@@ -11,9 +11,10 @@ from thundra.types import MediaMessageType, MessageWithContextInfoType
 from thundra.core.memory import memory
 from thundra.utils import ChainMessage, get_tag, get_user_id, get_message_type
 from thundra.middleware import middleware
-import signal
 from thundra.core import chat_model
+from thundra.button import button_registry
 from neonize.events import event
+import signal
 
 # evaluate all module
 from thundra.evaluater import evaluate_module
@@ -74,6 +75,8 @@ def on_message(client: NewClient, message: MessageEv):
     r = middleware.execute(client, message)
     if r in [False, None]:
         cmd = command.execute(client, message)
+        if not cmd:
+            button_registry.click(client, message)
         if not cmd and chat_model.available:
             save_to_storage(message)
             chat = message.Info.MessageSource.Chat

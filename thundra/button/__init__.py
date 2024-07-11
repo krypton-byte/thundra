@@ -1,4 +1,4 @@
-from typing import Iterable, Literal, NewType, overload
+from typing import Iterable, Literal, overload
 
 from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     DeviceListMetadata,
@@ -8,9 +8,9 @@ from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import (
     MessageContextInfo,
 )
 
-from thundra.button.v1 import CopyButton, ListButton, QuickReply
-
-from thundra.button.v2 import ListButtonV2, QuickReplyV2
+from thundra.button.v1 import CopyButton, ListButton, QuickReply, Row, Section
+from thundra.button.registry import button_registry
+from thundra.button.v2 import ListButtonV2, QuickReplyV2, RowV2, SectionV2
 
 Button = QuickReply | ListButton | CopyButton | QuickReplyV2 | ListButtonV2
 
@@ -66,7 +66,8 @@ def create_button_message(
     if buttons:
         interactive_message.nativeFlowMessage.MergeFrom(
             InteractiveMessage.NativeFlowMessage(
-                buttons=[button.create() for button in buttons]
+                buttons=[button.create() for button in buttons],
+                messageVersion=2
             )
         )
     if direct_send:
@@ -82,3 +83,19 @@ def create_button_message(
             )
         )
     return interactive_message
+
+
+__all__ = (
+    'button_registry',
+    'ListButton',
+    'QuickReply',
+    'CopyButton',
+    'Row',
+    'Section',
+    'ListButtonV2',
+    'RowV2',
+    'QuickReplyV2',
+    'SectionV2',
+    'create_button_message',
+    'create_carousel_message'
+)

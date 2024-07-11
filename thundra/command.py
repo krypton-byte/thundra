@@ -244,7 +244,7 @@ command = GlobalCommand()
 
 class Command(Filter):
     def __init__(
-        self, command: str, prefix: Optional[str] = None, space_detection: bool = True
+        self, command: str, prefix: Optional[str] = None
     ) -> None:
         """
         Initializes a Command instance.
@@ -256,7 +256,7 @@ class Command(Filter):
         :param space_detection: A flag indicating whether to append a space to the command, defaults to False.
         :type space_detection: bool, optional
         """
-        self.command = command + (" " if space_detection else "")
+        self.command = command
         self.alt_prefix = prefix
         super().__init__()
 
@@ -278,7 +278,7 @@ class Command(Filter):
         )
         if matched:
             _, end = matched.span(0)
-            return text[end:].startswith(self.command)
+            return text[end:].split(' ', 1)[0]==self.command
         return False
 
     def __repr__(self):
