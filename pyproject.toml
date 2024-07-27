@@ -16,7 +16,7 @@ keywords = ["neonize", "whatsapp", "framework", "websocket", "bot"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-neonize = "^0.1.6"
+neonize = "^0.1.14"
 pytube = "^15.0.0"
 langchain = "^0.1.11"
 tomli-w = "^1.0.0"
@@ -39,6 +39,11 @@ furo = "^2024.5.6"
 [[tool.poetry.source]]
 name = "thundra-ai"
 url = "https://github.com/krypton-byte/thundra"
+priority = "primary"
+
+
+[[tool.poetry.source]]
+name = "PyPI"
 priority = "primary"
 
 [build-system]
