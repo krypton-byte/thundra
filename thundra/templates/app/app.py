@@ -27,7 +27,7 @@ from thundra.workdir import workdir, config_toml
 
 app = NewClient(
     config_toml["thundra"]["db"],
-    DeviceProps(
+    props=DeviceProps(
         os=config_toml["thundra"]["name"], platformType=DeviceProps.PlatformType.SAFARI
     ),
 )
