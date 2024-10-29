@@ -1,7 +1,7 @@
 from pathlib import Path
 from neonize.client import NewClient
 from neonize.proto.Neonize_pb2 import Message
-from neonize.types import InteractiveMessage
+from neonize.proto.waE2E.WAWebProtobufsE2E_pb2 import InteractiveMessage
 from pydantic import BaseModel, Field
 from thundra.button import create_button_message, ListButtonV2, RowV2, create_carousel_message
 from thundra.command import Command, command
@@ -118,6 +118,9 @@ class GetItem(QuickReplyV2[VideoMetadata]):
 
 @command.register(Command("ytsearch"))
 def yt_search(client: NewClient, message: Message):
+    if message.Info.MessageSource.Chat.User != message.Info.MessageSource.Sender.User:
+        client.send_message(message.Info.MessageSource.Chat, "Tidak bisa digunakan dalam grup")
+        return
     query = ChainMessage.extract_text(message.Message)[9:].strip()
     search = Search(query)
     def create_card(yt: YouTube):

@@ -10,7 +10,6 @@ from pytube import Search, YouTube, Stream
 import os
 import tempfile
 
-
 def parse_duration(time: int):
     hours = time // 60**2
     minutes = (time - hours * 60**2) // 60

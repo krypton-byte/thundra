@@ -332,4 +332,5 @@ class Owner(Filter):
         :return: True if the sender is the owner, False otherwise.
         :rtype: bool
         """
+        print('owner:',workdir.get_config().owner)
         return message.Info.MessageSource.Sender.User in workdir.get_config().owner

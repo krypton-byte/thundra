@@ -16,7 +16,7 @@ keywords = ["neonize", "whatsapp", "framework", "websocket", "bot"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-neonize = "^0.1.14"
+neonize = "^0.3.1"
 pytube = "^15.0.0"
 langchain = "^0.1.11"
 tomli-w = "^1.0.0"
@@ -24,7 +24,6 @@ langchain-openai = "^0.0.8"
 graphviz = "^0.20.1"
 appdirs = "^1.4.4"
 cachetools = "^5.3.3"
-
 [tool.poetry.group.dev.dependencies]
 watchfiles = "^0.22.0"
 

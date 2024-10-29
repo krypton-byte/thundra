@@ -156,9 +156,9 @@ def get_tag(message: MessageProto) -> List[str]:
     """
     for _, value in message.ListFields():
         try:
-            return value.contextInfo.mentionedJid
-        except Exception:
-            pass
+            return value.contextInfo.mentionedJID
+        except Exception as e:
+            print(value, e)
     return []
 
 
